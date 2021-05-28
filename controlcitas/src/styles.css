@@ -1,0 +1,370 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: #F2F2F2;
+    font-family: 'Bellota';
+}
+
+
+/* --- Fuente ---*/
+
+@font-face {
+    font-family: 'Cream Cake';
+    src: url(./assets/CreamCake.ttf);
+}
+
+@font-face {
+    font-family: 'Lobster';
+    src: url(./assets/LobsterTwo-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Bellota';
+    src: url(./assets/Bellota-Regular.ttf);
+}
+
+.filtrar {
+    margin-top: 120px;
+}
+
+.top {
+    font-family: 'Lobster';
+    font-size: 40px;
+    text-align: center;
+}
+
+
+/* --- Topbar --- */
+
+.topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #04B4AE;
+    color: white;
+    font-weight: 600;
+}
+
+.topbar {
+    padding: 15px 0;
+    font-size: .8rem;
+    text-transform: uppercase;
+}
+
+.topbar * {
+    margin: 0;
+}
+
+.topbar ul {
+    float: right;
+}
+
+.topbar ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.topbar ul li:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+}
+
+.topbar i {
+    line-height: normal;
+}
+
+
+/* --- Toolbar ---*/
+
+.title {
+    font-family: 'Cream Cake';
+    font-size: 50px;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.toolbar {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: #04B4AE;
+    color: white;
+    font-weight: 600;
+}
+
+.ico:hover {
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.ico {
+    color: #ffffff;
+    margin-right: 1rem;
+}
+
+.primary-icon {
+    color: #ffffff;
+}
+
+
+/* --- Navbar ---*/
+
+.posicion {
+    top: 90px;
+    left: 0;
+}
+
+.dropdown-item:hover {
+    font-weight: bold;
+}
+
+
+/* --- Carrusel ---*/
+
+.pos {
+    top: 120px;
+}
+
+.p-carrusel {
+    font-family: 'Lobster';
+    font-size: 30px;
+}
+
+
+/* --- Galeria ---*/
+
+.joyeria {
+    margin-top: 50px;
+    font-family: 'Cream Cake';
+    font-size: 60px;
+}
+
+.titulo-galeria {
+    font-family: 'Lobster';
+    font-size: 45px;
+}
+
+.contenedor {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.contenedor figure {
+    position: relative;
+    height: 300px;
+    cursor: pointer;
+    width: 350px;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.50);
+}
+
+.contenedor figure img {
+    width: 100%;
+    height: 100%;
+    transition: all 500ms ease-out;
+}
+
+.contenedor figure .capa {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(54, 171, 194, 0.7);
+    transition: all 500ms ease-out;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+}
+
+.contenedor figure:hover>.capa {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contenedor figure:hover>.capa h1 {
+    margin-top: 70px;
+    margin-bottom: 15px;
+}
+
+.contenedor figure:hover>img {
+    transform: scale(1.3);
+}
+
+.contenedor figure .capa h1 {
+    color: #fff;
+    font-weight: 400;
+    margin-bottom: 120px;
+    transition: all 500ms ease-out;
+    margin-top: 30px;
+}
+
+.contenedor figure .capa h6 {
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 220px;
+    margin: auto;
+}
+
+
+/* --- Redes Sociales ---*/
+
+.social .social__title .social__item-title {
+    font-weight: 400;
+}
+
+.separator {
+    color: #04B4AE;
+    width: 100px;
+    height: 0;
+    border: 2px solid;
+    border-radius: 4px;
+}
+
+.social-icon {
+    margin-top: 5px;
+    color: #04B4AE;
+}
+
+.social-icon:hover {
+    color: #04B4AE;
+    opacity: 0.8;
+}
+
+.social {
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+
+/*--- Backtotop ---*/
+
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    z-index: 99;
+    font-size: 16px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background-color: #04B4AE;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 0.35;
+}
+
+#myBtn:hover {
+    opacity: 1;
+}
+
+
+/* --- Footer ---*/
+
+footer {
+    background-color: #fff;
+}
+
+.tarjetas {
+    margin: 1rem;
+}
+
+.a-color {
+    color: #000;
+}
+
+.a-color:hover {
+    color: #000;
+    font-weight: bold;
+}
+
+
+/* --- Joyas --- */
+
+.titulo-joyas {
+    font-family: 'Lobster';
+    font-size: 40px;
+    text-align: center;
+}
+
+.producto {
+    cursor: pointer;
+}
+
+
+/* --- About --- */
+
+.about {
+    font-family: 'Lobster';
+    font-size: 30px;
+    text-align: center;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    margin: 20px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 5px 5px #888;
+}
+
+
+/* --- Login --- */
+
+.form__top {
+    width: 100%;
+    padding: 2rem 0 1rem;
+    border-top: solid .4rem#ae04b4;
+    margin-bottom: 1rem;
+}
+
+
+/* --- Carrito--- */
+
+.c-v {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resumen {
+    font-family: 'Cream Cake';
+    text-align: center;
+}
+
+.m {
+    margin-left: 200px;
+}
+
+.credito {
+    margin: auto;
+    width: 100px;
+    height: 50px;
+}
+
+.subtitulo {
+    font-family: 'Lobster';
+    text-align: left;
+}
