@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanGuard } from './guards/can-guard';
+import { CanAdminGuard } from './guards/can-admin-guard';
+
 import { HomeComponent } from './components/home/home.component';
 
 
