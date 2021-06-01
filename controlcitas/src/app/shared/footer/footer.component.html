@@ -1,0 +1,68 @@
+<footer class="container-fluid border-top mt-5">
+    <!-- Redes Sociales -->
+    <div class="container social text-center ">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3 class="social__item-title col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {{strings.followus}}
+            </h3>
+            <hr class="separator"/>
+        </div>
+       <div class="row">
+            <div class="social__item col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <a aria-label="Facebook" href="https://www.facebook.com/" class="social-icon">
+                    <i  class="fab fa-facebook-square fa-4x"></i>
+                </a>
+                <h4 class="social__item-title">
+                Facebook
+                </h4>
+            </div>
+            <div class="social__item col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <a aria-label="Instagram" href="https://www.instagram.com/" class="social-icon">
+                    <i  class="fab fa-instagram-square fa-4x"></i>
+                </a>
+                <h4 class="social__item-title">
+                Instagram
+                </h4>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Redes Sociales -->
+
+    <!-- Información Footer -->
+    <div class="row text-center border-top align-items-center" style="margin-bottom: 30px;">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <br>
+            <h5><strong><em>{{strings.logo | uppercase}}</em></strong></h5>
+            <hr class="separator"/>
+            <a class="h6 a-color" onclick="topFunction()" [routerLink]="['/about']">{{strings.about}} <strong><em>{{strings.logo}}</em></strong></a>
+            <br>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <br>
+            <h5><strong><em>{{strings.contact | uppercase}}</em></strong></h5>
+            <hr class="separator"/>
+            <p class="h6">
+                De Lunes a Viernes:
+                <br>
+                9:00 a.m. - 18:00 p.m.  
+                <br>
+                Sabados y Domingos:
+                <br>
+                9:00 a.m. - 15:00 p.m.
+            </p>
+        </div>
+    </div>
+    <div class="row align-items-end ">
+        <div class="col">
+            <p class="h6">
+                <i class="far fa-copyright"></i>
+                <small>  2021 {{strings.logo}}</small>
+            </p>
+        </div>
+        
+    </div>
+    <!-- Fin Información Footer -->
+
+</footer>
