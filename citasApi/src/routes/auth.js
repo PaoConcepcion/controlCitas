@@ -49,5 +49,10 @@ router.post('/register', (req, res) => {
     }));
 });
 
+router.get('/nomSucursales', (req, res) => {
+    user.getSucursales(mysqlConnection, (data => {
+        res.json(data);
+    }))
+});
 
 module.exports = router;

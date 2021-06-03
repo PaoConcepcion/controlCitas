@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CitasApiService } from '../../services/citas-api/citas-api.service';
 
 @Component({
   selector: 'app-register',
@@ -10,18 +11,25 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+  public sucursales = [];
+
   public newUserForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    correo: new FormControl('', Validators.required),
+    correo: new FormControl('', [Validators.required, Validators.email]),
     contrasena: new FormControl('', Validators.required),
     apellido_paterno: new FormControl('', Validators.required),
     apellido_materno: new FormControl('', Validators.required),
-    telefono: new FormControl('', Validators.required),
+    telefono: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+      Validators.minLength(10),
+      Validators.maxLength(10)]),
     rol: new FormControl('', Validators.required),
+    id_sucursal: new FormControl('', Validators.required),
     contrasenaVerf: new FormControl('', Validators.required)
   });
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private citasApiService: CitasApiService) {
     this.newUserForm.setValue({
       nombre: '',
       correo: '',
@@ -30,7 +38,8 @@ export class RegisterComponent implements OnInit {
       apellido_materno: '',
       telefono: '',
       rol: '',
-      contrasenaVerf: ''
+      contrasenaVerf: '',
+      id_sucursal: ''
     });
   }
 
@@ -41,6 +50,14 @@ export class RegisterComponent implements OnInit {
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
     document.getElementById('cinco').style.display = 'none';
+    this.actualizar();
+  }
+
+  private actualizar() {
+    this.citasApiService.consulta('/nomSucursales')
+      .subscribe((res: any) => {
+        this.sucursales = res.array;
+      });
   }
 
   public newUser(form) {
@@ -52,11 +69,11 @@ export class RegisterComponent implements OnInit {
           apellido_paterno: form.apellido_paterno,
           apellido_materno: form.apellido_materno,
           telefono: form.telefono,
-          rol: form.rol
+          rol: form.rol,
+          id_sucursal: form.id_sucursal
         };
         if (body.contrasena === form.contrasenaVerf) {
           this.authService.register(body).then((data) => {
-            console.log(data);
             if (!data['success']) {
               document.getElementById('tres').style.display = 'block';
               setTimeout(() => document.getElementById('tres').style.display = 'none', 5000);
@@ -71,8 +88,9 @@ export class RegisterComponent implements OnInit {
                 apellido_materno: '',
                 telefono: '',
                 rol: '',
-                contrasenaVerf: ''
-              }); 
+                contrasenaVerf: '',
+                id_sucursal: ''
+              });
             }
           })
           .catch((err) => {

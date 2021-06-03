@@ -18,4 +18,14 @@ module.exports = {
             callback({ array: results || null, success: true });
         })
     },
+    
+    getSucursales: (connection, callback) => {
+        connection.query(`select id_sucursal, nombre from sucursales`, (err, results) => {
+            if (err) {
+                callback({ success: false, err: JSON.stringify(err) });
+                return;
+            }
+            callback({ array: results || null, success: true });
+        })
+    },
 } 

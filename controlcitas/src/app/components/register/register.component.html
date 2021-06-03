@@ -3,57 +3,72 @@
         <div class="col-md-3 col-lg-3"></div>
         <div class="card form__top col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="card-body">
-                <h2 class="text-center top">Registrarse</h2>
+                <h2 class="text-center top">Registro de empleados</h2>
                 <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez</ngb-alert>
                 <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">Algo salió mal, revisa que tu correo no este ya registrado</ngb-alert>
                 <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">Revisa la fecha que introduciste</ngb-alert>
                 <ngb-alert id="cinco" type="success" (close)="cerrar('cinco')">Empleado registrado correctamente</ngb-alert>
-                <form (ngSubmit)="newUser(newUserForm.value)" class="mt-4" [formGroup]="newUserForm">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" formControlName="nombre" placeholder="Ejem. Juan" required>
-                    </div>
-                    <div class="form-text">
+                <form (ngSubmit)="newUser(newUserForm.value)" class="mt-2" [formGroup]="newUserForm">
+                    <div class="row">
                         <div class="col">
-                            <label for="exampleInputEmail1">Apellido paterno</label>
-                            <input type="text" class="form-control" formControlName="apellido_paterno" placeholder="Ejem. Muñoz" required>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nombre</label>
+                                <input type="text" class="form-control" formControlName="nombre" placeholder="Ejem. Juan" required>
+                            </div>
                         </div>
-                        <div class="form-text">
-                            <label for="exampleInputEmail1">Apellido materno</label>
-                            <input type="text" class="form-control" formControlName="apellido_materno" placeholder="Ejem. López" required>
-                        </div>
-                        <div class="col">
-                            <label for="exampleInputEmail1">Telefono</label>
-                            <input type="text" class="form-control" formControlName="telefono" placeholder="10 digitos" required>
-                        </div>
-                        <div class="col">
-                            <label for="exampleInputemaill">Rol</label>
-                            <select class="form-control" id="exampleFormControlSelect1" formControlName="rol">
-                                <option value="employee" selected>
-                                    empleado
-                                </option>
-                                <option value="admin">
-                                    Administrador
-                                </option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Dirección email</label>
-                            <input type="email" class="form-control" formControlName="correo" placeholder="Ejem. juan@hotmail.com" required>
-                            <small id="emailHelp" class="form-text text-muted">No compartiremos tu correo con nadie</small>
-                        </div>
-                    </div>
-
-                    <!-- <div class="form-group form-row">
                         <div class="col"></div>
+                    </div>
+                    <div class="row">
                         <div class="col">
-
-
-                            <label for="exampleInputEmail1">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" formControlName="fecha_nac" required>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Apellido paterno</label>
+                                    <input type="text" class="form-control" formControlName="apellido_paterno" placeholder="Ejem. Muñoz" required>
+                                </div>
+                            </div>
                         </div>
-                    </div> -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Apellido materno</label>
+                                <input type="text" class="form-control" formControlName="apellido_materno" placeholder="Ejem. López" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Telefono</label>
+                                <input type="tel" class="form-control" formControlName="telefono" placeholder="10 digitos" minlength="10" maxlength="10" required>
+                            </div>
+                        </div> 
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputemaill">Rol</label>
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="rol">
+                                    <option value="employee" selected>
+                                            empleado
+                                    </option>
+                                    <option value="admin">
+                                        Administrador
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputemaill">Sucursal</label>
+                        <select class="form-control" id="exampleFormControlSelect1" formControlName="id_sucursal">
+                            <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                                {{sucursal.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Dirección email</label>
+                        <input type="email" class="form-control" formControlName="correo" placeholder="Ejem. juan@hotmail.com" required>
+                    </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
@@ -68,8 +83,6 @@
                         <button type="submit" class="btn btn-success btn-block">Registrar empleado</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
