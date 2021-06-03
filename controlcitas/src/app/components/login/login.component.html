@@ -1,8 +1,12 @@
 <div class="login">
-    <form class="custom-form" method="post">
+    <form class="custom-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <ngb-alert id="uno" class="alert alert-warning" (close)="cerrar('uno')">Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez</ngb-alert>
+      <ngb-alert id="dos" class="alert alert-danger" (close)="cerrar('dos')">Correo o contraseña incorrectos</ngb-alert>
+                
       <h1>Login</h1>
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required="required" />
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required="required" />
-      <button type="submit" (click)="login()">Login</button>
+      <input type="email" formControlName="correo" name="email" placeholder="Email" required="required" />
+      <input type="password" formControlName="contrasena" name="password" placeholder="Password" required="required" />
+      <button type="submit" (click)="login()">Log in</button>
     </form>
   </div>
+  
