@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const mysqlConnection = require('../database');
 
 router.get('/news', (req, res) => {
@@ -32,6 +31,7 @@ router.post('/news', (req, res) => {
     mysqlConnection.query(query, [id_noticia, titulo, descripcion, imagen], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'New saved'});
+            console.log(req.file)
         } else {
             console.log(err);
         }

@@ -1,0 +1,8 @@
+.form {
+    margin: 8rem 6rem;
+}
+
+.validation-error{
+    padding: 4px;
+    color: rgb(207, 23, 23);
+}
