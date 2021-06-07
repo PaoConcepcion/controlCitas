@@ -6,10 +6,10 @@ const mysqlConnection = require('../database');
 const middleware = require('./middleware');
 const middlewareAdmin = require('./middleware_admin');
 
-router.use(middleware.checkToken);
+// router.use(middleware.checkToken);
 
 router.get('/services', (req, res) => {
-    mysqlConnection.query('SELECT * FROM servicios', (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM servicios WHERE estatus = 1;', (err, rows, fields) => {
         if(!err){
             res.json(rows);
         } else {
@@ -30,13 +30,14 @@ router.get('/services/:id_servicio', (req, res) => {
 });
 
 router.post('/services', (req, res) => {
-    const { nombre, descripcion, costo, imagen } = req.body;
+    req.body.estatus = 1;
+    const { id_servicio, nombre, descripcion, costo, imagen, estatus } = req.body;
     const query = `
-        CALL newsAddOrEdit(?, ?, ?, ?);
+        CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?);
     `;
-    mysqlConnection.query(query, [ nombre, descripcion, costo, imagen], (err, rows, fields) => {
+    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus], (err, rows, fields) => {
         if(!err) {
-            res.json({Status: 'New saved'});
+            res.json({Status: 'Service saved'});
         } else {
             console.log(err);
         }
@@ -44,27 +45,28 @@ router.post('/services', (req, res) => {
 });
 
 router.put('/services/:id_servicio', (req, res) => {
-    const { nombre, descripcion, costo, imagen } = req.body;
+    const { nombre, descripcion, costo, imagen, estatus } = req.body;
     const { id_servicio } = req.params;
-    const query = 'CALL newsAddOrEdit(?, ?, ?, ?)';
-    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen], (err, rows, fields) => {
+    const query = 'CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?)';
+    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus], (err, rows, fields) => {
         if(!err) {
-            res.json({Status: 'New updated'});
+            res.json({Status: 'Service updated'});
         } else {
             console.log(err);
         }
     });
 });
 
-router.delete('/services/:id_servicio', (req, res) => {
+router.put('/deleteServices/:id_servicio', (req, res) => {
     const {id_servicio} = req.params;
-    mysqlConnection.query('DELETE FROM servicios WHERE id_servicio = ?', [id_servicio], (err, rows, fields) => {
+    const {estatus} = req.body;
+    mysqlConnection.query('UPDATE servicios SET estatus = ? WHERE id_servicio = ?', [estatus, id_servicio], (err, rows, fields) => {
         if(!err) {
-            res.json({Status: 'New deleted'});
+            res.json({Status: 'Service deleted'});
         } else {
             console.log(err);
         }
     });
-}); 
+});
 
 module.exports = router;
