@@ -11,6 +11,10 @@ export class CitasApiService {
 
   constructor(private httpClient: HttpClient) {}
 
+  busqueda(params: string){
+    return this.httpClient.get(this.API_URL + params);
+  }
+
   consulta(params: string) {
     return this.httpClient.get(this.API_URL + params);
   }
@@ -23,7 +27,11 @@ export class CitasApiService {
     return this.httpClient.put(this.API_URL + params, body);
   }
 
-  alta(body: any) {
-    return this.httpClient.post(this.API_URL, body).toPromise();
+  alta(params: string, body: any) {
+    return this.httpClient.post(this.API_URL + params, body).toPromise();
+  }
+
+  upload(params: string, imagen){
+    return this.httpClient.post(this.API_URL + params, imagen);
   }
 }

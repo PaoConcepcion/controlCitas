@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const mysqlConnection = require('../database');
 
 router.get('/news', (req, res) => {
@@ -60,6 +59,11 @@ router.delete('/news/:id_noticia', (req, res) => {
             console.log(err);
         }
     });
-}); 
+});
+
+router.post('/upload', (req, res) => {
+    res.send('imagen upload')
+    console.log(req.file)
+})
 
 module.exports = router;

@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms"
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +14,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EditServicesComponent } from './components/edit-services/edit-services.component';
+import { NewsComponent } from './components/news/news.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { EditServicesComponent } from './components/edit-services/edit-services.
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    EditServicesComponent
+    EditServicesComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import { EditServicesComponent } from './components/edit-services/edit-services.
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

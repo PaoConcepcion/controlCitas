@@ -7,11 +7,12 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { EditServicesComponent } from './components/edit-services/edit-services.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { NewsComponent } from './components/news/news.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'news', component: NewsComponent, canActivate: [CanGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [CanAdminGuard]},
   {path: 'edit-services', component: EditServicesComponent, canActivate: [CanAdminGuard]},
 
