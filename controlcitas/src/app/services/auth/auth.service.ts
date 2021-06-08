@@ -78,10 +78,9 @@ export class AuthService extends RoleValidator {
     if (err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    // window.alert(errorMessage);
     document.getElementById('dos').style.display = 'block';
     setTimeout(() => document.getElementById('dos').style.display = 'none', 5000);
-    
+
     return throwError(errorMessage);
   }
 }

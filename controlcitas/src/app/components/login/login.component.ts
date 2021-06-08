@@ -3,13 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { strings } from '../../shared/models/strings-template';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  public strings = strings;
 
   loginForm = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
       setTimeout(() => document.getElementById('uno').style.display = 'none', 5000);
     }
   }
-  
+
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
   }

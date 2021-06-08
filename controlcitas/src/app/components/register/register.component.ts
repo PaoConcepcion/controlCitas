@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
+import { strings } from './../../shared/models/strings-template';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { CitasApiService } from '../../services/citas-api/citas-api.service';
 })
 export class RegisterComponent implements OnInit {
 
+  public strings = strings;
   public sucursales = [];
 
   public newUserForm = new FormGroup({
@@ -49,7 +51,6 @@ export class RegisterComponent implements OnInit {
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
-    document.getElementById('cinco').style.display = 'none';
     this.actualizar();
   }
 
@@ -78,8 +79,8 @@ export class RegisterComponent implements OnInit {
               document.getElementById('tres').style.display = 'block';
               setTimeout(() => document.getElementById('tres').style.display = 'none', 5000);
             } else {
-              document.getElementById('cinco').style.display = 'block';
-              setTimeout(() => document.getElementById('cinco').style.display = 'none', 5000);
+              document.getElementById('cuatro').style.display = 'block';
+              setTimeout(() => document.getElementById('cuatro').style.display = 'none', 5000);
               this.newUserForm.setValue({
                 nombre: '',
                 correo: '',

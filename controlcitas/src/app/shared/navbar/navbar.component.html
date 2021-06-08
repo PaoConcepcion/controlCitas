@@ -17,7 +17,10 @@
                 <!--Opciones para administradores-->
                 <ng-container *ngIf="(user$ | async)?.rol == 'admin'">
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['register']">Registrar empleados</a>
+                        <a class="nav-link" [routerLink]="['register']">{{strings.register_employees}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
                     </li>
                 </ng-container>
                 <!--Opciones para emlpleados-->
@@ -28,7 +31,7 @@
         </ul>
         <div class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">Buscar</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
         </div>
 
     </div>
