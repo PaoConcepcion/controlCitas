@@ -35,6 +35,8 @@ app.use(require('./routes/branchOffices'));
 // A partir de aquí solo los token con usuarios admin se admiten
 app.use(require('./routes/services'));
 app.use(require('./routes/employees'));
+app.use(require('./routes/sucursales'));
+
 // Starting the server
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
