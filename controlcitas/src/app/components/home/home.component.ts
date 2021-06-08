@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CitasApiService } from 'src/app/services/citas-api/citas-api.service';
+import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from '../../shared/models/strings-template';
 
 @Component({

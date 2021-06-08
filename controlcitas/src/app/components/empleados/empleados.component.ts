@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CitasApiService } from '../../services/citas-api/citas-api.service';
 
 @Component({
   selector: 'app-empleados',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class EmpleadosComponent implements OnInit {
   employees: any [] = [];
 
-  constructor() { }
+  constructor(private citasA: CitasApiService) { }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const mysqlConnection = require('../database');
 
@@ -39,6 +40,7 @@ router.post('/employees', (req, res) => {
 });
 
 router.put('/employees/:id_empleado', (req, res) => {
+    req.body.contrasena = bcrypt.hashSync(req.body.contrasena, 10);
     const { id_sucursal, nombre, apellido_paterno, apellido_materno, correo, contrasena, telefono, rol } = req.body;
     const { id_empleado } = req.params;
     const query = 'CALL employeesAddOrEdit(?, ?, ?, ?, ?, ?, ?, ?, ?)';
