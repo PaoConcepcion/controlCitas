@@ -9,7 +9,7 @@ const middlewareAdmin = require('./middleware_admin');
 // router.use(middleware.checkToken);
 
 router.get('/services', (req, res) => {
-    mysqlConnection.query('SELECT * FROM servicios WHERE estatus = 1;', (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM servicios;', (err, rows, fields) => {
         if(!err){
             res.json(rows);
         } else {

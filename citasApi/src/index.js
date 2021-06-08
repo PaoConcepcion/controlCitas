@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 // Routes
 app.use(require('./routes/news'));
 app.use(require('./routes/auth'));
+app.use(require('./routes/users'));
+app.use(require('./routes/branchOffices'));
 
 // A partir de aquí las rutas necesitan el token de inicio de sesion en el header
 
