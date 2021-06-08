@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CitasApiService } from '../../services/citas-api/citas-api.service';
+import { CitasApiService } from './../../services/citas-api/citas-api.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

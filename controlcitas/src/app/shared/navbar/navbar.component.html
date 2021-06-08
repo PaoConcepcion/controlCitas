@@ -14,6 +14,7 @@
                 <a class="nav-link" [routerLink]="['home']">{{strings.home}}</a>
             </li>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['recetas']">{{strings.services}}</a>
             </li>
@@ -24,6 +25,8 @@
                 <a class="nav-link" [routerLink]="['empleados']">{{strings.employees}}</a>
             </li>
 =======
+=======
+>>>>>>> 88bd15bfe2056c9a6b357bf74b7a6dec2f9afb42
             <ng-container *ngIf="user$ | async as user; else login">
                 <!--Opciones para administradores-->
                 <ng-container *ngIf="(user$ | async)?.rol == 'admin'">
@@ -33,12 +36,22 @@
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
                     </li>
+                    
                 </ng-container>
                 <!--Opciones para emlpleados-->
                 <ng-container *ngIf="(user$ | async)?.rol == 'employee'">
+<<<<<<< HEAD
 >>>>>>> b42da6e528c025b27490cfbe439d797212e3a1cd
+=======
+                    
+                    
+>>>>>>> 88bd15bfe2056c9a6b357bf74b7a6dec2f9afb42
 
                 </ng-container>
+                
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['news']">Noticias</a>
+                </li>
             </ng-container>
         </ul>
         <div class="form-inline my-2 my-lg-0">

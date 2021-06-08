@@ -19,9 +19,9 @@ app.set('port', process.env.PORT || 3000);
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use(multer({ storage }).single('imagen'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(multer({ storage }).single('imagen'));
 // Routes
 app.use(require('./routes/news'));
 app.use(require('./routes/auth'));
@@ -34,6 +34,8 @@ app.use(require('./routes/branchOffices'));
 // A partir de aquí solo los token con usuarios admin se admiten
 app.use(require('./routes/services'));
 app.use(require('./routes/employees'));
+app.use(require('./routes/sucursales'));
+
 // Starting the server
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
