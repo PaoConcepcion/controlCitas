@@ -1,0 +1,36 @@
+<div class="container pos">
+    <div class="form">
+        <div class="botton">
+            <button>
+                <i class="fas fa-low-vision"></i>
+            </button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Sucursal</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Apellidos</th>
+                    <th class="text-center">Telefono</th>
+                    <th class="text-center">Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let e of employees; let i of index">
+                    <td>{{e.id_empleado}}</td>
+                    <td>{{e.id_sucursal}}</td>
+                    <td>{{e.nombre}}</td>
+                    <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
+                    <td>{{e.telefono}}</td>
+                    <td>{{e.rol}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-outline-success m-1" type="button">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

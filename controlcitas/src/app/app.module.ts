@@ -11,6 +11,7 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NewsComponent } from './components/news/news.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NewsComponent } from './components/news/news.component';
     ToolbarComponent,
     NavbarComponent,
     FooterComponent,
-    NewsComponent
+    NewsComponent,
+    EmpleadosComponent
   ],
   imports: [
     BrowserModule,
