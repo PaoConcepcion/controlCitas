@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CitasApiService } from 'src/app/services/citas-api/citas-api.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-news',
@@ -17,6 +18,9 @@ export class NewsComponent implements OnInit {
     imagen: null
   };
   id: number;
+  imagen: any = [];
+  preview: string;
+  imagenUpload: null; 
 
   validation_messages = {
     titulo: [
@@ -31,7 +35,8 @@ export class NewsComponent implements OnInit {
     ],
   }
 
-  constructor(private formB: FormBuilder, private citasApiS: CitasApiService) { 
+  constructor(private formB: FormBuilder, private citasApiS: CitasApiService,
+    private sanitizer: DomSanitizer) { 
     this.newsForm = this.formB.group({
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
@@ -59,6 +64,7 @@ export class NewsComponent implements OnInit {
         console.log(err);
       }
     });
+    this.id = id_noticia
   }
 
   getNews(){
@@ -78,13 +84,21 @@ export class NewsComponent implements OnInit {
     }
     this.new = values;
     this.new.id_noticia = this.id;
+    this.new.imagen = this.imagen[0].name
     this.citasApiS.alta('/news', this.new).then((res: any) => {
       this.getNews();
-      console.log(values);
-      console.log(res);
+      console.log(values, res);
     }).catch((error) => {
       console.log(error);
     });
+    const formD = new FormData();
+    this.imagen.forEach(archivo => {
+      formD.append('imagen', archivo)
+    })
+    this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
+      console.log(res)
+    });
+    this.id = null;
   }
 
   deleteNews(id){
@@ -94,6 +108,37 @@ export class NewsComponent implements OnInit {
       err => {
         console.log(err)
       }
-    })
+    });
   }
+
+  upload(event): any {
+    this.imagenUpload = event.target.files[0];
+    this.extraerBase64(this.imagenUpload).then((imagen: any) =>{
+      this.preview = imagen.base;
+    })
+    this.imagen.push(this.imagenUpload);
+  };
+
+  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+
+    }catch (e) {
+      return null;
+    }
+  });
+
 }

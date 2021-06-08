@@ -1,7 +1,10 @@
 .form {
     margin: 8rem 6rem;
 }
-
+.imagencita img{
+    margin: 2px;
+    border: gray solid 3px;
+}
 .validation-error{
     padding: 4px;
     color: rgb(207, 23, 23);

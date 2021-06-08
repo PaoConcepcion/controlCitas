@@ -30,4 +30,8 @@ export class CitasApiService {
   alta(params: string, body: any) {
     return this.httpClient.post(this.API_URL + params, body).toPromise();
   }
+
+  upload(params: string, imagen){
+    return this.httpClient.post(this.API_URL + params, imagen);
+  }
 }

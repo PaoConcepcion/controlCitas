@@ -31,7 +31,6 @@ router.post('/news', (req, res) => {
     mysqlConnection.query(query, [id_noticia, titulo, descripcion, imagen], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'New saved'});
-            console.log(req.file)
         } else {
             console.log(err);
         }
@@ -60,6 +59,11 @@ router.delete('/news/:id_noticia', (req, res) => {
             console.log(err);
         }
     });
-}); 
+});
+
+router.post('/upload', (req, res) => {
+    res.send('imagen upload')
+    console.log(req.file)
+})
 
 module.exports = router;
