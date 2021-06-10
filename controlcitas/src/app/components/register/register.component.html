@@ -12,7 +12,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.name}}</label>
-                                <input type="text" class="form-control" formControlName="nombre" placeholder="Ejem. Juan" required>
+                                <input id="nombreUsuario" type="text" class="form-control" formControlName="nombre" placeholder="Ejem. Juan" required>
                             </div>
                         </div>
                         <div class="col"></div>
@@ -21,15 +21,15 @@
                         <div class="col">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">{{strings.surname2}}</label>
-                                    <input type="text" class="form-control" formControlName="apellido_paterno" placeholder="Ejem. Muñoz" required>
+                                    <label for="exampleInputEmail1">{{strings.surname1}}</label>
+                                    <input id="apellidoP" type="text" class="form-control" formControlName="apellido_paterno" placeholder="Ejem. Muñoz" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.surname2}}</label>
-                                <input type="text" class="form-control" formControlName="apellido_materno" placeholder="Ejem. López" required>
+                                <input id="apellidoM" type="text" class="form-control" formControlName="apellido_materno" placeholder="Ejem. López" required>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.phone}}</label>
-                                <input type="tel" class="form-control" formControlName="telefono" placeholder="10 digitos" minlength="10" maxlength="10" required>
+                                <input id="telUsu" type="tel" class="form-control" formControlName="telefono" placeholder="10 digitos" minlength="10" maxlength="10" required>
                             </div>
                         </div> 
                         <div class="col">
@@ -66,20 +66,20 @@
                     
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{strings.email_address}}</label>
-                        <input type="email" class="form-control" formControlName="correo" placeholder="Ejem. juan@hotmail.com" required>
+                        <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="Ejem. juan@hotmail.com" required>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">{{strings.password}}</label>
                         <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
-                        <input type="password" class="form-control" formControlName="contrasena" placeholder="Minimo 6 caracteres" minlength="6" required>
+                        <input id="contrasenaRegis" type="password" class="form-control" formControlName="contrasena" placeholder="Minimo 6 caracteres" minlength="6" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" formControlName="contrasenaVerf" placeholder="Repite tu contraseña" minlength="6" required>
+                        <input id="contrasenaVerf2" type="password" class="form-control" formControlName="contrasenaVerf" placeholder="Repite tu contraseña" minlength="6" required>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block">{{strings.register_employee}}</button>
+                        <button id="registrarEmpleado" type="submit" class="btn btn-success btn-block">{{strings.register_employee}}</button>
                     </div>
                 </form>
             </div>
