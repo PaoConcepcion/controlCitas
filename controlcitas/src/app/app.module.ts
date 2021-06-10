@@ -13,6 +13,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SucursalComponent } from './components/sucursales/sucursal.component';
 import { EditServicesComponent } from './components/edit-services/edit-services.component';
 import { NewsComponent } from './components/news/news.component';
 
@@ -27,6 +28,7 @@ import { NewsComponent } from './components/news/news.component';
     RegisterComponent,
     EditServicesComponent,
     NewsComponent,
+    SucursalComponent
   ],
   imports: [
     BrowserModule,
