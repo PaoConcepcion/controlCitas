@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   public strings = strings;
 
   loginForm = new FormGroup({
-    correo: new FormControl('', [Validators.required, Validators.email]),
-    contrasena: new FormControl('', Validators.required)
+    correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+    contrasena: new FormControl('',  [Validators.required, Validators.maxLength(30)])
   });
 
   private subscription: Subscription = new Subscription();

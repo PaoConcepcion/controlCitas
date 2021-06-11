@@ -11,7 +11,7 @@ export class CitasApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  busqueda(params: string){
+  busqueda(params: string) {
     return this.httpClient.get(this.API_URL + params);
   }
 
@@ -31,7 +31,7 @@ export class CitasApiService {
     return this.httpClient.post(this.API_URL + params, body).toPromise();
   }
 
-  upload(params: string, imagen){
+  upload(params: string, imagen) {
     return this.httpClient.post(this.API_URL + params, imagen);
   }
 }
