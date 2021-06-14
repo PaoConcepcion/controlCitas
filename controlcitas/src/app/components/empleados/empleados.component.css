@@ -7,3 +7,9 @@
     float: right;
     font-size: 28px;
 }
+.show {
+    color: lightgray;
+}
+.notShow {
+    color: none;
+}
