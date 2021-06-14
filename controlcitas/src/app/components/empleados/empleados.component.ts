@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
+import { strings } from './../../shared/models/strings-template';
 
 @Component({
   selector: 'app-empleados',
@@ -24,6 +25,9 @@ export class EmpleadosComponent implements OnInit {
     telefono: null,
     rol: null
   }
+  id: number;
+  sucursales = [];
+  strings = strings;
 
   constructor(private citasApiS: CitasApiService, private formB: FormBuilder) {
     this.employeeForm = this.formB.group({
@@ -60,6 +64,11 @@ export class EmpleadosComponent implements OnInit {
         Validators.maxLength(100),
         Validators.minLength(8),
       ])),
+      verificar_contrasena: new FormControl("", Validators.compose([
+        Validators.required,
+        Validators.maxLength(100),
+        Validators.minLength(8),
+      ])),
       telefono: new FormControl("", Validators.compose([
         Validators.required,
         Validators.maxLength(12),
@@ -76,6 +85,7 @@ export class EmpleadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
+    this.getSucursales();
   }
 
   changeState(value){
@@ -86,7 +96,26 @@ export class EmpleadosComponent implements OnInit {
     };
   }
 
+  getSucursales() {
+    this.citasApiS.consulta('/nomSucursales').subscribe((res: any) => {
+        this.sucursales = res.array;
+    });
+  }
+
+  getEmployee(id_empleado) {
+    this.citasApiS.busqueda(`/employees/${id_empleado}`).subscribe((res: any) => {
+      this.employee = res;
+      console.log(this.employee);
+      this.id = id_empleado;
+      err =>{
+        console.log(err);
+      }
+    });
+  }
+
   getEmployees(){
+    this.activeEmployees = [];
+    this.deleteEmployees = [];
     this.citasApiS.consulta('/employees').subscribe((res: any) => {
       for (const employee of res){
         if (employee.estatus == 1){
@@ -104,7 +133,20 @@ export class EmpleadosComponent implements OnInit {
   }
 
   editEmployee(values){
-    
+    this.employee = values;
+    this.employee.id_empleado = this.id;
+    console.log(this.employee)
+    if (values.contrasena === values.verificar_contrasena){
+      this.citasApiS.cambio(`/employees/${this.employee.id_empleado}`, this.employee).subscribe((res: any) => {
+        this.getEmployees();
+        console.log(values, res);
+      })
+      err => {
+        console.log(err)
+      }
+    }else {
+      alert("las contraseñas no coinciden")
+    }
   }
 
   desactiveEmployees(id, estado){

@@ -20,7 +20,7 @@ export class NewsComponent implements OnInit {
   id: number;
   imagen: any = [];
   preview: string;
-  imagenUpload: null; 
+  imagenUpload: null;
 
   validation_messages = {
     titulo: [
@@ -35,8 +35,11 @@ export class NewsComponent implements OnInit {
     ],
   }
 
-  constructor(private formB: FormBuilder, private citasApiS: CitasApiService,
-    private sanitizer: DomSanitizer) { 
+  constructor(
+    private formB: FormBuilder,
+    private citasApiS: CitasApiService,
+    private sanitizer: DomSanitizer
+  ) {
     this.newsForm = this.formB.group({
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
@@ -49,17 +52,19 @@ export class NewsComponent implements OnInit {
       imagen: new FormControl("", Validators.compose([
         Validators.required,
       ]))
-    })
+    });
   }
 
   ngOnInit(): void {
     this.getNews();
   }
 
-  getNew(id_noticia){
+  getNew(id_noticia) {
     this.citasApiS.busqueda(`/news/${id_noticia}`).subscribe((res: any) => {
+      // validé esta parte para que no marcara error
+      res.imagen = '';
       this.new = res;
-      console.log(this.new)
+      console.log(this.new);
       err =>{
         console.log(err);
       }
@@ -67,7 +72,7 @@ export class NewsComponent implements OnInit {
     this.id = id_noticia
   }
 
-  getNews(){
+  getNews() {
     this.citasApiS.consulta('/news').subscribe((res: any) => {
       this.news = res;
       err =>{
@@ -84,19 +89,20 @@ export class NewsComponent implements OnInit {
     }
     this.new = values;
     this.new.id_noticia = this.id;
-    this.new.imagen = this.imagen[0].name
+    this.new.imagen = this.imagen[0].name;
     this.citasApiS.alta('/news', this.new).then((res: any) => {
       this.getNews();
       console.log(values, res);
     }).catch((error) => {
       console.log(error);
     });
+    // Guardar imagen en assets
     const formD = new FormData();
     this.imagen.forEach(archivo => {
-      formD.append('imagen', archivo)
-    })
+      formD.append('imagen', archivo);
+    });
     this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
     });
     this.id = null;
   }
@@ -106,7 +112,7 @@ export class NewsComponent implements OnInit {
       console.log(data);
       this.getNews();
       err => {
-        console.log(err)
+        console.log(err);
       }
     });
   }
@@ -115,9 +121,9 @@ export class NewsComponent implements OnInit {
     this.imagenUpload = event.target.files[0];
     this.extraerBase64(this.imagenUpload).then((imagen: any) =>{
       this.preview = imagen.base;
-    })
+    });
     this.imagen.push(this.imagenUpload);
-  };
+  }
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
     try {
@@ -136,9 +142,9 @@ export class NewsComponent implements OnInit {
         });
       };
 
-    }catch (e) {
+    } catch (e) {
       return null;
     }
-  });
+  })
 
 }

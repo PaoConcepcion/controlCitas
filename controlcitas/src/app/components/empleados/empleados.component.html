@@ -11,9 +11,14 @@
                   </div>
                 </ng-container>
               </div> -->
-            <label class="col-2 col-form-label">Sucursal</label>
-            <input type="text" id="id_sucursal" class="form-control" formControlName="id_sucursal" 
-            [(ngModel)]="employee.id_sucursal">
+            <div class="form-group">
+                <label class="col-2 col-form-label">Sucursal</label>
+                <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                        {{sucursal.nombre}}
+                    </option>
+                </select>
+            </div>
             <!-- <div class="validation-error">
                 <ng-container *ngFor="let validation of validation_messages.descripcion">
                   <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
@@ -33,27 +38,75 @@
                   </div>
                 </ng-container>
             </div> -->
-            <label class="col-2 col-form-label">Apellido Paterno</label>
-            <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
-            [(ngModel)]="employee.apellido_paterno">
-            <label class="col-2 col-form-label">Apellido Materno</label>
-            <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
-            [(ngModel)]="employee.apellido_materno">
-            <label class="col-2 col-form-label">Contraseña</label>
-            <input type="text" id="contrasena" class="form-control" formControlName="contrasena" 
-            [(ngModel)]="employee.contrasena">
-            <label class="col-2 col-form-label">correo</label>
-            <input type="email" id="correo" class="form-control" formControlName="correo" 
-            [(ngModel)]="employee.correo">
-            <label class="col-2 col-form-label">telefono</label>
-            <input type="text" id="telefono" class="form-control" formControlName="telefono" 
-            [(ngModel)]="employee.telefono">
-            <label class="col-2 col-form-label">Rol</label>
-            <input type="text" id="rol" class="form-control" formControlName="rol" 
-            [(ngModel)]="employee.rol">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Apellido Paterno</label>
+                            <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
+                            [(ngModel)]="employee.apellido_paterno">                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Apellido Materno</label>
+                        <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
+                        [(ngModel)]="employee.apellido_materno">                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Nueva Contraseña</label>
+                            <input type="text" id="contrasena" class="form-control" formControlName="contrasena">                      
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Verificar Contraseña</label>
+                        <input type="text" id="verificar_contrasena" class="form-control" 
+                        formControlName="verificar_contrasena">                  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">correo</label>
+                            <input type="email" id="correo" class="form-control" formControlName="correo" 
+                            [(ngModel)]="employee.correo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">telefono</label>
+                        <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
+                        [(ngModel)]="employee.telefono">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Rol</label>
+                        <select id="rol" class="form-control" formControlName="rol">
+                            <option value="employee" selected>
+                                {{strings.employee}}
+                            </option>
+                            <option value="admin">
+                                {{strings.administrator}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <br>
             <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary" [disabled]="!employeeForm.valid">Enviar</button>
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary">Enviar</button>
             </div>
         </form>
         <br>
@@ -87,7 +140,8 @@
                             (click)="desactiveEmployees(e.id_empleado, estado = 0)">
                                 <i class="fas fa-trash" style="color: darkred;"></i>
                             </button>
-                            <button class="btn btn-outline-success m-1" type="button">
+                            <button class="btn btn-outline-success m-1" type="button"
+                            (click)="getEmployee(e.id_empleado)">
                                 <i class="fas fa-user-edit"></i>
                             </button>
                         </td>
