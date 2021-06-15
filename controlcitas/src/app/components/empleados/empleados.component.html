@@ -2,11 +2,11 @@
     <div class="form">
         <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)" 
         class="col bg-light shadow-sm p-3 mb-5 rounded border">
-            <h4 class="text-center">Editar Empleado</h4><br>
+            <h4 class="text-center">{{strings.edit_employee}}</h4><br>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Sucursal</label>
+                        <label class="col-2 col-form-label">{{strings.sucursal}}</label>
                         <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
@@ -22,10 +22,14 @@
                   {{validation.message}}
                   </div>
                 </ng-container>
-              </div>
-            <label class="col-2 col-form-label">Nombre</label>
-            <input type="text" id="nombre" class="form-control" formControlName="nombre" 
-            [(ngModel)]="employee.nombre" maxlength="30">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="col-2 col-form-label">{{strings.name}}</label>
+                    <input type="text" id="nombre" class="form-control" formControlName="nombre" 
+                    [(ngModel)]="employee.nombre" maxlength="30">
+                </div>
+            </div>
             <div class="validation-error">
                 <ng-container *ngFor="let validation of validation_messages.nombre">
                   <div *ngIf="employeeForm.get('nombre').hasError(validation.type) &&
@@ -38,7 +42,7 @@
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">Apellido Paterno</label>
+                            <label class="col-2 col-form-label">{{strings.surname1}}</label>
                             <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
                             [(ngModel)]="employee.apellido_paterno" maxlength="30">
                         </div>
@@ -46,7 +50,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Apellido Materno</label>
+                        <label class="col-2 col-form-label">{{strings.surname2}}</label>
                         <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
                         [(ngModel)]="employee.apellido_materno" maxlength="30">                    
                     </div>
@@ -72,7 +76,7 @@
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">correo</label>
+                            <label class="col-2 col-form-label">{{strings.email}}</label>
                             <input type="email" id="correo" class="form-control" formControlName="correo" 
                             [(ngModel)]="employee.correo" maxlength="50">
                         </div>
@@ -80,7 +84,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">telefono</label>
+                        <label class="col-2 col-form-label">{{strings.phone}}</label>
                         <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
                         [(ngModel)]="employee.telefono" maxlength="12">
                     </div>
@@ -106,16 +110,17 @@
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">Nueva Contraseña</label>
-                            <input type="password" id="contrasena" class="form-control" formControlName="contrasena">                      
+                            <label class="col-2 col-form-label">{{strings.new_password}}</label>
+                            <input type="password" id="contrasena" class="form-control" 
+                            formControlName="contrasena" minlength="8">                      
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Verificar Contraseña</label>
+                        <label class="col-2 col-form-label">{{strings.verific_password}}</label>
                         <input type="password" id="verificar_contrasena" class="form-control" 
-                        formControlName="verificar_contrasena">                  
+                        formControlName="verificar_contrasena" minlength="8">                  
                     </div>
                 </div>
             </div>
@@ -129,8 +134,8 @@
             </div>
             <div class="validation-error">
                 <ng-container *ngFor="let validation of validation_messages.verificar_contrasena">
-                  <div *ngIf="employeeForm.get('validar_contrasena').hasError(validation.type) &&
-                  (employeeForm.get('validar_contrasena').dirty || employeeForm.get('validar_contrasena').touched)">
+                  <div *ngIf="employeeForm.get('verificar_contrasena').hasError(validation.type) &&
+                  (employeeForm.get('verificar_contrasena').dirty || employeeForm.get('verificar_contrasena').touched)">
                   {{validation.message}}
                   </div>
                 </ng-container>
@@ -138,7 +143,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Rol</label>
+                        <label class="col-2 col-form-label">{{strings.role}}</label>
                         <select id="rol" class="form-control" formControlName="rol">
                             <option value="employee" selected>
                                 {{strings.employee}}
@@ -160,7 +165,7 @@
             </div>
             <br>
             <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary">Enviar</button>
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary">{{strings.send}}</button>
             </div>
         </form>
         <!-- tabla de empleados -->
@@ -171,13 +176,13 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Sucursal</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellidos</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Rol</th>
-                        <th class="text-center">Opciones</th>
+                        <th class="text-center">{{strings.id}}</th>
+                        <th class="text-center">{{strings.sucursal}}</th>
+                        <th class="text-center">{{strings.name}}</th>
+                        <th class="text-center">{{strings.surname}}</th>
+                        <th class="text-center">{{strings.phone}}</th>
+                        <th class="text-center">{{strings.role}}</th>
+                        <th class="text-center">{{strings.options}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -210,12 +215,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Sucursal</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellidos</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Rol</th>
+                        <th class="text-center">{{strings.id}}</th>
+                        <th class="text-center">{{strings.sucursal}}</th>
+                        <th class="text-center">{{strings.name}}</th>
+                        <th class="text-center">{{strings.surname}}</th>
+                        <th class="text-center">{{strings.phone}}</th>
+                        <th class="text-center">{{strings.role}}</th>
+                        <th class="text-center">{{strings.options}}</th>
+                        <th class="text-center">{{strings.recuve}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -226,7 +233,6 @@
                         <td>{{d.apellido_paterno}} {{d.apellido_materno}}</td>
                         <td>{{d.telefono}}</td>
                         <td>{{d.rol}}</td>
-                        <th class="text-center">Opciones</th>
                         <td class="text-center">
                             <button class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(d.id_empleado, estado = 1)">

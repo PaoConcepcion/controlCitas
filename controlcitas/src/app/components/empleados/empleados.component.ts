@@ -52,7 +52,6 @@ export class EmpleadosComponent implements OnInit {
     telefono: [
       { type: "required", message: "se requiere del telefono"},
       { type: "maxLenght", message: "longitud minima de 8"},
-      { type: "pattern", message: "solo se permiten numeros" }
     ],
     contrasena: [
       { type: "required", message: "se requiere de una contraseña"},
@@ -104,7 +103,6 @@ export class EmpleadosComponent implements OnInit {
       telefono: new FormControl("", Validators.compose([
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern("^[0-9]$")
       ])),
       rol: new FormControl("", Validators.compose([
         Validators.required,
@@ -159,6 +157,7 @@ export class EmpleadosComponent implements OnInit {
         console.log(err);
       }
     });
+    console.log(this.activeEmployees)
   }
 
   editEmployee(values){
