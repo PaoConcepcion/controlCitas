@@ -36,6 +36,7 @@ export const strings = {
   phone: 'Teléfono',
   surname1: 'Apellido paterno',
   surname2: 'Apellido materno',
+  surname: 'Apellidos',
   name: 'Nombre',
   login: 'Inicia sesión',
   look: 'Buscar',
@@ -63,8 +64,15 @@ export const strings = {
   street: 'Calle',
   outdoor_number: 'Número Exterior',
   interior_number: 'Número Interior',
-  latitude:'Latitud',
-  length:'Longitud',
-  id:'ID', 
-  search:'Buscar'
+  latitude: 'Latitud',
+  length: 'Longitud',
+  edit_employee: 'Editar empleado',
+  sucursal: 'Sucursal',
+  new_password: 'Nueva contraseña',
+  verific_password: 'Verificar contraseña',
+  send: 'Enviar',
+  id: 'ID',
+  options: 'Opciones',
+  recuve: 'Recuperar',
+  search: 'Buscar'
 };

@@ -96,7 +96,6 @@ export class NewsComponent implements OnInit {
     }).catch((error) => {
       console.log(error);
     });
-    // Guardar imagen en assets
     const formD = new FormData();
     this.imagen.forEach(archivo => {
       formD.append('imagen', archivo);

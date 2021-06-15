@@ -2,97 +2,148 @@
     <div class="form">
         <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)" 
         class="col bg-light shadow-sm p-3 mb-5 rounded border">
-            <h4 class="text-center">Editar Empleado</h4><br>
-            <!-- <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.titulo">
-                  <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
-                  (newsForm.get('titulo').dirty || newsForm.get('titulo').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-              </div> -->
-            <div class="form-group">
-                <label class="col-2 col-form-label">Sucursal</label>
-                <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
-                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
-                        {{sucursal.nombre}}
-                    </option>
-                </select>
+            <h4 class="text-center">{{strings.edit_employee}}</h4><br>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">{{strings.sucursal}}</label>
+                        <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
+                            <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                                {{sucursal.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <!-- <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.descripcion">
-                  <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
-                  (newsForm.get('descripcion').dirty || newsForm.get('descripcion').touched)">
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.id_sucursal">
+                  <div *ngIf="employeeForm.get('id_sucursal').hasError(validation.type) &&
+                  (employeeForm.get('id_sucursal').dirty || employeeForm.get('id_sucursal').touched)">
                   {{validation.message}}
                   </div>
                 </ng-container>
-              </div> -->
-            <label class="col-2 col-form-label">Nombre</label>
-            <input type="text" id="nombre" class="form-control" formControlName="nombre" 
-            [(ngModel)]="employee.nombre">
-            <!-- <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.imagen">
-                  <div *ngIf="newsForm.get('imagen').hasError(validation.type) &&
-                  (newsForm.get('imagen').dirty || newsForm.get('imagen').touched)">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="col-2 col-form-label">{{strings.name}}</label>
+                    <input type="text" id="nombre" class="form-control" formControlName="nombre" 
+                    [(ngModel)]="employee.nombre" maxlength="30">
+                </div>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.nombre">
+                  <div *ngIf="employeeForm.get('nombre').hasError(validation.type) &&
+                  (employeeForm.get('nombre').dirty || employeeForm.get('nombre').touched)">
                   {{validation.message}}
                   </div>
                 </ng-container>
-            </div> -->
+            </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">Apellido Paterno</label>
+                            <label class="col-2 col-form-label">{{strings.surname1}}</label>
                             <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
-                            [(ngModel)]="employee.apellido_paterno">                        </div>
+                            [(ngModel)]="employee.apellido_paterno" maxlength="30">
+                        </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Apellido Materno</label>
+                        <label class="col-2 col-form-label">{{strings.surname2}}</label>
                         <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
-                        [(ngModel)]="employee.apellido_materno">                    </div>
+                        [(ngModel)]="employee.apellido_materno" maxlength="30">                    
+                    </div>
                 </div>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
+                  <div *ngIf="employeeForm.get('apellido_paterno').hasError(validation.type) &&
+                  (employeeForm.get('apellido_paterno').dirty || employeeForm.get('apellido_paterno').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.apellido_materno">
+                  <div *ngIf="employeeForm.get('apellido_materno').hasError(validation.type) &&
+                  (employeeForm.get('apellido_materno').dirty || employeeForm.get('apellido_materno').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">Nueva Contraseña</label>
-                            <input type="text" id="contrasena" class="form-control" formControlName="contrasena">                      
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">Verificar Contraseña</label>
-                        <input type="text" id="verificar_contrasena" class="form-control" 
-                        formControlName="verificar_contrasena">                  
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label class="col-2 col-form-label">correo</label>
+                            <label class="col-2 col-form-label">{{strings.email}}</label>
                             <input type="email" id="correo" class="form-control" formControlName="correo" 
-                            [(ngModel)]="employee.correo">
+                            [(ngModel)]="employee.correo" maxlength="50">
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">telefono</label>
+                        <label class="col-2 col-form-label">{{strings.phone}}</label>
                         <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
-                        [(ngModel)]="employee.telefono">
+                        [(ngModel)]="employee.telefono" maxlength="12">
                     </div>
                 </div>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.correo">
+                  <div *ngIf="employeeForm.get('correo').hasError(validation.type) &&
+                  (employeeForm.get('correo').dirty || employeeForm.get('correo').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.telefono">
+                  <div *ngIf="employeeForm.get('telefono').hasError(validation.type) &&
+                  (employeeForm.get('telefono').dirty || employeeForm.get('telefono').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">Rol</label>
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">{{strings.new_password}}</label>
+                            <input type="password" id="contrasena" class="form-control" 
+                            formControlName="contrasena" minlength="8">                      
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">{{strings.verific_password}}</label>
+                        <input type="password" id="verificar_contrasena" class="form-control" 
+                        formControlName="verificar_contrasena" minlength="8">                  
+                    </div>
+                </div>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.contrasena">
+                  <div *ngIf="employeeForm.get('contrasena').hasError(validation.type) &&
+                  (employeeForm.get('contrasena').dirty || employeeForm.get('contrasena').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.verificar_contrasena">
+                  <div *ngIf="employeeForm.get('verificar_contrasena').hasError(validation.type) &&
+                  (employeeForm.get('verificar_contrasena').dirty || employeeForm.get('verificar_contrasena').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">{{strings.role}}</label>
                         <select id="rol" class="form-control" formControlName="rol">
                             <option value="employee" selected>
                                 {{strings.employee}}
@@ -104,12 +155,19 @@
                     </div>
                 </div>
             </div>
+            <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.rol">
+                  <div *ngIf="employeeForm.get('rol').hasError(validation.type) &&
+                  (employeeForm.get('rol').dirty || employeeForm.get('rol').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
             <br>
             <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary">Enviar</button>
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary">{{strings.send}}</button>
             </div>
         </form>
-        <br>
         <!-- tabla de empleados -->
         <div *ngIf="show === true;" class="botton">
             <button id="mostrar" (click)="changeState(show)">
@@ -118,13 +176,13 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Sucursal</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellidos</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Rol</th>
-                        <th class="text-center">Opciones</th>
+                        <th class="text-center">{{strings.id}}</th>
+                        <th class="text-center">{{strings.sucursal}}</th>
+                        <th class="text-center">{{strings.name}}</th>
+                        <th class="text-center">{{strings.surname}}</th>
+                        <th class="text-center">{{strings.phone}}</th>
+                        <th class="text-center">{{strings.role}}</th>
+                        <th class="text-center">{{strings.options}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,9 +207,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- tabla empleados desactivados -->
-    <div class="form">
+        <!-- tabla empleados desactivados -->
         <div *ngIf="show === false" class="botton">
             <button id="ocultar" (click)="changeState(show)">
                 <i class="fas fa-low-vision"></i>
@@ -159,12 +215,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Sucursal</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellidos</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Rol</th>
+                        <th class="text-center">{{strings.id}}</th>
+                        <th class="text-center">{{strings.sucursal}}</th>
+                        <th class="text-center">{{strings.name}}</th>
+                        <th class="text-center">{{strings.surname}}</th>
+                        <th class="text-center">{{strings.phone}}</th>
+                        <th class="text-center">{{strings.role}}</th>
+                        <th class="text-center">{{strings.options}}</th>
+                        <th class="text-center">{{strings.recuve}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,7 +233,6 @@
                         <td>{{d.apellido_paterno}} {{d.apellido_materno}}</td>
                         <td>{{d.telefono}}</td>
                         <td>{{d.rol}}</td>
-                        <th class="text-center">Opciones</th>
                         <td class="text-center">
                             <button class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(d.id_empleado, estado = 1)">

@@ -18,14 +18,14 @@
                 </div>
             </div>
 
-            <ngb-alert style="display: none;" id="dos" type="info" (close)="cerrar('dos')">Ya haz agregado esa receta</ngb-alert>
-            <ngb-alert style="display: none;" id="uno" type="success" (close)="cerrar('uno')">Se agregó a tus recetas</ngb-alert>
+            <!-- <ngb-alert style="display: none;" id="dos" type="info" (close)="cerrar('dos')">Ya haz agregado esa receta</ngb-alert>
+            <ngb-alert style="display: none;" id="uno" type="success" (close)="cerrar('uno')">Se agregó a tus recetas</ngb-alert> -->
             <div class="card-columns" *ngIf="services.length > 0; else loading">
 
                 <div class="card text-center" style="width: 18rem;" *ngFor="let service of services">
-                    <a [routerLink]="['/services',service.id]">
+                    <!-- <a [routerLink]="['/services',service.id]">
                         <img class="card-img-top receta" [src]="service.image" alt="Card image cap" onError="this.src='assets/comida.svg'">
-                    </a>
+                    </a> -->
                     <div class="card-body">
                         <h5 class="card-title"><strong>{{service.title}}</strong></h5>
                         <p class="card-text">{{service.creditsText}}</p>

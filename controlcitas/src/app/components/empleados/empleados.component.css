@@ -13,3 +13,13 @@
 .notShow {
     color: none;
 }
+#id_sucursal {
+    width: 48%;
+}
+#rol {
+    width: 48%;
+}
+.validation-error {
+    color: red;
+    margin: 2px;
+}
