@@ -3,7 +3,7 @@
     class="col bg-light shadow-sm p-3 mb-5 rounded border">
         <h4 class="text-center">Agregar noticia</h4><br>
         <label class="col-2 col-form-label">Titulo</label>
-        <input type="text" class="form-control" formControlName="titulo" [(ngModel)]="new.titulo">
+        <input type="text" id="titulo" class="form-control" formControlName="titulo" [(ngModel)]="new.titulo">
         <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.titulo">
               <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
@@ -13,7 +13,7 @@
             </ng-container>
           </div>
         <label class="col-2 col-form-label">Descripcion</label>
-        <input type="text" class="form-control" formControlName="descripcion" [(ngModel)]="new.descripcion">
+        <input type="text" id="descripcion" class="form-control" formControlName="descripcion" [(ngModel)]="new.descripcion">
         <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.descripcion">
               <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
@@ -23,7 +23,7 @@
             </ng-container>
           </div>
         <label class="col-2 col-form-label">Imagen</label>
-        <input type="file" class="form-control" formControlName="imagen" [(ngModel)]="new.imagen"
+        <input type="file" id="imagen" class="form-control" formControlName="imagen" [(ngModel)]="new.imagen"
         (change)="upload($event)">
         <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.imagen">
@@ -34,11 +34,11 @@
             </ng-container>
         </div>
         <div *ngIf="preview" class="imagencita">
-            <img [src]="preview" width="300px" alt="">
+            <img [src]="preview" id="visualizacion" width="300px" alt="">
         </div>
         <br>
         <div class="boton">
-            <button type="submit" class="btn btn-secondary" [disabled]="!newsForm.valid">Enviar</button>
+            <button type="submit" id="registrar" class="btn btn-secondary" [disabled]="!newsForm.valid">Enviar</button>
         </div>
     </form>
     <br>
@@ -60,11 +60,11 @@
                 <td>{{item.descripcion}}</td>
                 <td>{{item.imagen}}</td>
                 <td class="text-center">
-                    <button class="btn btn-outline-success m-1" type="button"
+                    <button id="editar" class="btn btn-outline-success m-1" type="button"
                     (click)="getNew(item.id_noticia)">
                         <i class="fas fa-user-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger m-1" type="button"
+                    <button id="eliminar" class="btn btn-outline-danger m-1" type="button"
                     (click)="deleteNews(item.id_noticia)">
                         <i class="fas fa-trash"></i>
                     </button>
