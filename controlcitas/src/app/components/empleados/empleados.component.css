@@ -1,0 +1,15 @@
+.form {
+    margin: 8rem 6rem;
+}
+.botton button {
+    margin: 0 1rem 1.5rem;
+    border: none;
+    float: right;
+    font-size: 28px;
+}
+.show {
+    color: lightgray;
+}
+.notShow {
+    color: none;
+}

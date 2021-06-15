@@ -16,11 +16,11 @@ export class RegisterComponent implements OnInit {
   public sucursales = [];
 
   public newUserForm = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    correo: new FormControl('', [Validators.required, Validators.email]),
-    contrasena: new FormControl('', Validators.required),
-    apellido_paterno: new FormControl('', Validators.required),
-    apellido_materno: new FormControl('', Validators.required),
+    nombre: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
+    correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+    contrasena: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    apellido_paterno: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    apellido_materno: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
     telefono: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]*$'),
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(10)]),
     rol: new FormControl('', Validators.required),
     id_sucursal: new FormControl('', Validators.required),
-    contrasenaVerf: new FormControl('', Validators.required)
+    contrasenaVerf: new FormControl('', [Validators.required, Validators.maxLength(30)])
   });
 
   constructor(private authService: AuthService, private citasApiService: CitasApiService) {

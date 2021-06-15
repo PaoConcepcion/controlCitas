@@ -11,7 +11,7 @@ const crearToken = (empleado) => {
         id_empleado: empleado.id_empleado,
         rol: empleado.rol,
         createdAt: moment().unix(),
-        expiresAt: moment().add(1, 'day').unix()
+        // expiresAt: moment().add(1, 'day').unix()
     }
     return jwt.encode(payload, process.env.TOKEN_KEY);
 };

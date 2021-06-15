@@ -4,9 +4,9 @@
       <ngb-alert id="dos" class="alert alert-danger" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
                 
       <h1>{{strings.login}}</h1>
-      <input type="email" formControlName="correo" name="email" placeholder="Email" required="required" />
-      <input type="password" formControlName="contrasena" name="password" placeholder="Password" required="required" />
-      <button type="submit" (click)="login()">{{strings.login}}</button>
+      <input id="email" type="email" formControlName="correo" name="email" placeholder="{{strings.email}}" required="required" />
+      <input id="password" type="password" formControlName="contrasena" name="password" placeholder="{{strings.password}}" required="required" />
+      <button id="login" type="submit" (click)="login()">{{strings.login}}</button>
     </form>
   </div>
   

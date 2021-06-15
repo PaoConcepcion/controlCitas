@@ -27,7 +27,7 @@
             <label class="col-2 col-form-label">{{strings.phone}}</label>
             <input type="text" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
               id="telefonoSucursal">
-              <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert7}}</ngb-alert>
+              <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert10}}</ngb-alert>
             <div class="validation-error">
               <ng-container *ngFor="let validation of validation_messages.telefono">
                 <div *ngIf="newsForm.get('telefono').hasError(validation.type) &&
@@ -43,7 +43,7 @@
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.cp}}</label>
           <input type="text" class="form-control" formControlName="cp" [(ngModel)]="new.cp" id="cpSucursal">
-          <ngb-alert id="tres" type="info" (close)="cerrar('tres')">{{strings.alert8}}</ngb-alert>
+          <ngb-alert id="tres" type="info" (close)="cerrar('tres')">{{strings.alert11}}</ngb-alert>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.cp">
               <div *ngIf="newsForm.get('cp').hasError(validation.type) &&

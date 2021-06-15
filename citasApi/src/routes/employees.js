@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const mysqlConnection = require('../database');
 
 router.get('/employees', (req, res) => {
-    mysqlConnection.query('SELECT * FROM empleados WHERE estatus = 1;', (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM empleados;', (err, rows, fields) => {
         if(!err){
             res.json(rows);
         } else {
@@ -52,7 +52,6 @@ router.put('/employees/:id_empleado', (req, res) => {
         }
     });
 });
-
 
 router.put('/deleteEmployee/:id_empleado', (req, res) => {
     const {id_empleado} = req.params;

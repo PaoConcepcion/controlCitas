@@ -1,1 +1,159 @@
-<p>edit-services works!</p>
+<div class="container filtrar">
+    <div class="row" >
+        <ngb-alert id="uno" type="danger" (close)="cerrar('uno')">{{strings.alert1}}</ngb-alert>
+        <ngb-alert id="dos" type="success" (close)="cerrar('dos')">{{strings.alert6}}</ngb-alert>
+        <ngb-alert id="tres" type="info" (close)="cerrar('tres')">{{strings.alert7}}</ngb-alert>
+        
+        <div class="card form__top3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card-body">
+                <h2 class="text-center top">{{strings.services}}</h2>
+                <form (ngSubmit)="newServicio(newServicioForm.value)" [formGroup]="newServicioForm" class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{strings.name}}</label>
+                            <input id="nombre" type="text" class="form-control" formControlName="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">{{strings.description}}</label>
+                            <textarea id="descripcion" class="form-control" rows="5" formControlName="descripcion"></textarea>
+                        </div>
+            
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                            <div class="col">
+                                <label for="exampleInputPassword1">{{strings.cost}}</label>
+                                <input id="number" type="number" class="form-control" formControlName="costo" placeholder="{{strings.cost_of_the_service}}">
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">{{strings.image}}</label>
+                            <input id="imagen" type="file" class="form-control" formControlName="imagen" (change)="upload($event)">
+                        </div>
+                        <div *ngIf="preview" class="imagencita">
+                            <img [src]="preview" width="300px" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input id="agregar" type="submit" class="btn btn-success btn-block" value="{{strings.add}}">
+                        </div>
+            
+            
+                    </div>
+                </form>
+            
+            
+                <div class="row mt-5 mx-5" *ngIf="reactivar == 1; else reactivarServicio">
+                    <div class="col" *ngIf="servicios; else loading">
+            
+                        <form (ngSubmit)="buscar(buscarForm.value)" [formGroup]="buscarForm" class="row mb-4">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5">
+                                <button id="mostrarInactivos" type="button" class="btn btn-outline-warning btn-block" (click)="reactivarServicios()">{{strings.reactivate_services}}</button>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5">
+                                <button id="mostrarTodos" type="button" class="btn btn-outline-info btn-block" (click)="actualizar()">{{strings.show_all}}</button>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-3">
+                                <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')" style="display: none;">{{strings.alert8}}</ngb-alert>
+                                <h5>{{strings.look_by_name}}</h5>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+                                        <input id="busqueda" type="text" class="form-control" formControlName="busqueda" placeholder="{{strings.look}}...">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <input id="buscar" type="submit" class="btn btn-primary btn-block" value="{{strings.look}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+            
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{{strings.name}}</th>
+                                        <th scope="col">{{strings.description}}</th>
+                                        <th scope="col">{{strings.image}}</th>
+                                        <th scope="col">{{strings.cost}}</th>
+                                        
+                                        <th scope="col">{{strings.edit}}/{{strings.deactivate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let servicio of servicios">
+                                        <td>{{servicio.nombre}}</td>
+                                        <td>{{servicio.descripcion}}</td>
+                                        <td><img style="width: 8rem;" src="../../assets/{{servicio.imagen}}"></td>
+                                        <td>$ {{servicio.costo}}</td>
+                                        <td>
+                                            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                <button id="editar" type="button" class="btn btn-secondary" (click)="editServicio(servicio.id_servicio)"><i class="far fa-edit"></i></button>
+                                                <button id="eliminar" type="button" class="btn btn-secondary" (click)="deleteServicio(servicio.id_servicio, 0)"><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+            
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> 
+
+
+<ng-template #loading>
+    <div class="row text-center mt-5 pt-5">
+        <div class="col">
+            <i class="fas fa-sync-alt fa-5x fa-spin"></i>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #reactivarServicio>
+    <div class="row mt-5 mx-5">
+        <div class="col">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <button id="mostrarActivos" type="button" class="btn btn-secondary" (click)="reactivarServicios()">{{strings.return}}</button>
+            </div>
+
+            <div class="table-responsive" *ngIf="inactivos.length > 0; else noInactivos">
+                <table class="table accesibilidad">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{strings.name}}</th>
+                            <th scope="col">{{strings.image}}</th>
+                            <th scope="col">{{strings.reactivate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let inactivo of inactivos">
+                            <td>{{inactivo.nombre}}</td>
+                            <td><img style="width: 8rem;" src="../../assets/{{inactivo.imagen}}"></td>
+                            <td>
+                                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                    <button type="button" class="btn btn-secondary" (click)="deleteServicio(inactivo.id_servicio,1)"><i class="fas fa-trash-restore"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noInactivos>
+    <div class="row text-center mt-5 pt-5">
+        <div class="col">
+            <ngb-alert id="cinco" type="info" (close)="cerrar('cinco')">{{strings.alert9}}</ngb-alert>
+        </div>
+    </div>
+</ng-template>

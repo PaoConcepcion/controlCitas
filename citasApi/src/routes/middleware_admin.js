@@ -18,9 +18,9 @@ const checkRole = (req, res, next) => {
         });
     }
 
-    if (moment().unix() > payload.expiresAt) {
+    /* if (moment().unix() > payload.expiresAt) {
         return res.json({ error: 'Expired token' });
-    }
+    } */
 
     if (payload.rol === 'empleado') {
         return res.json({ error: 'You need administrator permission' });
