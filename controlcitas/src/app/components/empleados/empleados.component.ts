@@ -29,6 +29,44 @@ export class EmpleadosComponent implements OnInit {
   sucursales = [];
   strings = strings;
 
+  validation_messages = {
+    id_sucursal: [
+      { type: "required", message: "sucursal no seleccionada"}
+    ],
+    nombre: [
+      { type: "required", message: "se requiere del nombre"},
+      { type: "minLenght", message: "longitud minima de 3"}
+    ],
+    apellido_materno: [
+      { type: "required", message: "se requiere del apellido materno"},
+      { type: "minLenght", message: "longitud minima de 4"}
+    ],
+    apellido_paterno: [
+      { type: "required", message: "se requiere del apellido paterno"},
+      { type: "minLenght", message: "longitud minima de 4"}
+    ],
+    correo: [
+      { type: "required", message: "se requiere del correo"},
+      { type: "pattern", message: "el correo no es valido" }
+    ],
+    telefono: [
+      { type: "required", message: "se requiere del telefono"},
+      { type: "maxLenght", message: "longitud minima de 8"},
+      { type: "pattern", message: "solo se permiten numeros" }
+    ],
+    contrasena: [
+      { type: "required", message: "se requiere de una contraseña"},
+      { type: "minLenght", message: "longitud minima de 8"},
+    ],
+    verificar_contrasena: [
+      { type: "required", message: "verifique su contraseña"},
+      { type: "minLenght", message: "longitud minima de 8"},
+    ],
+    rol: [
+      { type: "required", message: "no se ha seleccido el tipo de usuario"},
+    ]
+  }
+
   constructor(private citasApiS: CitasApiService, private formB: FormBuilder) {
     this.employeeForm = this.formB.group({
       id_empleado: new FormControl("", Validators.compose([
@@ -41,44 +79,35 @@ export class EmpleadosComponent implements OnInit {
       ])),
       nombre: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(30),
         Validators.minLength(3)
       ])),
       apellido_paterno: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(30),
         Validators.minLength(4)
       ])),
       apellido_materno: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(30),
         Validators.minLength(4)
       ])),
       correo: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"),
-        Validators.maxLength(50),
+        Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
       ])),
       contrasena: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(100),
         Validators.minLength(8),
       ])),
       verificar_contrasena: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(100),
         Validators.minLength(8),
       ])),
       telefono: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(12),
         Validators.minLength(8),
-        Validators.pattern("^[0-9]+$"),
+        Validators.pattern("^[0-9]$")
       ])),
       rol: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(7),
-        Validators.minLength(5),
       ]))
     })
    }
