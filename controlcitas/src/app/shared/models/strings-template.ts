@@ -38,5 +38,6 @@ export const strings = {
   outdoor_number: 'Número Exterior',
   interior_number: 'Número Interior',
   latitude:'Latitud',
-  length:'Longitud' 
+  length:'Longitud',
+  id:'ID' 
 };
