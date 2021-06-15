@@ -17,6 +17,7 @@ import { SucursalComponent } from './components/sucursales/sucursal.component';
 import { EditServicesComponent } from './components/edit-services/edit-services.component';
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { ServicesComponent } from './components/services/services.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
     EditServicesComponent,
     NewsComponent,
     EmpleadosComponent,
-    SucursalComponent
+    SucursalComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,

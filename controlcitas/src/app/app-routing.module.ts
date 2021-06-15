@@ -10,10 +10,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
+import { ServicesComponent } from './components/services/services.component'
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'news', component: NewsComponent},
+  {path: 'services', component: ServicesComponent},
   {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'news', component: NewsComponent, canActivate: [CanGuard]},

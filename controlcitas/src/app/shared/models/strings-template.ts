@@ -13,6 +13,7 @@ export const strings = {
   register_employees: 'Registrar empleados',
   register_services: 'Registrar servicios',
   register_sucursales: 'Registrar sucursales',
+  add_services:'Agregar Service',
   edit_sucursal: 'Editar Sucursales',
   alert1: 'Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez',
   alert2: 'Las contraseñas no coinciden, intenta otra vez',
@@ -41,7 +42,7 @@ export const strings = {
   description: 'Descripción',
   cost: 'Costo',
   cost_of_the_service: 'Costo del servicio',
-  image: 'Image',
+  image: 'Imagen',
   add: 'Agregar',
   reactivate_services: 'Reactivar servicios',
   show_all: 'Mostrar todos',
@@ -64,5 +65,6 @@ export const strings = {
   interior_number: 'Número Interior',
   latitude:'Latitud',
   length:'Longitud',
-  id:'ID' 
+  id:'ID', 
+  search:'Buscar'
 };
