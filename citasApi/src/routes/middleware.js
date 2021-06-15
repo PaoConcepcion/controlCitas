@@ -18,9 +18,9 @@ const checkToken = (req, res, next) => {
         });
     }
 
-    if (moment().unix() > payload.expiresAt) {
+    /* if (moment().unix() > payload.expiresAt) {
         return res.json({ error: 'Expired token' });
-    }
+    } */
 
     req.id_empleado = payload.id_empleado;
     req.rol = payload.rol;

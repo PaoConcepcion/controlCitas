@@ -1,0 +1,190 @@
+<div class="container pos">
+    <div class="form">
+        <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)" 
+        class="col bg-light shadow-sm p-3 mb-5 rounded border">
+            <h4 class="text-center">Editar Empleado</h4><br>
+            <!-- <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.titulo">
+                  <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
+                  (newsForm.get('titulo').dirty || newsForm.get('titulo').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+              </div> -->
+            <div class="form-group">
+                <label class="col-2 col-form-label">Sucursal</label>
+                <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                        {{sucursal.nombre}}
+                    </option>
+                </select>
+            </div>
+            <!-- <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.descripcion">
+                  <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
+                  (newsForm.get('descripcion').dirty || newsForm.get('descripcion').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+              </div> -->
+            <label class="col-2 col-form-label">Nombre</label>
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" 
+            [(ngModel)]="employee.nombre">
+            <!-- <div class="validation-error">
+                <ng-container *ngFor="let validation of validation_messages.imagen">
+                  <div *ngIf="newsForm.get('imagen').hasError(validation.type) &&
+                  (newsForm.get('imagen').dirty || newsForm.get('imagen').touched)">
+                  {{validation.message}}
+                  </div>
+                </ng-container>
+            </div> -->
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Apellido Paterno</label>
+                            <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
+                            [(ngModel)]="employee.apellido_paterno">                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Apellido Materno</label>
+                        <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
+                        [(ngModel)]="employee.apellido_materno">                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Nueva Contraseña</label>
+                            <input type="text" id="contrasena" class="form-control" formControlName="contrasena">                      
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Verificar Contraseña</label>
+                        <input type="text" id="verificar_contrasena" class="form-control" 
+                        formControlName="verificar_contrasena">                  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">correo</label>
+                            <input type="email" id="correo" class="form-control" formControlName="correo" 
+                            [(ngModel)]="employee.correo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">telefono</label>
+                        <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
+                        [(ngModel)]="employee.telefono">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-2 col-form-label">Rol</label>
+                        <select id="rol" class="form-control" formControlName="rol">
+                            <option value="employee" selected>
+                                {{strings.employee}}
+                            </option>
+                            <option value="admin">
+                                {{strings.administrator}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="boton">
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary">Enviar</button>
+            </div>
+        </form>
+        <br>
+        <!-- tabla de empleados -->
+        <div *ngIf="show === true;" class="botton">
+            <button id="mostrar" (click)="changeState(show)">
+                <i class="fas fa-low-vision" [ngClass]="show == true? 'show':'notShow' "></i>
+            </button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Sucursal</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellidos</th>
+                        <th class="text-center">Telefono</th>
+                        <th class="text-center">Rol</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let e of activeEmployees">
+                        <td>{{e.id_empleado}}</td>
+                        <td>{{e.id_sucursal}}</td>
+                        <td>{{e.nombre}}</td>
+                        <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
+                        <td>{{e.telefono}}</td>
+                        <td>{{e.rol}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-success m-1" type="button"
+                            (click)="desactiveEmployees(e.id_empleado, estado = 0)">
+                                <i class="fas fa-trash" style="color: darkred;"></i>
+                            </button>
+                            <button class="btn btn-outline-success m-1" type="button"
+                            (click)="getEmployee(e.id_empleado)">
+                                <i class="fas fa-user-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- tabla empleados desactivados -->
+    <div class="form">
+        <div *ngIf="show === false" class="botton">
+            <button id="ocultar" (click)="changeState(show)">
+                <i class="fas fa-low-vision"></i>
+            </button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Sucursal</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellidos</th>
+                        <th class="text-center">Telefono</th>
+                        <th class="text-center">Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let d of deleteEmployees">
+                        <td>{{d.id_empleado}}</td>
+                        <td>{{d.id_sucursal}}</td>
+                        <td>{{d.nombre}}</td>
+                        <td>{{d.apellido_paterno}} {{d.apellido_materno}}</td>
+                        <td>{{d.telefono}}</td>
+                        <td>{{d.rol}}</td>
+                        <th class="text-center">Opciones</th>
+                        <td class="text-center">
+                            <button class="btn btn-outline-success m-1" type="button"
+                            (click)="desactiveEmployees(d.id_empleado, estado = 1)">
+                            <i class="fas fa-redo"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@ const cors = require('cors');
 const multer = require('multer');
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
-        cb(null,file.originalname);
+        cb(null, file.originalname);
     },
     destination: (req, file, cb) => {
         cb(null, '../controlcitas/src/assets');
@@ -21,7 +21,6 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.use(multer({ storage }).single('imagen'));
 // Routes
 app.use(require('./routes/news'));
