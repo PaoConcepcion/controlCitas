@@ -1,28 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
+const middlewareAdmin = require('../middleware_admin');
 
-const mysqlConnection = require('../database');
+router.use(middleware.checkToken);
 
-router.get('/news', (req, res) => {
-    mysqlConnection.query('SELECT * FROM noticias', (err, rows, fields) => {
-        if(!err){
-            res.json(rows);
-        } else {
-            console.log(err);
-        }
-    });
-});
-
-router.get('/news/:id_noticia', (req, res) => {
-    const { id_noticia } = req.params;
-    mysqlConnection.query('SELECT * FROM noticias WHERE id_noticia = ?', [id_noticia], (err, rows, fields) => {
-        if(!err){
-            res.json(rows[0]);
-        } else {
-            console.log(err);
-        }
-    })
-});
+const mysqlConnection = require('../../database');
 
 router.post('/news', (req, res) => {
     const { id_noticia, titulo, descripcion, imagen } = req.body;
