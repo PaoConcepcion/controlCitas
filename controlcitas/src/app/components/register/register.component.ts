@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
+import { strings } from './../../shared/models/strings-template';
 
 @Component({
   selector: 'app-register',
@@ -11,14 +12,15 @@ import { CitasApiService } from '../../services/citas-api/citas-api.service';
 })
 export class RegisterComponent implements OnInit {
 
+  public strings = strings;
   public sucursales = [];
 
   public newUserForm = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    correo: new FormControl('', [Validators.required, Validators.email]),
-    contrasena: new FormControl('', Validators.required),
-    apellido_paterno: new FormControl('', Validators.required),
-    apellido_materno: new FormControl('', Validators.required),
+    nombre: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
+    correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+    contrasena: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    apellido_paterno: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    apellido_materno: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
     telefono: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]*$'),
@@ -26,7 +28,7 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(10)]),
     rol: new FormControl('', Validators.required),
     id_sucursal: new FormControl('', Validators.required),
-    contrasenaVerf: new FormControl('', Validators.required)
+    contrasenaVerf: new FormControl('', [Validators.required, Validators.maxLength(30)])
   });
 
   constructor(private authService: AuthService, private citasApiService: CitasApiService) {
@@ -49,7 +51,6 @@ export class RegisterComponent implements OnInit {
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
-    document.getElementById('cinco').style.display = 'none';
     this.actualizar();
   }
 
@@ -78,8 +79,8 @@ export class RegisterComponent implements OnInit {
               document.getElementById('tres').style.display = 'block';
               setTimeout(() => document.getElementById('tres').style.display = 'none', 5000);
             } else {
-              document.getElementById('cinco').style.display = 'block';
-              setTimeout(() => document.getElementById('cinco').style.display = 'none', 5000);
+              document.getElementById('cuatro').style.display = 'block';
+              setTimeout(() => document.getElementById('cuatro').style.display = 'none', 5000);
               this.newUserForm.setValue({
                 nombre: '',
                 correo: '',

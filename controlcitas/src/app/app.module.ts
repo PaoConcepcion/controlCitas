@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms"
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +13,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SucursalComponent } from './components/sucursales/sucursal.component';
+import { EditServicesComponent } from './components/edit-services/edit-services.component';
+import { NewsComponent } from './components/news/news.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,12 @@ import { RegisterComponent } from './components/register/register.component';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditServicesComponent,
+    NewsComponent,
+    EmpleadosComponent,
+    SucursalComponent,
+    ServiceEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,8 @@ import { RegisterComponent } from './components/register/register.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

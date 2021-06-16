@@ -31,8 +31,8 @@ router.put('/employee_service/:id_empleado_servicio', (req, res) => {
 });
 
 router.delete('/employee_service/:id_empleado_servicio', (req, res) => {
-    const {id_usuario} = req.params;
-    mysqlConnection.query('DELETE FROM empleados_servicios WHERE id_empleado_servicio = ?', [id_usuario], (err, rows, fields) => {
+    const {id_empleado_servicio} = req.params;
+    mysqlConnection.query('DELETE FROM empleados_servicios WHERE id_empleado_servicio = ?', [id_empleado_servicio], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'Employee-service deleted'});
         } else {

@@ -10,9 +10,9 @@ const mysqlConnection = require('../../database');
 
 router.post('/employees', (req, res) => {
     const { id_empleado, id_sucursal, nombre, apellido_paterno, apellido_materno, correo, contrasena, telefono, rol } = req.body;
-    const query = `
-        CALL employeesAddOrEdit(?, ?, ?, ?, ?, ?, ?, ?, ?);
-    `;
+    const query = 
+        'CALL employeesAddOrEdit(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    ;
     mysqlConnection.query(query, [id_empleado, id_sucursal, nombre, apellido_paterno, apellido_materno, correo, contrasena, telefono, rol], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'Employee saved'});
@@ -36,11 +36,24 @@ router.put('/employees/:id_empleado', (req, res) => {
     });
 });
 
-router.delete('/employees/:id_empleado', (req, res) => {
+router.put('/deleteEmployee/:id_empleado', (req, res) => {
     const {id_empleado} = req.params;
-    mysqlConnection.query('DELETE FROM empleados WHERE id_empleado = ?', [id_empleado], (err, rows, fields) => {
+    const {estatus} = req.body;
+    mysqlConnection.query('UPDATE empleados SET estatus = ? WHERE id_empleado = ?', [estatus, id_empleado], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'Employee deleted'});
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+router.put('/changeRol/:id_empleado', (req, res) => {
+    const {id_empleado} = req.params;
+    const {rol} = req.body;
+    mysqlConnection.query('UPDATE empleados SET rol = ? WHERE id_empleado = ?', [rol, id_empleado], (err, rows, fields) => {
+        if(!err) {
+            res.json({Status: 'Rol update'});
         } else {
             console.log(err);
         }

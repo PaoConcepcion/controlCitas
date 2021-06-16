@@ -8,6 +8,17 @@ const middlewareAdmin = require('../middleware_admin');
 
 router.use(middleware.checkToken);
 
+router.get('/services-name/:nombre', (req, res) => {
+    const { nombre } = req.params;
+    mysqlConnection.query(`SELECT * FROM servicios WHERE nombre LIKE '%${nombre}%' and estatus = 1`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
 router.post('/services', (req, res) => {
     req.body.estatus = 1;
     const { id_servicio, nombre, descripcion, costo, imagen, estatus } = req.body;

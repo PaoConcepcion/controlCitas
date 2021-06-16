@@ -52,49 +52,22 @@
     </div>
     <!-- Fin Titulo Joyería -->
 
-    <!-- Galería -->
     <div class="container">
-        <div class="row my-5">
-            <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let aux of img1">
+        <div class="row my-5" *ngFor="let servicesList of servicios">
+            <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let service of servicesList">
                 <figure>
-                    <img src={{aux.src}} alt="">
+                    <img src="../../assets/{{service.imagen}}" alt="">
                     <div class="capa">
                         <h1 class="titulo-galeria">
-                            {{aux.nombre}}
+                            {{service.nombre}}
                         </h1>
-                        <button type="button" class="btn btn-danger btn-sm mt-3" (click)="buscar(aux.nombre)">Search</button>
+                        <button type="button" class="btn btn-danger btn-sm mt-3" (click)="buscar(service.ide_servicio)">Search</button>
                     </div>
                 </figure>
             </div>
         </div>
-
-        <div class="row my-5">
-            <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let aux of img2">
-                <figure>
-                    <img src={{aux.src}} alt="">
-                    <div class="capa">
-                        <h1 class="titulo-galeria">
-                            {{aux.nombre}}
-                        </h1>
-                        <button type="button" class="btn btn-danger btn-sm mt-3" (click)="buscar(aux.nombre)">Search</button>
-                    </div>
-                </figure>
-            </div>
-        </div>
-
-        <div class="row my-5">
-            <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let aux of img3">
-                <figure>
-                    <img src={{aux.src}} alt="">
-                    <div class="capa ">
-                        <h1 class="titulo-galeria">
-                            {{aux.nombre}}
-                        </h1>
-                        <button type="button" class="btn btn-danger btn-sm mt-3" (click)="buscar(aux.nombre)">Search</button>
-                    </div>
-                </figure>
-            </div>
-        </div>
-        <!-- Fin Galería -->
     </div>
+
+    <!-- Galería -->
+    
 </div>

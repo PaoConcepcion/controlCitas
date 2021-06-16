@@ -1,12 +1,12 @@
 <div class="login">
     <form class="custom-form" [formGroup]="loginForm" (ngSubmit)="login()">
-      <ngb-alert id="uno" class="alert alert-warning" (close)="cerrar('uno')">Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez</ngb-alert>
-      <ngb-alert id="dos" class="alert alert-danger" (close)="cerrar('dos')">Correo o contraseña incorrectos</ngb-alert>
+      <ngb-alert id="uno" class="alert alert-warning" (close)="cerrar('uno')">{{strings.alert1}}</ngb-alert>
+      <ngb-alert id="dos" class="alert alert-danger" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
                 
-      <h1>Login</h1>
-      <input type="email" formControlName="correo" name="email" placeholder="Email" required="required" />
-      <input type="password" formControlName="contrasena" name="password" placeholder="Password" required="required" />
-      <button type="submit" (click)="login()">Log in</button>
+      <h1>{{strings.login}}</h1>
+      <input id="email" type="email" formControlName="correo" name="email" placeholder="{{strings.email}}" required="required" />
+      <input id="password" type="password" formControlName="contrasena" name="password" placeholder="{{strings.password}}" required="required" />
+      <button id="login" type="submit" (click)="login()">{{strings.login}}</button>
     </form>
   </div>
   

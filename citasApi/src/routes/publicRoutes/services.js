@@ -24,4 +24,14 @@ router.get('/services/:id_servicio', (req, res) => {
     })
 });
 
+router.get('/active-services', (req, res) => {
+    mysqlConnection.query('SELECT id_servicio, nombre, imagen, descripcion FROM servicios where estatus=1;', (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;
