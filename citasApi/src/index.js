@@ -23,18 +23,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(multer({ storage }).single('imagen'));
 // Routes
-app.use(require('./routes/news'));
-app.use(require('./routes/auth'));
-app.use(require('./routes/users'));
-app.use(require('./routes/branchOffices'));
 
-// A partir de aquí las rutas necesitan el token de inicio de sesion en el header
+// Public routes
+app.use(require('./routes/publicRoutes/branchOffices'));
+app.use(require('./routes/publicRoutes/services'));
+app.use(require('./routes/publicRoutes/employees'));
+app.use(require('./routes/publicRoutes/news'));
+app.use(require('./routes/publicRoutes/auth'));
+app.use(require('./routes/publicRoutes/users'));
+app.use(require('./routes/publicRoutes/sucursales'));
+app.use(require('./routes/publicRoutes/employee_service'));
 
-
-// A partir de aquí solo los token con usuarios admin se admiten
-app.use(require('./routes/services'));
-app.use(require('./routes/employees'));
-app.use(require('./routes/sucursales'));
+// Private Routes with token
+app.use(require('./routes/privateRoutes/branchOffices'));
+app.use(require('./routes/privateRoutes/services'));
+app.use(require('./routes/privateRoutes/employees'));
+app.use(require('./routes/privateRoutes/news'));
+app.use(require('./routes/privateRoutes/sucursales'));
+app.use(require('./routes/privateRoutes/employee_service'));
 
 // Starting the server
 app.listen(app.get('port'), () => {
