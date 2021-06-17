@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
+import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [CanAdminGuard]},
   {path: 'edit-services', component: EditServicesComponent, canActivate: [CanAdminGuard]},
   {path: 'sucursal', component: SucursalComponent, canActivate: [CanAdminGuard]},
+  {path: 'employee-sucursal', component: ServiceEmployeeComponent},
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
 ];

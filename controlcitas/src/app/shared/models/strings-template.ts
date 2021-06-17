@@ -25,6 +25,7 @@ export const strings = {
   alert9: 'No se encontraron servicios inactivos',
   alert10: 'Agregar 10 digitos',
   alert11: 'Agregar 5 digitos',
+  alert12: 'Empleado no encontrado',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',
@@ -72,5 +73,7 @@ export const strings = {
   send: 'Enviar',
   id: 'ID',
   options: 'Opciones',
-  recuve: 'Recuperar'
+  recuve: 'Recuperar',
+  employee_sucursal: 'Asignar Servicios',
+  employee_unsigned: 'Empleados sin servicios'
 };

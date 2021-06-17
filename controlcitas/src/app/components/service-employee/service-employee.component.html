@@ -1,1 +1,79 @@
-<p>service-employee works!</p>
+<div class="container">
+    <h2>service-employee works!</h2>
+    <div class="row mb-4">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5">
+            <button id="search_all" class="btn btn-outline-info btn-block" (click)="getAll()">
+                {{strings.show_all}}
+            </button>        
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5">
+            <button id="sin_asignar" class="btn btn-outline-info btn-block" (click)="employeeUnsigned()">
+                {{strings.employee_unsigned}}
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
+            <h5>{{strings.look_by_name}}</h5>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <input type="text" [(ngModel)]="busqueda">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                    <button id="search_employee" (click)="employeeSearch()" class="btn btn-outline-warning btn-block">
+                        {{strings.look}}
+                    </button>                
+                </div>
+            </div>
+            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">{{strings.alert12}}</ngb-alert>
+        </div>
+    </div>
+    <div class="tablas">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">{{strings.id}}</th>
+                    <th class="text-center">{{strings.name}}</th>
+                    <th class="text-center">{{strings.surname}}</th>
+                    <th class="text-center">{{strings.sucursal}}</th>
+                    <th class="text-center">{{strings.sucursal}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let e of employee">
+                    <td>{{e.id_empleado}}</td>
+                    <td>{{e.nombre}}</td>
+                    <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
+                    <td>{{e.id_sucursal}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-outline-warning m-1" type="button"
+                        (click)="signServices(e.id_empleado)">
+                            {{strings.employee_sucursal}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="tablas">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">{{strings.name}}</th>
+                    <th class="text-center">{{strings.description}}</th>
+                    <th class="text-center">{{strings.cost}}</th>
+                    <th class="text-center">{{strings.image}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let s of servicios">
+                    <td>{{s.nombre}}</td>
+                    <td>{{s.descripcion}}</td>
+                    <td>{{s.costo}}</td>
+                    <td>
+                        <img style="width: 8rem;" src="../../assets/{{s.imagen}}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
