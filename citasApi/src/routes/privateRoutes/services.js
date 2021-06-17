@@ -3,11 +3,6 @@ const router = express.Router();
 
 const mysqlConnection = require('../../database');
 
-const middleware = require('../middleware');
-const middlewareAdmin = require('../middleware_admin');
-
-router.use(middleware.checkToken);
-
 router.get('/services-name/:nombre', (req, res) => {
     const { nombre } = req.params;
     mysqlConnection.query(`SELECT * FROM servicios WHERE nombre LIKE '%${nombre}%' and estatus = 1`, (err, rows, fields) => {

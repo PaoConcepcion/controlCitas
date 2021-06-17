@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const middleware = require('../middleware');
-const middlewareAdmin = require('../middleware_admin');
-
-router.use(middleware.checkToken);
 
 const mysqlConnection = require('../../database');
 
