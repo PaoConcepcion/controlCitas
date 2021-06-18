@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const mysqlConnection = require('../database');
+const mysqlConnection = require('../../database');
 
 router.get('/users', (req, res) => {
     mysqlConnection.query('SELECT * FROM usuarios', (err, rows, fields) => {
