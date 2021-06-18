@@ -7,19 +7,19 @@ const app = express();
 const cors = require('cors');
 const multer = require('multer');
 
-app.use(express.static(path.join(__dirname, 'dist/controlcitas')));
+app.use(express.static(path.join(__dirname, './../../dist/controlcitas')));
 
-/* app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/controlcitas/dist/controlcitas/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + './../../dist/controlcitas/index.html'));
 });
- */
+
 
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, file.originalname);
     },
     destination: (req, file, cb) => {
-        cb(null, '../controlcitas/src/assets');
+        cb(null, '../../src/assets');
     }
 });
 
