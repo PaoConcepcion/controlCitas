@@ -2,10 +2,17 @@
     <div class="row">
         <div class="topbar">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul>
-                    <!--the login butons goes here-->
+                <ul *ngIf="user$ | async as user; else login">
                     <li class="nav-item" style="cursor: pointer">
-                        
+                        <a aria-label="Perfil" class="ico" data-toggle="tooltip" data-placement="bottom" title="Perfil">
+                            <i class="far fa-user"> {{ user.nombre }}</i> 
+                        </a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer">
+                        <!--<a class="nav-link" (click)="onLogout()">Logout</a>-->
+                        <a (click)="onLogout()" class="ico">
+                          SALIR
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -22,3 +29,13 @@
 
     </div>
 </div>
+
+<ng-template #login>
+    <ul>
+        <li>
+            <!--<a [routerLink]="['login']" class="ico" data-toggle="tooltip" data-placement="bottom" title="Iniciar Sesión">
+                <i class="fa fa-lg fa-sign-in-alt"></i>
+            </a>-->
+        </li>
+    </ul>
+</ng-template>

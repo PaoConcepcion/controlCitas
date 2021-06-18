@@ -1,0 +1,88 @@
+<div class="container filtrar">
+    <div class="row">
+        <div class="col-md-3 col-lg-3"></div>
+        <div class="card form__top col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="card-body">
+                <h2 class="text-center top">{{strings.register_of_employees}}</h2>
+                <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">{{strings.alert1}}</ngb-alert>
+                <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert3}}</ngb-alert>
+                <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')">{{strings.alert4}}</ngb-alert>
+                <form (ngSubmit)="newUser(newUserForm.value)" class="mt-2" [formGroup]="newUserForm">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">{{strings.name}}</label>
+                                <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                                    <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                                <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">{{strings.phone}}</label>
+                                <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" minlength="10" maxlength="10" required>
+                            </div>
+                        </div> 
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputemaill">{{strings.role}}</label>
+                                <select id="rol" class="form-control" id="exampleFormControlSelect1" formControlName="rol">
+                                    <option value="employee" selected>
+                                        {{strings.employee}}
+                                    </option>
+                                    <option value="admin">
+                                        {{strings.administrator}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputemaill">{{strings.company}}</label>
+                        <select  id="id_sucursal" class="form-control" id="exampleFormControlSelect1" formControlName="id_sucursal">
+                            <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                                {{sucursal.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{strings.email_address}}</label>
+                        <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">{{strings.password}}</label>
+                        <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
+                        <input id="contrasena" type="password" class="form-control" formControlName="contrasena" placeholder="{{strings.min_password}}" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <input id="contrasenaVerf" type="password" class="form-control" formControlName="contrasenaVerf" placeholder="{{strings.repeat_your_password}}" minlength="6" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button id="register" type="submit" class="btn btn-success btn-block">{{strings.register_employee}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

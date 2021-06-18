@@ -1,0 +1,75 @@
+<div class="form">
+    <form [formGroup]="newsForm" (ngSubmit)="newRegister(newsForm.value)" 
+    class="col bg-light shadow-sm p-3 mb-5 rounded border">
+        <h4 class="text-center">Agregar noticia</h4><br>
+        <label class="col-2 col-form-label">Titulo</label>
+        <input type="text" id="titulo" class="form-control" formControlName="titulo" [(ngModel)]="new.titulo">
+        <div class="validation-error">
+            <ng-container *ngFor="let validation of validation_messages.titulo">
+              <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
+              (newsForm.get('titulo').dirty || newsForm.get('titulo').touched)">
+              {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+        <label class="col-2 col-form-label">Descripcion</label>
+        <input type="text" id="descripcion" class="form-control" formControlName="descripcion" [(ngModel)]="new.descripcion">
+        <div class="validation-error">
+            <ng-container *ngFor="let validation of validation_messages.descripcion">
+              <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
+              (newsForm.get('descripcion').dirty || newsForm.get('descripcion').touched)">
+              {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+        <label class="col-2 col-form-label">Imagen</label>
+        <input type="file" id="imagen" class="form-control" formControlName="imagen" [(ngModel)]="new.imagen"
+        (change)="upload($event)">
+        <div class="validation-error">
+            <ng-container *ngFor="let validation of validation_messages.imagen">
+              <div *ngIf="newsForm.get('imagen').hasError(validation.type) &&
+              (newsForm.get('imagen').dirty || newsForm.get('imagen').touched)">
+              {{validation.message}}
+              </div>
+            </ng-container>
+        </div>
+        <div *ngIf="preview" class="imagencita">
+            <img [src]="preview" id="visualizacion" width="300px" alt="">
+        </div>
+        <br>
+        <div class="boton">
+            <button type="submit" id="registrar" class="btn btn-secondary" [disabled]="!newsForm.valid">Enviar</button>
+        </div>
+    </form>
+    <br>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Titulo</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Imagen</th>
+                <th class="text-center">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let item of news; let i of index">
+                <td>{{item.id_noticia}}</td>
+                <td>{{item.titulo}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.imagen}}</td>
+                <td class="text-center">
+                    <button id="editar" class="btn btn-outline-success m-1" type="button"
+                    (click)="getNew(item.id_noticia)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button id="eliminar" class="btn btn-outline-danger m-1" type="button"
+                    (click)="deleteNews(item.id_noticia)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
