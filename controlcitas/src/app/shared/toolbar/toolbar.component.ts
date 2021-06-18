@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
 
   onLogout() {
     this.authSvc.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
 }

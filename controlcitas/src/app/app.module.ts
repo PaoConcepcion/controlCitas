@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,10 @@ import { ServiceEmployeeComponent } from './components/service-employee/service-
 import { ServiceClientComponent } from './components/service-client/service-client.component';
 import { ServicesComponent } from './components/services-page/services.component'
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarHeaderComponent } from './utils/calendar-header/calendar-header.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +43,14 @@ import { ServicesComponent } from './components/services-page/services.component
     SucursalComponent,
     ServiceEmployeeComponent,
     ServiceClientComponent,
-    ServicesComponent
+    ServicesComponent,
+    CalendarHeaderComponent,
+    CalendarComponent
   ],
   imports: [
     RouterModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -50,6 +58,7 @@ import { ServicesComponent } from './components/services-page/services.component
     NgbModule,
     FormsModule,
     CommonModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent]
