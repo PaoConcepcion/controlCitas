@@ -4,6 +4,17 @@ const bcrypt = require('bcrypt');
 
 const mysqlConnection = require('../../database');
 
+
+router.get('/employees', (req, res) => {
+    mysqlConnection.query(`SELECT * FROM empleados where id_empleado <> ${req.id_empleado}`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 router.post('/employees', (req, res) => {
     const { id_empleado, id_sucursal, nombre, apellido_paterno, apellido_materno, correo, contrasena, telefono, rol } = req.body;
     const query = 
