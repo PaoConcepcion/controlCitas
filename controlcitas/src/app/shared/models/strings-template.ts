@@ -15,6 +15,7 @@ export const strings = {
   register_sucursales: 'Registrar sucursales',
   add_services:'Agregar Service',
   edit_sucursal: 'Editar Sucursales',
+  view_service: 'Mostrar Servicios',
   alert1: 'Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez',
   alert2: 'Las contraseñas no coinciden, intenta otra vez',
   alert3: 'Algo salió mal, revisa que tu correo no este ya registrado',

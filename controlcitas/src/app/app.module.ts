@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { EditServicesComponent } from './components/edit-services/edit-services.
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
+import { ServiceClientComponent } from './components/service-client/service-client.component';
+import { ServicesComponent } from './components/services-page/services.component'
+
 
 @NgModule({
   declarations: [
@@ -32,9 +36,12 @@ import { ServiceEmployeeComponent } from './components/service-employee/service-
     NewsComponent,
     EmpleadosComponent,
     SucursalComponent,
-    ServiceEmployeeComponent
+    ServiceEmployeeComponent,
+    ServiceClientComponent,
+    ServicesComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
