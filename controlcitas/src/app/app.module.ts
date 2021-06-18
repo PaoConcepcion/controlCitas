@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,10 @@ import { EditServicesComponent } from './components/edit-services/edit-services.
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarHeaderComponent } from './utils/calendar-header/calendar-header.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +37,13 @@ import { ServiceEmployeeComponent } from './components/service-employee/service-
     NewsComponent,
     EmpleadosComponent,
     SucursalComponent,
-    ServiceEmployeeComponent
+    ServiceEmployeeComponent,
+    CalendarHeaderComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -43,6 +51,7 @@ import { ServiceEmployeeComponent } from './components/service-employee/service-
     NgbModule,
     FormsModule,
     CommonModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent]
