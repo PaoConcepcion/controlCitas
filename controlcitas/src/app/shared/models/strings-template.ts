@@ -75,5 +75,7 @@ export const strings = {
   id: 'ID',
   options: 'Opciones',
   recuve: 'Recuperar',
-  search: 'Buscar'
+  search: 'Buscar',
+  view:'Mostrar',
+  schedule: 'Agendar'
 };

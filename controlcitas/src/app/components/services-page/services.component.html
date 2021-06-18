@@ -14,30 +14,30 @@
                     <div class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar"
                             #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
-                            (click)="buscar(buscartexto.value)">Buscar</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="BuscarServices"
+                            (click)="buscar(buscartexto.value)">{{strings.look}}</button>
                     </div>
                 </div>
             </div>
 
-            <ngb-alert style="display: none;" id="dos" type="info" (close)="cerrar('dos')">Ya haz agregado esa receta
+            <!-- <ngb-alert style="display: none;" id="dos" type="info" (close)="cerrar('dos')">Ya haz agregado esa receta
             </ngb-alert>
             <ngb-alert style="display: none;" id="uno" type="success" (close)="cerrar('uno')">Se agregó a tus recetas
-            </ngb-alert>
+            </ngb-alert> -->
             <div class="card-deck">
-                
-                    <div class="card text-center" *ngFor="let servicesList of services">
-                        <a [routerLink]="['/service-client',servicesList.id_servicio]">
-                            <img class="card-img-top" src=".../100px180/" alt="Card image cap"
-                                [src]="'assets/'+servicesList.imagen" onError="this.src='assets/comida.svg'">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>{{servicesList.nombre}}</strong></h5>
-                            <a class="btn btn-outline-primary"
-                                [routerLink]="['/service-client',servicesList.id_servicio]"> Mostrar</a>
-                        </div>
+
+                <div class="card text-center" *ngFor="let servicesList of services">
+                    <a [routerLink]="['/service-client',servicesList.id_servicio]">
+                        <img class="card-img-top" src=".../100px180/" alt="Card image cap" id="mostrarServicesimg"
+                            [src]="'assets/'+servicesList.imagen" onError="this.src='assets/comida.svg'">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>{{servicesList.nombre}}</strong></h5>
+                        <a class="btn btn-outline-primary" id="mostrarServices"
+                            [routerLink]="['/service-client',servicesList.id_servicio]"> {{strings.view}} </a>
                     </div>
-                
+                </div>
+
             </div>
         </div>
 
