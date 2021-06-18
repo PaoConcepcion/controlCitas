@@ -1,8 +1,19 @@
 const express = require('express');
+const http = require('http')
+const path = require('path');
+
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const multer = require('multer');
+
+app.use(express.static(path.join(__dirname, '../controlcitas/dist/controlcitas')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/controlcitas/dist/controlcitas/index.html'));
+});
+
+
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, file.originalname);
