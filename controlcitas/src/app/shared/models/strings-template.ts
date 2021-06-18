@@ -75,5 +75,9 @@ export const strings = {
   options: 'Opciones',
   recuve: 'Recuperar',
   employee_sucursal: 'Asignar Servicios',
-  employee_unsigned: 'Empleados sin servicios'
+  employee_unsigned: 'Empleados sin servicios',
+  employee_signed: 'Servicios que ofrecen los empleados',
+  no_service: 'Numero de servicio',
+  no_employee: 'Numero de empleado',
+  cancel: 'Cancelar'
 };

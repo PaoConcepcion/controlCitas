@@ -10,40 +10,55 @@ import { strings } from './../../shared/models/strings-template';
 })
 export class ServiceEmployeeComponent implements OnInit {
   servicios = [];
-  employee = [];
+  employees = [];
+  serviceSigned: any [] = [];
   busqueda: any;
   strings = strings;
+  employee = {
+    id_empleado_servicio: null,
+    id_empleado: null,
+    id_servicio: null
+  }
 
   constructor(private citasApiS: CitasApiService,
     private formB: FormBuilder) { }
 
   ngOnInit(): void {
     this.getService();
+    this.employeeSigned();
     document.getElementById('uno').style.display = 'none';
   }
 
-  getAll(){
-    this.employee = [];
-    this.citasApiS.consulta('/employees').subscribe((res: any) => {
-      this.employee = res;
+  getEmployee(id_empleado) {
+    this.citasApiS.busqueda(`/employees/${id_empleado}`).subscribe((res: any) => {
+      this.employees = res;
       err =>{
         console.log(err);
       }
-      console.log(this.employee)
+    });
+  }
+
+  getAll(){
+    this.employees = [];
+    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+      this.employees = res;
+      err =>{
+        console.log(err);
+      }
     });
   }
 
   employeeSearch(){
-    this.employee = [];
+    this.employees = [];
     this.citasApiS.consulta('/employees').subscribe((res: any) => {
       for (const employee of res){
         if (employee.nombre === this.busqueda || employee.id_empleado === this.busqueda || 
           employee.id_sucursal === this.busqueda || employee.apellido_paterno === this.busqueda || 
           employee.apellido_materno === this.busqueda){
-          this.employee.push(employee);
+          this.employees.push(employee);
         }
       };
-      if (this.employee.length <= 0){
+      if (this.employees.length <= 0){
         document.getElementById('uno').style.display = 'block';
         setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
       };
@@ -58,6 +73,16 @@ export class ServiceEmployeeComponent implements OnInit {
       for (const service of res) {
         if (service.estatus == 1) this.servicios.push(service);
       }
+    });
+  }
+
+  employeeSigned(){
+    this.citasApiS.consulta('/employee_service').subscribe((res: any) => {
+      this.serviceSigned = res[0];
+      err =>{
+        console.log(err);
+      }
+      console.log(this.serviceSigned)
     });
   }
 

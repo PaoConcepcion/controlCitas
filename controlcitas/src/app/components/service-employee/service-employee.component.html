@@ -34,18 +34,19 @@
                     <th class="text-center">{{strings.name}}</th>
                     <th class="text-center">{{strings.surname}}</th>
                     <th class="text-center">{{strings.sucursal}}</th>
-                    <th class="text-center">{{strings.sucursal}}</th>
+                    <th class="text-center">{{strings.employee_sucursal}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center" *ngFor="let e of employee">
+                <tr class="text-center" *ngFor="let e of employees">
                     <td>{{e.id_empleado}}</td>
                     <td>{{e.nombre}}</td>
                     <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
                     <td>{{e.id_sucursal}}</td>
                     <td class="text-center">
                         <button class="btn btn-outline-warning m-1" type="button"
-                        (click)="signServices(e.id_empleado)">
+                        data-bs-toggle="modal" data-bs-target="#modalService"
+                        (click)="getEmployee(e.id_empleado)">
                             {{strings.employee_sucursal}}
                         </button>
                     </td>
@@ -55,25 +56,57 @@
     </div>
     <br>
     <div class="tablas">
+        <h3>{{strings.employee_signed}}</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="text-center">{{strings.name}}</th>
-                    <th class="text-center">{{strings.description}}</th>
-                    <th class="text-center">{{strings.cost}}</th>
-                    <th class="text-center">{{strings.image}}</th>
+                    <th class="text-center">{{strings.no_employee}}</th>
+                    <th class="text-center">{{strings.employee}}</th>
+                    <th class="text-center">{{strings.no_service}}</th>
+                    <th class="text-center">{{strings.services}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center" *ngFor="let s of servicios">
-                    <td>{{s.nombre}}</td>
-                    <td>{{s.descripcion}}</td>
-                    <td>{{s.costo}}</td>
-                    <td>
-                        <img style="width: 8rem;" src="../../assets/{{s.imagen}}">
-                    </td>
+                <tr class="text-center" *ngFor="let services of serviceSigned">
+                    <td>{{services.id_empleado}}</td>
+                    <td>{{services.nombre_empleado}} {{services.apellido_paterno}}</td>
+                    <td>{{services.id_servicio}}</td>
+                    <td>{{services.nombre_servicio}}</td>
+                    <!-- <td class="text-center">
+                        <button class="btn btn-outline-warning m-1" type="button"
+                        (click)="signServices(e.id_empleado)">
+                            {{strings.employee_sucursal}}
+                        </button>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
+    </div>
+    <!-- Tabla asignar servicios -->
+    <div class="modal fade" id="modalService" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{strings.employee_sucursal}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label>Nombre</label>
+                            <input type="text" [(ngModel)]="employee.nombre">
+                        </div>
+                        <div class="col">
+                            <label>Apellidos</label>
+                            <input type="text" [(ngModel)]="employee.apellido_paterno, apellido_materno">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{strings.cancel}}</button>
+                    <button type="button" class="btn btn-primary">{{strings.send}}</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
