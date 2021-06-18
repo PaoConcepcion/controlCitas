@@ -97,8 +97,18 @@
                             <input type="text" [(ngModel)]="employee.nombre">
                         </div>
                         <div class="col">
-                            <label>Apellidos</label>
-                            <input type="text" [(ngModel)]="employee.apellido_paterno, apellido_materno">
+                            <label>No. de empleado</label>
+                            <input type="text" [(ngModel)]="employee.id_empleado">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Apellido Paterno</label>
+                            <input type="text" [(ngModel)]="employee.apellido_paterno">
+                        </div>
+                        <div class="col">
+                            <label>Apellido Materno</label>
+                            <input type="text" [(ngModel)]="employee.apellido_materno">
                         </div>
                     </div>
                 </div>
