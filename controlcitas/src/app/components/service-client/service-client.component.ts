@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Params} from '@angular/router';
 import { CitasApiService } from './../../services/citas-api/citas-api.service';
+import { strings } from '../../shared/models/strings-template';
 
 @Component({
   selector: 'app-service-client',
@@ -14,6 +15,7 @@ export class ServiceClientComponent implements OnInit {
   public id: any;
   public service : any;
   public bandera;
+  public strings = strings;
   
 
   constructor(private activatedRoute: ActivatedRoute, private citasApiS: CitasApiService) {
