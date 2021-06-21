@@ -10,10 +10,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
+import { ServicesComponent } from './components/services-page/services.component';
+import { ServiceClientComponent } from './components/service-client/service-client.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'news', component: NewsComponent},
+  {path: 'services-page', component: ServicesComponent},
+  {path: 'service-client', component: ServiceClientComponent},
+  {path: 'service-client/:id', component: ServiceClientComponent},
   {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'news', component: NewsComponent, canActivate: [CanGuard]},

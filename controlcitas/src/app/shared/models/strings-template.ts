@@ -13,7 +13,9 @@ export const strings = {
   register_employees: 'Registrar empleados',
   register_services: 'Registrar servicios',
   register_sucursales: 'Registrar sucursales',
+  add_services:'Agregar Service',
   edit_sucursal: 'Editar Sucursales',
+  view_service: 'Mostrar Servicios',
   alert1: 'Algunos de los campos no han sido llenados o estan incorrectos revisalos otra vez',
   alert2: 'Las contraseñas no coinciden, intenta otra vez',
   alert3: 'Algo salió mal, revisa que tu correo no este ya registrado',
@@ -42,7 +44,7 @@ export const strings = {
   description: 'Descripción',
   cost: 'Costo',
   cost_of_the_service: 'Costo del servicio',
-  image: 'Image',
+  image: 'Imagen',
   add: 'Agregar',
   reactivate_services: 'Reactivar servicios',
   show_all: 'Mostrar todos',
@@ -72,5 +74,6 @@ export const strings = {
   send: 'Enviar',
   id: 'ID',
   options: 'Opciones',
-  recuve: 'Recuperar'
+  recuve: 'Recuperar',
+  search: 'Buscar'
 };
