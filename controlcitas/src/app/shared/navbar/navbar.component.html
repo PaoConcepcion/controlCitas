@@ -37,7 +37,6 @@
                 <ng-container *ngIf="(user$ | async)?.rol == 'employee'">
                     
                 </ng-container>
-
                 
             </ng-container>
         </ul>
@@ -55,6 +54,6 @@
         <a class="nav-link" [routerLink]="['home']">{{strings.home}}</a>
     </li>
     <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['recetas']">{{strings.services}}</a>
+        <a class="nav-link" [routerLink]="['services-page']">{{strings.services}}</a>
     </li>
 </ng-template>

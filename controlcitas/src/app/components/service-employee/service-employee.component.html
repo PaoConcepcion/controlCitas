@@ -1,5 +1,4 @@
 <div class="container">
-    <h2>service-employee works!</h2>
     <div class="row mb-4">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5">
             <button id="search_all" class="btn btn-outline-info btn-block" (click)="getAll()">
@@ -45,7 +44,7 @@
                     <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
                     <td>{{e.id_sucursal}}</td>
                     <td class="text-center">
-                        <button class="btn btn-outline-warning m-1" type="button"
+                        <button class="btn btn-outline-success m-1" type="button"
                         data-bs-toggle="modal" data-bs-target="#modalService"
                         (click)="actualizar(e.id_empleado, e.nombre, e.apellido_paterno,
                         e.apellido_materno, e.telefono)" id="agregar">
@@ -76,9 +75,13 @@
                     <td>{{services.id_servicio}}</td>
                     <td>{{services.nombre_servicio}}</td>
                     <td class="text-center">
-                        <button class="btn btn-outline-danger m-1" type="button"
-                        data-bs-toggle="modal" data-bs-target="#modalEdit" id="editar">
-                            <i class="fas fa-trash"></i>
+                        <button class="btn btn-outline-warning m-1" type="button"
+                        data-bs-toggle="modal" data-bs-target="#modalEdit" id="editar"
+                        (click)="formEm.id_empleado = services.id_empleado;
+                        formEm.nombre = services.nombre_empleado;
+                        formEm.id_servicio = services.id_servicio;
+                        employee.id_empleado_servicio = services.id_empleado_servicio">
+                            <i class="far fa-edit"></i>
                         </button>
                     </td>
                 </tr>
@@ -107,7 +110,8 @@
                                 <div class="form-group">
                                     <label>{{strings.no_employee}}</label>
                                     <input type="text" [(ngModel)]="formEm.id_empleado"
-                                    formControlName="id_empleado" class="form-control">
+                                    formControlName="id_empleado" class="form-control"
+                                    disabled>
                                 </div>
                             </div>
                         </div>
@@ -147,21 +151,22 @@
                               </div>
                             </ng-container>
                         </div>
-                        <br>
-                        <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar_form">
-                            {{strings.cancel}}
-                        </button>
-                        <button type="submit" class="btn btn-primary" [disabled]="!signForm.valid"
-                        id="signService">
-                            {{strings.send}}
-                        </button>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar_form">
+                                {{strings.cancel}}
+                            </button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!signForm.valid"
+                            id="signService" data-bs-dismiss="modal">
+                                {{strings.send}}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- Tabla edita/eliminar Servicios-empleados -->
-    <!-- <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -169,32 +174,57 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>{{strings.no_employee}}</label>
-                            <input type="text" [(ngModel)]="employeeService.id_empleado" disabled>
+                    <form [formGroup]="signForm" (ngSubmit)="edit(signForm.value)">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.no_employee}}</label>
+                                    <input type="text" [(ngModel)]="formEm.id_empleado"
+                                    formControlName="id_empleado" class="form-control"
+                                    disabled>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.name}}</label>
+                                    <input type="text" [(ngModel)]="formEm.nombre"
+                                    formControlName="nombre" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>{{strings.name}}</label>
-                            <input type="text" [(ngModel)]="nombre" disabled>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.newS}}</label>
+                                    <select class="form-control" formControlName="id_servicio" id="idServicio">
+                                        <option *ngFor="let s of services" value="{{s.id_servicio}}">
+                                            {{s.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label>Servicio</label>
-                            <select class="form-control">
-                                <option *ngFor="let s of services" value="{{s.id_servicio}}">
-                                    {{s.nombre}}
-                                </option>
-                            </select>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.id_servicio">
+                              <div *ngIf="signForm.get('id_servicio').hasError(validation.type) &&
+                              (signForm.get('id_servicio').dirty || signForm.get('id_servicio').touched)">
+                              {{validation.message}}
+                              </div>
+                            </ng-container>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">{{strings.edit}}</button>
-                    <button type="button" class="btn btn-danger">{{strings.delete}}</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" (click)="delete()" id="borrar"
+                            data-bs-dismiss="modal">
+                                {{strings.delete}}
+                            </button>
+                            <button type="submit" [disabled]="!signForm.valid" class="btn btn-success" id="editar"
+                            data-bs-dismiss="modal">
+                                {{strings.edit}}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>

@@ -15,6 +15,7 @@ export class ServiceEmployeeComponent implements OnInit {
   busqueda: any;
   strings = strings;
   signForm: FormGroup;
+  editForm: FormGroup;
   formEm = {
     id_empleado_servicio: null,
     id_empleado: null,
@@ -38,7 +39,7 @@ export class ServiceEmployeeComponent implements OnInit {
   constructor(private citasApiS: CitasApiService,
     private formB: FormBuilder) {
       this.signForm = this.formB.group({
-        id_empleado: new FormControl({value: "", disabled: true}, Validators.compose([
+        id_empleado: new FormControl("", Validators.compose([
           Validators.required,
           Validators.minLength(1)
         ])),
@@ -52,6 +53,19 @@ export class ServiceEmployeeComponent implements OnInit {
           Validators.required,
         ])),
         phone: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+        ]))
+      });
+
+      this.editForm = this.formB.group({
+        idEmpleado: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+          Validators.minLength(1)
+        ])),
+        idServicio: new FormControl("", Validators.compose([
+          Validators.required,
+        ])),
+        Nombre: new FormControl({value: "", disabled: true}, Validators.compose([
           Validators.required,
         ]))
       });
@@ -118,8 +132,7 @@ export class ServiceEmployeeComponent implements OnInit {
     this.employee.id_servicio = values.id_servicio;
     this.employee.id_empleado_servicio = 0;
     this.citasApiS.alta('/employee_service', this.employee).then((res: any) => {
-      console.log(this.employee)
-      console.log(res);
+      console.log(this.employee, res)
       this.signForm.reset();
       this.employeeSigned();
     }).catch((error) => {
@@ -127,8 +140,27 @@ export class ServiceEmployeeComponent implements OnInit {
     });
   }
 
-  edit(id_empleado){
+  delete(){
+    this.citasApiS.delete(`/employee_service/${this.employee.id_empleado_servicio}`)
+    .subscribe((res: any) => {
+      console.log(this.employee, res)
+      this.signForm.reset();
+      this.employeeSigned();
+    })
+  }
 
+  edit(values){
+    this.employee.id_empleado = values.id_empleado;
+    this.employee.id_servicio = values.id_servicio;
+    this.citasApiS.cambio(`/employee_service/${this.employee.id_empleado_servicio}`, this.employee)
+    .subscribe((res: any) => {
+      console.log(this.employee, res)
+      this.signForm.reset();
+      this.employeeSigned();
+      err =>{
+        console.log(err);
+      }
+    })
   }
 
   actualizar(id_empleado, nombre, apellido_paterno, apellido_materno, phone){
@@ -136,6 +168,7 @@ export class ServiceEmployeeComponent implements OnInit {
       this.formEm.apellidos = apellido_paterno + " " + apellido_materno;
       this.formEm.phone = phone;
       this.formEm.id_empleado = id_empleado;
+      console.log(this.formEm);
   }
 
   cerrar(alerta: string) {

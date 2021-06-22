@@ -57,6 +57,7 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNews();
+    console.log("Hola news");
   }
 
   getNew(id_noticia) {

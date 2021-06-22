@@ -11,17 +11,22 @@ import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
 import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
+import { ServicesComponent } from './components/services-page/services.component';
+import { ServiceClientComponent } from './components/service-client/service-client.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'news', component: NewsComponent},
+  {path: 'services-page', component: ServicesComponent},
+  {path: 'service-client', component: ServiceClientComponent},
+  {path: 'service-client/:id', component: ServiceClientComponent},
   {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'news', component: NewsComponent, canActivate: [CanGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [CanAdminGuard]},
   {path: 'edit-services', component: EditServicesComponent, canActivate: [CanAdminGuard]},
   {path: 'sucursal', component: SucursalComponent, canActivate: [CanAdminGuard]},
-  {path: 'employee-sucursal', component: ServiceEmployeeComponent},
+  {path: 'employee-sucursal', component: ServiceEmployeeComponent, canActivate: [CanAdminGuard]},
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
 ];
