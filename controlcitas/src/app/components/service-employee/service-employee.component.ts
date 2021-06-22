@@ -9,33 +9,58 @@ import { strings } from './../../shared/models/strings-template';
   styleUrls: ['./service-employee.component.css']
 })
 export class ServiceEmployeeComponent implements OnInit {
-  servicios = [];
+  services = [];
   employees = [];
   serviceSigned: any [] = [];
   busqueda: any;
   strings = strings;
+  signForm: FormGroup;
+  formEm = {
+    id_empleado_servicio: null,
+    id_empleado: null,
+    id_servicio: null,
+    nombre: null,
+    apellidos: null,
+    phone: null
+  };
   employee = {
     id_empleado_servicio: null,
     id_empleado: null,
-    id_servicio: null
+    id_servicio: null,
+  };
+
+  validation_messages = {
+    id_servicio: [
+      { type: "required", message: "servicio no seleccionado"}
+    ],
   }
 
   constructor(private citasApiS: CitasApiService,
-    private formB: FormBuilder) { }
+    private formB: FormBuilder) {
+      this.signForm = this.formB.group({
+        id_empleado: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+          Validators.minLength(1)
+        ])),
+        id_servicio: new FormControl("", Validators.compose([
+          Validators.required,
+        ])),
+        nombre: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+        ])),
+        apellidos: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+        ])),
+        phone: new FormControl({value: "", disabled: true}, Validators.compose([
+          Validators.required,
+        ]))
+      });
+    }
 
   ngOnInit(): void {
     this.getService();
     this.employeeSigned();
     document.getElementById('uno').style.display = 'none';
-  }
-
-  getEmployee(id_empleado) {
-    this.citasApiS.busqueda(`/employees/${id_empleado}`).subscribe((res: any) => {
-      this.employees = res;
-      err =>{
-        console.log(err);
-      }
-    });
   }
 
   getAll(){
@@ -69,10 +94,9 @@ export class ServiceEmployeeComponent implements OnInit {
   }
 
   getService(){
-    this.citasApiS.consulta('/services').subscribe((res: any) => {
-      for (const service of res) {
-        if (service.estatus == 1) this.servicios.push(service);
-      }
+    this.services = [];
+    this.citasApiS.consulta('/active-services').subscribe((res: any) => {
+      this.services = res;
     });
   }
 
@@ -82,16 +106,36 @@ export class ServiceEmployeeComponent implements OnInit {
       err =>{
         console.log(err);
       }
-      console.log(this.serviceSigned)
     });
   }
 
   employeeUnsigned(){
-    
+
   }
 
-  signServices(empleado){
+  signServices(values){
+    this.employee.id_empleado = values.id_empleado;
+    this.employee.id_servicio = values.id_servicio;
+    this.employee.id_empleado_servicio = 0;
+    this.citasApiS.alta('/employee_service', this.employee).then((res: any) => {
+      console.log(this.employee)
+      console.log(res);
+      this.signForm.reset();
+      this.employeeSigned();
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
+  edit(id_empleado){
+
+  }
+
+  actualizar(id_empleado, nombre, apellido_paterno, apellido_materno, phone){
+      this.formEm.nombre = nombre;
+      this.formEm.apellidos = apellido_paterno + " " + apellido_materno;
+      this.formEm.phone = phone;
+      this.formEm.id_empleado = id_empleado;
   }
 
   cerrar(alerta: string) {

@@ -4,3 +4,7 @@
 .tablas {
     margin: 1.5rem 4rem 1.5rem;
 }
+.validation-error {
+    color: red;
+    margin: 2px;
+}

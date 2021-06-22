@@ -165,7 +165,8 @@
             </div>
             <br>
             <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary">{{strings.send}}</button>
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary"
+                [disabled]="!employeeForm.valid">{{strings.send}}</button>
             </div>
         </form>
         <!-- tabla de empleados -->

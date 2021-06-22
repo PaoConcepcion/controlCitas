@@ -15,10 +15,11 @@
             <h5>{{strings.look_by_name}}</h5>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <input type="text" [(ngModel)]="busqueda">
+                    <input type="text" [(ngModel)]="busqueda" id="busqueda">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <button id="search_employee" (click)="employeeSearch()" class="btn btn-outline-warning btn-block">
+                    <button id="search_employee" (click)="employeeSearch()" id="buscar_empleado" 
+                    class="btn btn-outline-warning btn-block">
                         {{strings.look}}
                     </button>                
                 </div>
@@ -46,7 +47,8 @@
                     <td class="text-center">
                         <button class="btn btn-outline-warning m-1" type="button"
                         data-bs-toggle="modal" data-bs-target="#modalService"
-                        (click)="getEmployee(e.id_empleado)">
+                        (click)="actualizar(e.id_empleado, e.nombre, e.apellido_paterno,
+                        e.apellido_materno, e.telefono)" id="agregar">
                             {{strings.employee_sucursal}}
                         </button>
                     </td>
@@ -64,6 +66,7 @@
                     <th class="text-center">{{strings.employee}}</th>
                     <th class="text-center">{{strings.no_service}}</th>
                     <th class="text-center">{{strings.services}}</th>
+                    <th class="text-center">{{strings.edit}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,12 +75,12 @@
                     <td>{{services.nombre_empleado}} {{services.apellido_paterno}}</td>
                     <td>{{services.id_servicio}}</td>
                     <td>{{services.nombre_servicio}}</td>
-                    <!-- <td class="text-center">
-                        <button class="btn btn-outline-warning m-1" type="button"
-                        (click)="signServices(e.id_empleado)">
-                            {{strings.employee_sucursal}}
+                    <td class="text-center">
+                        <button class="btn btn-outline-danger m-1" type="button"
+                        data-bs-toggle="modal" data-bs-target="#modalEdit" id="editar">
+                            <i class="fas fa-trash"></i>
                         </button>
-                    </td> -->
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -91,32 +94,107 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>Nombre</label>
-                            <input type="text" [(ngModel)]="employee.nombre">
+                    <form [formGroup]="signForm" (ngSubmit)="signServices(signForm.value)">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.name}}</label>
+                                    <input type="text" [(ngModel)]="formEm.nombre"
+                                    class="form-control" formControlName="nombre">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.no_employee}}</label>
+                                    <input type="text" [(ngModel)]="formEm.id_empleado"
+                                    formControlName="id_empleado" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>No. de empleado</label>
-                            <input type="text" [(ngModel)]="employee.id_empleado">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.surname}}</label>
+                                    <input type="text" [(ngModel)]="formEm.apellidos"
+                                    formControlName="apellidos" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.phone}}</label>
+                                    <input type="tel" [(ngModel)]="formEm.phone"
+                                    formControlName="phone" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label>Apellido Paterno</label>
-                            <input type="text" [(ngModel)]="employee.apellido_paterno">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{strings.services}}</label>
+                                    <select class="form-control" formControlName="id_servicio" id="no_servicio">
+                                        <option *ngFor="let s of services" value="{{s.id_servicio}}">
+                                            {{s.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>Apellido Materno</label>
-                            <input type="text" [(ngModel)]="employee.apellido_materno">
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.id_servicio">
+                              <div *ngIf="signForm.get('id_servicio').hasError(validation.type) &&
+                              (signForm.get('id_servicio').dirty || signForm.get('id_servicio').touched)">
+                              {{validation.message}}
+                              </div>
+                            </ng-container>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{strings.cancel}}</button>
-                    <button type="button" class="btn btn-primary">{{strings.send}}</button>
+                        <br>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar_form">
+                            {{strings.cancel}}
+                        </button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!signForm.valid"
+                        id="signService">
+                            {{strings.send}}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Tabla edita/eliminar Servicios-empleados -->
+    <!-- <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{strings.edit}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label>{{strings.no_employee}}</label>
+                            <input type="text" [(ngModel)]="employeeService.id_empleado" disabled>
+                        </div>
+                        <div class="col">
+                            <label>{{strings.name}}</label>
+                            <input type="text" [(ngModel)]="nombre" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Servicio</label>
+                            <select class="form-control">
+                                <option *ngFor="let s of services" value="{{s.id_servicio}}">
+                                    {{s.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">{{strings.edit}}</button>
+                    <button type="button" class="btn btn-danger">{{strings.delete}}</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </div>

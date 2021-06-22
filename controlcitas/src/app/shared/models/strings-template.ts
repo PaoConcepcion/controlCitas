@@ -79,5 +79,6 @@ export const strings = {
   employee_signed: 'Servicios que ofrecen los empleados',
   no_service: 'Numero de servicio',
   no_employee: 'Numero de empleado',
-  cancel: 'Cancelar'
+  cancel: 'Cancelar',
+  delete: 'Borrar'
 };
