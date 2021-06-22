@@ -4,11 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-<<<<<<< HEAD
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-=======
 import { RouterModule } from '@angular/router';
->>>>>>> f9a40d6171afdbef75f3c3f4e9d699e27031b62b
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,16 +20,14 @@ import { EditServicesComponent } from './components/edit-services/edit-services.
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
-<<<<<<< HEAD
+import { ServiceClientComponent } from './components/service-client/service-client.component';
+import { ServicesComponent } from './components/services-page/services.component'
+
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarHeaderComponent } from './utils/calendar-header/calendar-header.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-=======
-import { ServiceClientComponent } from './components/service-client/service-client.component';
-import { ServicesComponent } from './components/services-page/services.component'
-
->>>>>>> f9a40d6171afdbef75f3c3f4e9d699e27031b62b
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 @NgModule({
   declarations: [
@@ -48,18 +43,16 @@ import { ServicesComponent } from './components/services-page/services.component
     EmpleadosComponent,
     SucursalComponent,
     ServiceEmployeeComponent,
-<<<<<<< HEAD
-    CalendarHeaderComponent,
-    CalendarComponent
-=======
     ServiceClientComponent,
-    ServicesComponent
->>>>>>> f9a40d6171afdbef75f3c3f4e9d699e27031b62b
+    ServicesComponent,
+    CalendarHeaderComponent,
+    CalendarComponent,
+    BuscadorComponent
   ],
   imports: [
     RouterModule,
     BrowserModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,

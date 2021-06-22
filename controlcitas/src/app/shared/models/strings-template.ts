@@ -44,6 +44,8 @@ export const strings = {
   description: 'Descripción',
   cost: 'Costo',
   cost_of_the_service: 'Costo del servicio',
+  duration: 'Duración minutos',
+  duration_of_the_service: 'Duración del servicio',
   image: 'Imagen',
   add: 'Agregar',
   reactivate_services: 'Reactivar servicios',

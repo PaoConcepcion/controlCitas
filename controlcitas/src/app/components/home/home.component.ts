@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.citasApiService
-      .consulta('/services')
+      .consulta('/active-services')
       .subscribe((res: any) => {
         let index = 0;
         for (let j = 0; index < res.length; j++) {
