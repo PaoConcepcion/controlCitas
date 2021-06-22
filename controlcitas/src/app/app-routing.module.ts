@@ -12,16 +12,16 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
 import { ServicesComponent } from './components/services-page/services.component';
 import { ServiceClientComponent } from './components/service-client/service-client.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'news', component: NewsComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'services-page', component: ServicesComponent},
-  {path: 'service-client', component: ServiceClientComponent},
+  {path: 'buscador/:busqueda', component: BuscadorComponent},
   {path: 'service-client/:id', component: ServiceClientComponent},
   {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: 'news', component: NewsComponent, canActivate: [CanGuard]},
+  {path: 'news', component: NewsComponent, canActivate: [CanAdminGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [CanAdminGuard]},
   {path: 'edit-services', component: EditServicesComponent, canActivate: [CanAdminGuard]},
   {path: 'sucursal', component: SucursalComponent, canActivate: [CanAdminGuard]},

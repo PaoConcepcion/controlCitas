@@ -37,10 +37,12 @@
                 
             </ng-container>
         </ul>
-        <div class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
-        </div>
+        <ng-container *ngIf="(user$ | async)?.length <= 0">
+            <div class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
+            </div>
+        </ng-container>
 
     </div>
 </nav>
