@@ -22,9 +22,14 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/src/*", "input": "./src/assets/gallery", "output": "./src/assets/gallery" }
+              {
+                "glob": "**/src/*",
+                "input": "./src/assets/gallery",
+                "output": "./src/assets/gallery"
+              }
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -89,6 +94,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.css"
             ],
             "scripts": []

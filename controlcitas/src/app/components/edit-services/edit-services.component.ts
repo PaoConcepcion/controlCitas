@@ -29,8 +29,9 @@ export class EditServicesComponent implements OnInit {
     id_servicio: new FormControl(''),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     descripcion: new FormControl('', Validators.required),
-    imagen: new FormControl('',  Validators.required),
-    costo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)])
+    imagen: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+    costo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)]),
+    duracion: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(5)])
   });
 
   public buscarForm = new FormGroup({
@@ -47,6 +48,7 @@ export class EditServicesComponent implements OnInit {
       descripcion: '',
       imagen: '',
       costo: '',
+      duracion: '',
     });
     this.buscarForm.setValue({
       busqueda: '',
@@ -87,15 +89,24 @@ export class EditServicesComponent implements OnInit {
 
   public newServicio(form, tuplaId = this.tuplaId) {
     console.log('form img-> ' + form.imagen);
+    if(form.imagen == '' && this.imagen.length > 0){
+      form.imagen = 'a';
+    }
+    console.log('form img-> ' + form.imagen);
     if (this.newServicioForm.valid ) {
-      // Guardar imagen en assets
-      const formD = new FormData();
-      this.imagen.forEach(archivo => {
-        formD.append('imagen', archivo);
-      });
-      this.citasApiService.upload('/upload', formD).subscribe((res: any) => {
-        console.log(res);
-      });
+
+      if ( this.imagen.length > 0 ){
+        // Guardar imagen en assets
+        const formD = new FormData();
+        this.imagen.forEach(archivo => {
+          formD.append('imagen', archivo);
+        });
+        this.citasApiService.upload('/upload', formD).subscribe((res: any) => {
+          console.log(res);
+          this.imagen = [];
+        });
+      }
+      
 
       // Guardar el registro en la base de datos
       if (this.currentStatus == 1) {
@@ -106,6 +117,7 @@ export class EditServicesComponent implements OnInit {
           // imagen: form.imagen,
           imagen: this.imagen[0].name,
           costo: form.costo,
+          duracion: form.duracion,
         };
 
         this.citasApiService.alta(`/services`, data).then(() => {
@@ -118,6 +130,7 @@ export class EditServicesComponent implements OnInit {
             descripcion: '',
             imagen: '',
             costo: '',
+            duracion: '',
           });
           this.actualizar();
 
@@ -126,12 +139,16 @@ export class EditServicesComponent implements OnInit {
         });
 
       } else {
+        if (this.imagen.length > 0){
+          form.imagen = this.imagen[0].name;
+        }
         const data = {
           nombre: form.nombre,
           descripcion: form.descripcion,
           // imagen: form.imagen,
-          imagen: this.imagen[0].name,
+          imagen: form.imagen,
           costo: form.costo,
+          duracion: form.duracion,
         };
 
         this.citasApiService.cambio(`/services/${form.id_servicio}`, data).subscribe((res: any) => {
@@ -143,6 +160,7 @@ export class EditServicesComponent implements OnInit {
               descripcion: '',
               imagen: '',
               costo: '',
+              duracion: '',
             });
             this.actualizar();
 
@@ -167,8 +185,9 @@ export class EditServicesComponent implements OnInit {
         nombre: res.nombre,
         descripcion: res.descripcion,
         costo: res.costo,
-        // imagen: res.imagen
-        imagen: ''
+        duracion: res.duracion,
+        imagen: res.imagen
+        // imagen: ''
       });
     });
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from './../../shared/models/strings-template';
 
@@ -11,72 +10,32 @@ import { strings } from './../../shared/models/strings-template';
 export class ServiceEmployeeComponent implements OnInit {
   services = [];
   employees = [];
-  serviceSigned: any [] = [];
+  serviceSigned = [];
   busqueda: any;
+  busqueda2: any;
   strings = strings;
-  signForm: FormGroup;
-  editForm: FormGroup;
-  formEm = {
-    id_empleado_servicio: null,
-    id_empleado: null,
-    id_servicio: null,
-    nombre: null,
-    apellidos: null,
-    phone: null
-  };
+  nombre: string;
+  apellidos: string;
+  phone: any;
   employee = {
     id_empleado_servicio: null,
     id_empleado: null,
     id_servicio: null,
   };
 
-  validation_messages = {
-    id_servicio: [
-      { type: "required", message: "servicio no seleccionado"}
-    ],
-  }
-
-  constructor(private citasApiS: CitasApiService,
-    private formB: FormBuilder) {
-      this.signForm = this.formB.group({
-        id_empleado: new FormControl("", Validators.compose([
-          Validators.required,
-          Validators.minLength(1)
-        ])),
-        id_servicio: new FormControl("", Validators.compose([
-          Validators.required,
-        ])),
-        nombre: new FormControl({value: "", disabled: true}, Validators.compose([
-          Validators.required,
-        ])),
-        apellidos: new FormControl({value: "", disabled: true}, Validators.compose([
-          Validators.required,
-        ])),
-        phone: new FormControl({value: "", disabled: true}, Validators.compose([
-          Validators.required,
-        ]))
-      });
-
-      this.editForm = this.formB.group({
-        idEmpleado: new FormControl({value: "", disabled: true}, Validators.compose([
-          Validators.required,
-          Validators.minLength(1)
-        ])),
-        idServicio: new FormControl("", Validators.compose([
-          Validators.required,
-        ])),
-        Nombre: new FormControl({value: "", disabled: true}, Validators.compose([
-          Validators.required,
-        ]))
-      });
-    }
+  constructor(private citasApiS: CitasApiService) {}
 
   ngOnInit(): void {
     this.getService();
     this.employeeSigned();
     document.getElementById('uno').style.display = 'none';
+    document.getElementById('unos').style.display = 'none';
+    document.getElementById('dos').style.display = 'none';
+    document.getElementById('tres').style.display = 'none';
+    document.getElementById('cuatro').style.display = 'none';
   }
 
+  // obtener todos los empleados de la tabla empleados
   getAll(){
     this.employees = [];
     this.citasApiS.consulta('/employees').subscribe((res: any) => {
@@ -87,6 +46,7 @@ export class ServiceEmployeeComponent implements OnInit {
     });
   }
 
+  // buscar empleado por la barra de busqueda
   employeeSearch(){
     this.employees = [];
     this.citasApiS.consulta('/employees').subscribe((res: any) => {
@@ -107,6 +67,7 @@ export class ServiceEmployeeComponent implements OnInit {
     });
   }
 
+  // obtener los servicios disponibles
   getService(){
     this.services = [];
     this.citasApiS.consulta('/active-services').subscribe((res: any) => {
@@ -114,7 +75,9 @@ export class ServiceEmployeeComponent implements OnInit {
     });
   }
 
+  // obtener todos los empleados con sus servicios asignados
   employeeSigned(){
+    this.serviceSigned = null;
     this.citasApiS.consulta('/employee_service').subscribe((res: any) => {
       this.serviceSigned = res[0];
       err =>{
@@ -123,39 +86,58 @@ export class ServiceEmployeeComponent implements OnInit {
     });
   }
 
-  employeeUnsigned(){
-
+  // buscar por id el empleado con sus servicios
+  employeeSignSearch(){
+    this.serviceSigned = [];
+    this.citasApiS.consulta('/employee_service').subscribe((res: any) => {
+      for (const employee of res[0]){
+        if (employee.id_empleado == this.busqueda2 || employee.id_empleado_servicio == this.busqueda2
+          || employee.nombre_empleado == this.busqueda2){
+          this.serviceSigned.push(employee);
+        }
+      };
+      if (this.serviceSigned.length <= 0){
+        document.getElementById('unos').style.display = 'block';
+        setTimeout(() => document.getElementById('unos').style.display = 'none', 3000);
+      };
+      console.log(this.serviceSigned);
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
-  signServices(values){
-    this.employee.id_empleado = values.id_empleado;
-    this.employee.id_servicio = values.id_servicio;
+  // peticion para asignar un servicio al empleado
+  signServices(){
     this.employee.id_empleado_servicio = 0;
     this.citasApiS.alta('/employee_service', this.employee).then((res: any) => {
+      document.getElementById('dos').style.display = 'block';
+      setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
       console.log(this.employee, res)
-      this.signForm.reset();
       this.employeeSigned();
     }).catch((error) => {
       console.log(error);
     });
   }
 
+  // peticion borrar asignacion de servicio al empleado
   delete(){
     this.citasApiS.delete(`/employee_service/${this.employee.id_empleado_servicio}`)
     .subscribe((res: any) => {
+      document.getElementById('cuatro').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatro').style.display = 'none', 3000);
       console.log(this.employee, res)
-      this.signForm.reset();
       this.employeeSigned();
     })
   }
 
-  edit(values){
-    this.employee.id_empleado = values.id_empleado;
-    this.employee.id_servicio = values.id_servicio;
+  // peticion editar servicio asignado al empleado
+  edit(){
     this.citasApiS.cambio(`/employee_service/${this.employee.id_empleado_servicio}`, this.employee)
     .subscribe((res: any) => {
+      document.getElementById('tres').style.display = 'block';
+      setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
       console.log(this.employee, res)
-      this.signForm.reset();
       this.employeeSigned();
       err =>{
         console.log(err);
@@ -163,14 +145,7 @@ export class ServiceEmployeeComponent implements OnInit {
     })
   }
 
-  actualizar(id_empleado, nombre, apellido_paterno, apellido_materno, phone){
-      this.formEm.nombre = nombre;
-      this.formEm.apellidos = apellido_paterno + " " + apellido_materno;
-      this.formEm.phone = phone;
-      this.formEm.id_empleado = id_empleado;
-      console.log(this.formEm);
-  }
-
+  // alerta: no se encontro el empleado
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
   }
