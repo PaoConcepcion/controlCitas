@@ -4,8 +4,8 @@
             <p class="titulo-joyas">{{strings.services}}</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
 
             <div class="row justify-content-end">
                 <div class="col-4 my-3">
@@ -25,7 +25,6 @@
             <ngb-alert style="display: none;" id="uno" type="success" (close)="cerrar('uno')">Se agregó a tus recetas
             </ngb-alert> -->
             <div class="card-deck">
-
                 <div class="card text-center" *ngFor="let servicesList of services">
                     <a [routerLink]="['/service-client',servicesList.id_servicio]">
                         <img class="card-img-top" src=".../100px180/" alt="Card image cap" id="mostrarServicesimg"
