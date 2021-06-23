@@ -1,4 +1,5 @@
 <div class="container pos">
+    <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert16}}</ngb-alert>
     <div class="form">
         <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)" 
         class="col bg-light shadow-sm p-3 mb-5 rounded border">
@@ -6,7 +7,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.sucursal}}</label>
+                        <label class="col col-form-label">{{strings.sucursal}}</label>
                         <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
@@ -42,7 +43,7 @@
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.surname1}}</label>
+                            <label class="col col-form-label">{{strings.surname1}}</label>
                             <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
                             [(ngModel)]="employee.apellido_paterno" maxlength="30">
                         </div>
@@ -50,7 +51,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.surname2}}</label>
+                        <label class="col col-form-label">{{strings.surname2}}</label>
                         <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
                         [(ngModel)]="employee.apellido_materno" maxlength="30">                    
                     </div>
@@ -110,7 +111,7 @@
                 <div class="col">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.new_password}}</label>
+                            <label class="col col-form-label">{{strings.new_password}}</label>
                             <input type="password" id="contrasena" class="form-control" 
                             formControlName="contrasena" minlength="8">                      
                         </div>
@@ -118,7 +119,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.verific_password}}</label>
+                        <label class="col col-form-label">{{strings.verific_password}}</label>
                         <input type="password" id="verificar_contrasena" class="form-control" 
                         formControlName="verificar_contrasena" minlength="8">                  
                     </div>
@@ -143,7 +144,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.role}}</label>
+                        <label class="col col-form-label">{{strings.role}}</label>
                         <select id="rol" class="form-control" formControlName="rol">
                             <option value="employee" selected>
                                 {{strings.employee}}
@@ -169,6 +170,8 @@
                 [disabled]="!employeeForm.valid">{{strings.send}}</button>
             </div>
         </form>
+        <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert17}}</ngb-alert>
+        <ngb-alert id="tres" type="warning" (close)="cerrar('tres')">{{strings.alert18}}</ngb-alert>
         <!-- tabla de empleados -->
         <div *ngIf="show === true;" class="botton">
             <button id="mostrar" (click)="changeState(show)">
@@ -222,7 +225,6 @@
                         <th class="text-center">{{strings.surname}}</th>
                         <th class="text-center">{{strings.phone}}</th>
                         <th class="text-center">{{strings.role}}</th>
-                        <th class="text-center">{{strings.options}}</th>
                         <th class="text-center">{{strings.recuve}}</th>
                     </tr>
                 </thead>

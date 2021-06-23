@@ -113,6 +113,9 @@ export class EmpleadosComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployees();
     this.getSucursales();
+    document.getElementById('uno').style.display = 'none';
+    document.getElementById('dos').style.display = 'none';
+    document.getElementById('tres').style.display = 'none';
   }
 
   changeState(value){
@@ -167,6 +170,8 @@ export class EmpleadosComponent implements OnInit {
     if (values.contrasena === values.verificar_contrasena){
       this.citasApiS.cambio(`/employees/${this.employee.id_empleado}`, this.employee).subscribe((res: any) => {
         this.getEmployees();
+        document.getElementById('uno').style.display = 'block';
+        setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
         console.log(values, res);
       })
       err => {
@@ -183,6 +188,13 @@ export class EmpleadosComponent implements OnInit {
     }
     this.citasApiS.cambio(`/deleteEmployee/${id}`, body).subscribe((data: any) => {
       console.log(data);
+      if (body.estatus == 0){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+      }else {
+        document.getElementById('tres').style.display = 'block';
+        setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
+      }
       this.getEmployees();
       err => {
         console.log(err)
@@ -190,5 +202,7 @@ export class EmpleadosComponent implements OnInit {
     });
   }
 
-
+  cerrar(alerta: string) {
+    document.getElementById(alerta).style.display = 'none';
+  }
 }

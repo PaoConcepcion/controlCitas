@@ -31,6 +31,11 @@ export const strings = {
   alert13: 'Servicio registrado correctamente',
   alert14: 'Servicio cambiado correctamente',
   alert15: 'Servicio eliminado',
+  alert16: 'Cambio realizado correctamente',
+  alert17: 'El empleado ha sido eliminado',
+  alert18: 'Empleado recuperado exitosamente',
+  alert19: 'Noticia agregada correctamente',
+  alert20: 'La noticia ha sido eliminada',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',
@@ -52,6 +57,7 @@ export const strings = {
   duration_of_the_service: 'Duración del servicio',
   image: 'Imagen',
   add: 'Agregar',
+  new_notice: 'Agregar noticia',
   reactivate_services: 'Reactivar servicios',
   show_all: 'Mostrar todos',
   look_by_name: 'Buscar por nombre',
@@ -93,4 +99,5 @@ export const strings = {
   search: 'Buscar',
   view:'Mostrar',
   schedule: 'Agendar',
+  title: 'Titulo'
 };
