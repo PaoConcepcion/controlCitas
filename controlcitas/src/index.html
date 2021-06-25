@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
     <title>Controlcitas</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,8 +27,19 @@
       chat-title="Test"
       agent-id="b280fcf6-9a25-4c7a-b31b-21cae69634c5"
       language-code="es"
+      chat-icon="./assets/55009.png"
+      wait-open="true"
     ></df-messenger>
-
+    <style>
+      df-messenger {
+       --df-messenger-bot-message: #878fac;
+       --df-messenger-button-titlebar-color: #3ab0b5;
+       --df-messenger-chat-background-color: #fafafa;
+       --df-messenger-font-color: white;
+       --df-messenger-send-icon: #878fac;
+       --df-messenger-user-message: #479b3d;
+      }
+    </style>
     <script>
       $(function() {
         $('[data-toggle="tooltip"]').tooltip();
