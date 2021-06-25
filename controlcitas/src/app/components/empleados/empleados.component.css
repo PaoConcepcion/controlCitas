@@ -32,7 +32,18 @@
 #tres {
     color: black;
 }
+#cuatro {
+    color: black;
+}
+#kinto {
+    color: black;
+    position: sticky;
+    top: 10;
+}
 input {
     width: 100%;
     height: 30px;
+}
+p {
+    color: red;
 }
