@@ -36,6 +36,7 @@ export class AuthService extends RoleValidator {
       .post<UserResponse>(`${environment.API_URL}/login`, authData)
       .pipe(
         map((user: UserResponse) => {
+          document.getElementById('chatbot').style.display = 'none';
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
@@ -49,6 +50,7 @@ export class AuthService extends RoleValidator {
   }
 
   logout(): void {
+    document.getElementById('chatbot').style.display = 'block';
     localStorage.removeItem('user');
     this.user.next(null);
     this.router.navigate(['/login']);
@@ -56,8 +58,12 @@ export class AuthService extends RoleValidator {
 
   private checkToken(): void {
     const user = JSON.parse(localStorage.getItem('user')) || null;
-
+    
+    document.getElementById('chatbot').style.display = 'block';
+    
     if (user) {
+      document.getElementById('chatbot').style.display = 'none';
+      
       const isExpired = helper.isTokenExpired(user.token);
 
       if (isExpired) {

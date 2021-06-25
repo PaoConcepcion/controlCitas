@@ -79,5 +79,11 @@ export const strings = {
   recuve: 'Recuperar',
   search: 'Buscar',
   view:'Mostrar',
-  schedule: 'Agendar'
+  schedule: 'Agendar',
+  previous: 'Anterior',
+  today: 'Hoy',
+  next: 'Siguiente',
+  month: 'Mes',
+  week: 'Semana',
+  day: 'Día',
 };

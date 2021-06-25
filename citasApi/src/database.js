@@ -1,12 +1,12 @@
 const mysql = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
-    // host: '34.68.233.80',
-    host: 'localhost',
+    host: 'db-control-citas.cmtzmtsbmadd.us-east-2.rds.amazonaws.com',
     user: 'root',
-    password: 'root',
+    password: 'Feliz_123',
     database: 'controlcitas',
-    port: 3306
+    port: 3306,
+    dateStrings: true
 });
 
 mysqlConnection.connect(function(err){
