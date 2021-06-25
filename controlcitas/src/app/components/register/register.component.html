@@ -13,16 +13,31 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.name}}</label>
                                 <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.nombre">
+                                      <div *ngIf="newUserForm.get('nombre').hasError(validation.type) &&
+                                      (newUserForm.get('nombre').dirty || newUserForm.get('nombre').touched)">
+                                        {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="col"></div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">{{strings.surname2}}</label>
-                                    <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
+                                <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                                <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
+                                      <div *ngIf="newUserForm.get('apellido_paterno').hasError(validation.type) &&
+                                      (newUserForm.get('apellido_paterno').dirty || newUserForm.get('apellido_paterno').touched)">
+                                        {{validation.message}}
+                                      </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>
@@ -30,6 +45,14 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.surname2}}</label>
                                 <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.apellido_materno">
+                                      <div *ngIf="newUserForm.get('apellido_materno').hasError(validation.type) &&
+                                      (newUserForm.get('apellido_materno').dirty || newUserForm.get('apellido_materno').touched)">
+                                        {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -37,7 +60,15 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{strings.phone}}</label>
-                                <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" minlength="10" maxlength="10" required>
+                                <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" (keypress)="onlyNumberKey($event)" minlength="10" maxlength="10" required>
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.telefono">
+                                      <div *ngIf="newUserForm.get('telefono').hasError(validation.type) &&
+                                      (newUserForm.get('telefono').dirty || newUserForm.get('telefono').touched)">
+                                        {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div> 
                         <div class="col">
@@ -51,6 +82,14 @@
                                         {{strings.administrator}}
                                     </option>
                                 </select>
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.rol">
+                                      <div *ngIf="newUserForm.get('rol').hasError(validation.type) &&
+                                      (newUserForm.get('rol').dirty || newUserForm.get('rol').touched)">
+                                      {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,23 +100,55 @@
                                 {{sucursal.nombre}}
                             </option>
                         </select>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.id_sucursal">
+                              <div *ngIf="newUserForm.get('id_sucursal').hasError(validation.type) &&
+                              (newUserForm.get('id_sucursal').dirty || newUserForm.get('id_sucursal').touched)">
+                              {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
                     </div>
+                    
                     
                     
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{strings.email_address}}</label>
                         <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.correo">
+                              <div *ngIf="newUserForm.get('correo').hasError(validation.type) &&
+                              (newUserForm.get('correo').dirty || newUserForm.get('correo').touched)">
+                              {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">{{strings.password}}</label>
                         <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
                         <input id="contrasena" type="password" class="form-control" formControlName="contrasena" placeholder="{{strings.min_password}}" minlength="6" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.contrasena">
+                            <div *ngIf="newUserForm.get('contrasena').hasError(validation.type) &&
+                            (newUserForm.get('contrasena').dirty || newUserForm.get('contrasena').touched)">
+                            {{validation.message}}
+                            </div>
+                            </ng-container>
+                        </div>
                     </div>
                     <div class="form-group">
                         <input id="contrasenaVerf" type="password" class="form-control" formControlName="contrasenaVerf" placeholder="{{strings.repeat_your_password}}" minlength="6" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.contrasenaVerf">
+                              <div *ngIf="newUserForm.get('contrasenaVerf').hasError(validation.type) &&
+                              (newUserForm.get('contrasenaVerf').dirty || newUserForm.get('contrasenaVerf').touched)">
+                              {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
                     </div>
-
                     <div class="form-group">
                         <button id="register" type="submit" class="btn btn-success btn-block">{{strings.register_employee}}</button>
                     </div>

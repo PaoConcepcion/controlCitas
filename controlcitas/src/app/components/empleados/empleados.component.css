@@ -1,8 +1,8 @@
 .form {
-    margin: 8rem 6rem;
+    margin: 8rem 10rem;
 }
 .botton button {
-    margin: 0 1rem 1.5rem;
+    margin: 0 1rem;
     border: none;
     float: right;
     font-size: 28px;
@@ -22,4 +22,28 @@
 .validation-error {
     color: red;
     margin: 2px;
+}
+#uno {
+    color: black;
+}
+#dos {
+    color: black;
+}
+#tres {
+    color: black;
+}
+#cuatro {
+    color: black;
+}
+#kinto {
+    color: black;
+    position: sticky;
+    top: 10;
+}
+input {
+    width: 100%;
+    height: 30px;
+}
+p {
+    color: red;
 }
