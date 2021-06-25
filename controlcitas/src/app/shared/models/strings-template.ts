@@ -101,5 +101,11 @@ export const strings = {
   search: 'Buscar',
   view:'Mostrar',
   schedule: 'Agendar',
-  title: 'Titulo'
+  previous: 'Anterior',
+  today: 'Hoy',
+  next: 'Siguiente',
+  month: 'Mes',
+  week: 'Semana',
+  day: 'Día',
+  title: 'Titulo',
 };

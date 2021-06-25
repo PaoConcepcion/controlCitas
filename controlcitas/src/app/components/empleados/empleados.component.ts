@@ -51,7 +51,7 @@ export class EmpleadosComponent implements OnInit {
     ],
     telefono: [
       { type: "required", message: "se requiere del telefono"},
-      { type: "maxLenght", message: "longitud minima de 8"},
+      { type: "maxLenght", message: "longitud minima de 10"},
     ],
     contrasena: [
       { type: "required", message: "se requiere de una contraseña"},
@@ -59,7 +59,7 @@ export class EmpleadosComponent implements OnInit {
     ],
     verificar_contrasena: [
       { type: "required", message: "verifique su contraseña"},
-      { type: "minLenght", message: "longitud minima de 8"},
+      { type: "minLenght", message: "longitud minima de 6"},
     ],
     rol: [
       { type: "required", message: "no se ha seleccido el tipo de usuario"},
@@ -90,15 +90,15 @@ export class EmpleadosComponent implements OnInit {
       ])),
       contrasena: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
       ])),
       verificar_contrasena: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
       ])),
       telefono: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(10),
       ])),
       rol: new FormControl(null, Validators.compose([
         Validators.required,

@@ -8,7 +8,7 @@ import { strings } from './../../shared/models/strings-template';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styles: []
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
@@ -16,20 +16,62 @@ export class RegisterComponent implements OnInit {
   public sucursales = [];
 
   public newUserForm = new FormGroup({
-    nombre: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
-    correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
-    contrasena: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-    apellido_paterno: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-    apellido_materno: new FormControl('',  [Validators.required, Validators.maxLength(30)]),
-    telefono: new FormControl('', [
+    nombre: new FormControl('',  Validators.compose([Validators.required, Validators.maxLength(30)])),
+    correo: new FormControl('', Validators.compose([Validators.required, Validators.email, Validators.maxLength(50)])),
+    contrasena: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.minLength(6)])),
+    apellido_paterno: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
+    apellido_materno: new FormControl('',  Validators.compose([Validators.required, Validators.maxLength(30)])),
+    telefono: new FormControl('', Validators.compose([
       Validators.required,
       Validators.pattern('^[0-9]*$'),
       Validators.minLength(10),
-      Validators.maxLength(10)]),
-    rol: new FormControl('', Validators.required),
-    id_sucursal: new FormControl('', Validators.required),
-    contrasenaVerf: new FormControl('', [Validators.required, Validators.maxLength(30)])
+      Validators.maxLength(10)])),
+    rol: new FormControl('', Validators.compose([Validators.required])),
+    id_sucursal: new FormControl('', Validators.compose([Validators.required])),
+    contrasenaVerf: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.minLength(6)]))
   });
+
+  validation_messages = {
+    nombre: [
+      { type: "required", message: "Se requiere de un nombre"},
+      { type: "maxLenght", message: "Longitud maxima de 30"}
+    ],
+    apellido_paterno: [
+      { type: "required", message: "Se requiere de un apellido paterno"},
+      { type: "maxLenght", message: "Longitud maxima de 30"}
+    ],
+    apellido_materno: [
+      { type: "required", message: "Se requiere de un apellido materno"},
+      { type: "maxLenght", message: "Longitud maxima de 30"}
+    ],
+    correo: [
+      { type: "required", message: "Se requiere de un correo"},
+      { type: "maxLenght", message: "Longitud maxima de 50"},
+      { type: "email", message: "Ingrese un correo válido"},
+    ],
+    contrasena: [
+      { type: "required", message: "Se requiere de una contraseña"},
+      { type: "maxLenght", message: "Longitud maxima de 50"},
+      { type: "minLength", message: "Longitud minima de 6"},
+    ],
+    contrasenaVerf: [
+      { type: "required", message: "Verifica tu contraseña"},
+      { type: "maxLenght", message: "Longitud maxima de 50"},
+      { type: "minLength", message: "Longitud minima de 6"},
+    ],
+    telefono: [
+      { type: "required", message: "Se requiere de un telefono"},
+      { type: "maxLenght", message: "Longitud maxima de 10"},
+      { type: "minLength", message: "Songitud minima de 10"},
+      { type: "pattern", message: "Solo números son permitidos"},
+    ],
+    rol: [
+      { type: "required", message: "Se requiere que se elija un rol"},
+    ],
+    id_sucursal: [
+      { type: "required", message: "Se requiere que se elija una sucursal"},
+    ],
+  }
 
   constructor(private authService: AuthService, private citasApiService: CitasApiService) {
     this.newUserForm.setValue({
@@ -105,6 +147,10 @@ export class RegisterComponent implements OnInit {
       document.getElementById('uno').style.display = 'block';
       setTimeout(() => document.getElementById('uno').style.display = 'none', 5000);
     }
+  }
+
+  onlyNumberKey(event) {
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }
 
   cerrar(alerta: string) {
