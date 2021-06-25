@@ -43,7 +43,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleInputemaill">{{strings.role}}</label>
-                                <select id="rol" class="form-control" id="exampleFormControlSelect1" formControlName="rol">
+                                <select id="rol" class="form-control" formControlName="rol">
                                     <option value="employee" selected>
                                         {{strings.employee}}
                                     </option>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputemaill">{{strings.company}}</label>
-                        <select  id="id_sucursal" class="form-control" id="exampleFormControlSelect1" formControlName="id_sucursal">
+                        <select  id="id_sucursal" class="form-control" formControlName="id_sucursal">
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
                             </option>

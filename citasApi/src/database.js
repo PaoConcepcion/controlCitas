@@ -4,9 +4,9 @@ const mysqlConnection = mysql.createConnection({
     // host: '34.68.233.80',
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'Miguel20',
     database: 'controlcitas',
-    port: 3306
+    port: 3307
 });
 
 mysqlConnection.connect(function(err){

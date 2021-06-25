@@ -4,39 +4,20 @@
             <p class="titulo-joyas">{{strings.services}}</p>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-
-            <div class="row justify-content-end">
-                <div class="col-4 my-3">
-
-
-                    <div class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar"
-                            #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="BuscarServices"
-                            (click)="buscar(buscartexto.value)">{{strings.look}}</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <ngb-alert style="display: none;" id="dos" type="info" (close)="cerrar('dos')">Ya haz agregado esa receta
-            </ngb-alert>
-            <ngb-alert style="display: none;" id="uno" type="success" (close)="cerrar('uno')">Se agregó a tus recetas
-            </ngb-alert> -->
-            <div class="card-deck">
-                <div class="card text-center" *ngFor="let servicesList of services">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card-columns" *ngIf="services.length > 0; else loading">
+                <div class="card text-center" style="width: 18rem;" *ngFor="let servicesList of services">
                     <a [routerLink]="['/service-client',servicesList.id_servicio]">
-                        <img class="card-img-top" src=".../100px180/" alt="Card image cap" id="mostrarServicesimg"
+                        <img class="card-img-top" src=".../100px180/" alt="Card image cap"
                             [src]="'assets/'+servicesList.imagen" onError="this.src='assets/comida.svg'">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title"><strong>{{servicesList.nombre}}</strong></h5>
-                        <a class="btn btn-outline-primary" id="mostrarServices"
-                            [routerLink]="['/service-client',servicesList.id_servicio]"> {{strings.view}} </a>
+                        <a class="btn btn-outline-primary"
+                            [routerLink]="['/service-client',servicesList.id_servicio]"> Mostrar</a>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -44,17 +25,10 @@
 </div>
 
 <ng-template #loading>
-    <div *ngIf="bandera == true; else elseBlock">
-        <div class="row text-center mt-5 pt-5">
-            <div class="col">
-                <i class="fas fa-sync-alt fa-5x fa-spin"></i>
-            </div>
+    <div class="row text-center mt-5 pt-5">
+        <div class="col">
+            <i class="fas fa-sync-alt fa-5x fa-spin"></i>
         </div>
     </div>
 </ng-template>
 
-<ng-template #elseBlock>
-    <div class="container filtrar">
-        <div class="alert alert-info">No se encontraron resultados de tu búsqueda <br> Intenta con otro término</div>
-    </div>
-</ng-template>

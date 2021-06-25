@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CitasApiService } from './../../services/citas-api/citas-api.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { strings } from './../../shared/models/strings-template';
 
 @Component({
   selector: 'app-news',
@@ -21,6 +22,7 @@ export class NewsComponent implements OnInit {
   imagen: any = [];
   preview: string;
   imagenUpload: null;
+  strings = strings;
 
   validation_messages = {
     titulo: [
@@ -57,12 +59,12 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNews();
-    console.log("Hola news");
+    document.getElementById('uno').style.display = 'none';
+    document.getElementById('tres').style.display = 'none';
   }
 
   getNew(id_noticia) {
     this.citasApiS.busqueda(`/news/${id_noticia}`).subscribe((res: any) => {
-      // validé esta parte para que no marcara error
       res.imagen = '';
       this.new = res;
       console.log(this.new);
@@ -104,6 +106,8 @@ export class NewsComponent implements OnInit {
     this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
       console.log(res);
     });
+    document.getElementById('uno').style.display = 'block';
+    setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
     this.id = null;
   }
 
@@ -111,6 +115,8 @@ export class NewsComponent implements OnInit {
     this.citasApiS.delete(`/news/${id}`).subscribe((data: any) => {
       console.log(data);
       this.getNews();
+      document.getElementById('tres').style.display = 'block';
+      setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
       err => {
         console.log(err);
       }
@@ -147,4 +153,7 @@ export class NewsComponent implements OnInit {
     }
   })
 
+  cerrar(alerta: string) {
+    document.getElementById(alerta).style.display = 'none';
+  }
 }
