@@ -34,35 +34,37 @@ export class SucursalComponent implements OnInit {
   validation_messages = {
     nombre: [
       { type: "required", message: "se requiere de un nombre de sucursal"},
-      { type: "maxLenght", message: "longitud maxima de 40"}
+      { type: "maxLength", message: "longitud maxima de 40"}
     ],
     telefono: [
       { type: "required", message: "se requiere telefono"},
-      { type: "maxLenght", message: "longitud maxima de 10"}
+      { type: "maxLength", message: "longitud maxima de 10"},
+      { type: "minLength", message: "longitud minima de 10"},
     ],
     cp: [
         { type: "required", message: "se requiere C.P"},
-        { type: "maxLenght", message: "longitud maxima de 5"}
+        { type: "maxLength", message: "longitud maxima de 5"},
+        { type: "minLength", message: "longitud minima de 5"},
       ],
       colonia: [
         { type: "required", message: "se requiere de nombre de colonia"},
-        { type: "maxLenght", message: "longitud maxima de 40"}
+        { type: "maxLength", message: "longitud maxima de 40"}
       ],
       calle: [
         { type: "required", message: "se requiere de nombre de la calle"},
-        { type: "maxLenght", message: "longitud maxima de 40"}
+        { type: "maxLength", message: "longitud maxima de 40"}
       ],  
       numero_exterior: [
         { type: "required", message: "se requiere del numero del lugar"},
-        { type: "maxLenght", message: "longitud maxima de 40"}
+        { type: "maxLength", message: "longitud maxima de 40"}
       ],
       latitud: [
         { type: "required", message: "se requiere latitud"},
-        { type: "maxLenght", message: "longitud maxima de 40"}
+        { type: "maxLength", message: "longitud maxima de 40"}
       ],
       longitud: [
         { type: "required", message: "se requiere longitud"},
-        { type: "maxLenght", message: "longitud maxima de 40"}
+        { type: "maxLength", message: "longitud maxima de 40"}
       ],
   }
 
@@ -77,10 +79,13 @@ export class SucursalComponent implements OnInit {
       telefono: new FormControl("", Validators.compose([
         Validators.required,
         Validators.maxLength(10),
+        Validators.minLength(10),
+        Validators.pattern('^[0-9]*$'),
       ])),
       cp: new FormControl("", Validators.compose([
         Validators.required,
         Validators.maxLength(5),
+        Validators.minLength(5),
       ])),
       colonia: new FormControl("", Validators.compose([
         Validators.required,
@@ -114,6 +119,7 @@ export class SucursalComponent implements OnInit {
     document.getElementById('cuatro').style.display = 'none';
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
+    document.getElementById('uno').style.display = 'none';
   }
 
   getSucursal(id_sucursal){
@@ -137,19 +143,23 @@ export class SucursalComponent implements OnInit {
   }
 
   sucursalRegister(values){
-    if(this.new.telefono == 10){
-    document.getElementById('dos').style.display = 'block';
-    setTimeout(() => document.getElementById('dos').style.display = 'none', 10000);
-    }
-    if(this.new.cp == 5){
-      document.getElementById('tres').style.display = 'block';
-      setTimeout(() => document.getElementById('tres').style.display = 'none', 10000);
-    } else{
       if(this.id == null){
         this.id = 0;
       } else {
         this.id = this.new.id_sucursal;
       }
+      if(this.new.nombre, this.new.telefono, this.new.cp, this.new.colonia, this.new.calle, this.new.numero_exterior, this.new.latitud, this.new.longitud == null){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 10000);
+      } else{
+        if(this.new.telefono.length<10){
+          document.getElementById('tres').style.display = 'block';
+          setTimeout(() => document.getElementById('tres').style.display = 'none', 10000);
+        } else{
+          if(this.new.cp.length<5){
+            document.getElementById('uno').style.display = 'block';
+            setTimeout(() => document.getElementById('uno').style.display = 'none', 10000);
+          } else{
     this.new = values;
     this.new.id_sucursal = this.id;
     this.citasApiS.alta('/sucursales', this.new).then((res: any) => {
@@ -163,6 +173,8 @@ export class SucursalComponent implements OnInit {
     });
     const formD = new FormData();
     this.id = null;
+        }
+      }
     }
   }
 
@@ -199,4 +211,7 @@ export class SucursalComponent implements OnInit {
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
   }
+  onlyNumberKey(event) {
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+}
 }
