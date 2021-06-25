@@ -28,6 +28,7 @@ export const strings = {
   alert9: 'No se encontraron servicios inactivos',
   alert10: 'Agregar 10 digitos',
   alert11: 'Agregar 5 digitos',
+  alert21: 'Algunos de los campos no han sido llenados',
   alert12: 'Empleado no encontrado',
   alert13: 'Servicio registrado correctamente',
   alert14: 'Servicio cambiado correctamente',

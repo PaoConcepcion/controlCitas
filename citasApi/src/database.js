@@ -1,10 +1,8 @@
 const mysql = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
-    // host: 'db-control-citas.cmtzmtsbmadd.us-east-2.rds.amazonaws.com',
     host: 'localhost',
     user: 'root',
-    // password: 'Feliz_123',
     password: 'root',
     database: 'controlcitas',
     port: 3306,
