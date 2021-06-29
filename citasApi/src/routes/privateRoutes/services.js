@@ -21,11 +21,11 @@ router.get('/services-name/:nombre', (req, res) => {
 
 router.post('/services', (req, res) => {
     req.body.estatus = 1;
-    const { id_servicio, nombre, descripcion, costo, imagen, estatus } = req.body;
+    const { id_servicio, nombre, descripcion, costo, imagen, estatus, duracion } = req.body;
     const query = `
-        CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?);
+        CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?, ?);
     `;
-    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus], (err, rows, fields) => {
+    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus, duracion], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'Service saved'});
         } else {
@@ -35,10 +35,10 @@ router.post('/services', (req, res) => {
 });
 
 router.put('/services/:id_servicio', (req, res) => {
-    const { nombre, descripcion, costo, imagen, estatus } = req.body;
+    const { nombre, descripcion, costo, imagen, estatus, duracion } = req.body;
     const { id_servicio } = req.params;
-    const query = 'CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?)';
-    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus], (err, rows, fields) => {
+    const query = 'CALL servicesAddOrEdit(?, ?, ?, ?, ?, ?, ?)';
+    mysqlConnection.query(query, [id_servicio, nombre, descripcion, costo, imagen, estatus, duracion], (err, rows, fields) => {
         if(!err) {
             res.json({Status: 'Service updated'});
         } else {

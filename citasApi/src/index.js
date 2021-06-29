@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const multer = require('multer');
+const path = require("path");
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -32,6 +33,7 @@ app.use(require('./routes/publicRoutes/news'));
 app.use(require('./routes/publicRoutes/auth'));
 app.use(require('./routes/publicRoutes/users'));
 app.use(require('./routes/publicRoutes/employee_service'));
+app.use(require('./routes/publicRoutes/schedules'));
 
 // Private Routes with token
 app.use(require('./routes/privateRoutes/branchOffices'));
@@ -41,6 +43,10 @@ app.use(require('./routes/privateRoutes/news'));
 // app.use(require('./routes/privateRoutes/auth'));
 app.use(require('./routes/privateRoutes/employee_service'));
 app.use(require('./routes/privateRoutes/dates'));
+app.use(require('./routes/privateRoutes/schedules'));
+
+// Private route to send email
+
 
 // Starting the server
 app.listen(app.get('port'), () => {
