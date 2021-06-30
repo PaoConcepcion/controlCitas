@@ -24,11 +24,23 @@ router.get('/services/:id_servicio', (req, res) => {
     })
 });
 
-router.get('/services-name/:busqueda', (req, res) => {
+
+router.get('/service-name/:busqueda', (req, res) => {
     const { busqueda } = req.params;
     mysqlConnection.query(`SELECT id_servicio FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
         if(!err){
             res.json(rows[0]);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
+router.get('/services-name/:busqueda', (req, res) => {
+    const { busqueda } = req.params;
+    mysqlConnection.query(`SELECT * FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
         } else {
             console.log(err);
         }

@@ -24,7 +24,7 @@ export class BuscadorComponent {
   buscarServ() {
     this.servicios = [];
     this.citasApiService
-      .consulta(`/services-name/${this.busqueda}`)
+      .consulta(`/service-name/${this.busqueda}`)
       .subscribe((res: any) => {
         if (res) {
           this.servicios.push(res);
