@@ -73,7 +73,7 @@
                     <td>{{item.id_noticia}}</td>
                     <td>{{item.titulo}}</td>
                     <td>{{item.descripcion}}</td>
-                    <td>{{item.imagen}}</td>
+                    <td><img style="width: 8rem;" src="../../assets/{{item.imagen}}" onError="this.src='../../assets/no-image.jpg'"></td>
                     <td class="text-center">
                         <button id="editar" class="btn btn-outline-success m-1" type="button"
                         (click)="getNew(item.id_noticia)">

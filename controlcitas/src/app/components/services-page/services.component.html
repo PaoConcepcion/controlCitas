@@ -10,7 +10,7 @@
                 <div class="card text-center" style="width: 18rem;" *ngFor="let servicesList of services">
                     <a [routerLink]="['/service-client',servicesList.id_servicio]">
                         <img class="card-img-top" src=".../100px180/" alt="Card image cap"
-                            [src]="'assets/'+servicesList.imagen" onError="this.src='assets/comida.svg'">
+                            [src]="'assets/'+servicesList.imagen" onError="this.src='assets/no-image.jpg'">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title"><strong>{{servicesList.nombre}}</strong></h5>

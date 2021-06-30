@@ -111,11 +111,9 @@ export class EditServicesComponent implements OnInit {
   }
 
   public newServicio(form, tuplaId = this.tuplaId) {
-    console.log('form img-> ' + form.imagen);
     if(form.imagen == '' && this.imagen.length > 0){
-      form.imagen = 'a';
+      this.newServicioForm.get('imagen').setValue('a');
     }
-    console.log('form img-> ' + form.imagen);
     if (this.newServicioForm.valid ) {
 
       if ( this.imagen.length > 0 ){
@@ -134,7 +132,7 @@ export class EditServicesComponent implements OnInit {
       // Guardar el registro en la base de datos
       if (this.currentStatus == 1) {
         const data = {
-          id_servicio: 0,
+          id_servicio: '0',
           nombre: form.nombre,
           descripcion: form.descripcion,
           // imagen: form.imagen,

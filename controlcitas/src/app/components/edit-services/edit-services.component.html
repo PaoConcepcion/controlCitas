@@ -128,7 +128,7 @@
                                     <tr *ngFor="let servicio of servicios">
                                         <td>{{servicio.nombre}}</td>
                                         <td>{{servicio.descripcion}}</td>
-                                        <td><img style="width: 8rem;" src="../../assets/{{servicio.imagen}}"></td>
+                                        <td><img style="width: 8rem;" src="../../assets/{{servicio.imagen}}" onError="this.src='assets/no-image.jpg'"></td>
                                         <td>$ {{servicio.costo}}</td>
                                         <td> {{servicio.duracion}} </td>
                                         <td>
@@ -178,7 +178,7 @@
                     <tbody>
                         <tr *ngFor="let inactivo of inactivos">
                             <td>{{inactivo.nombre}}</td>
-                            <td><img style="width: 8rem;" src="../../assets/{{inactivo.imagen}}"></td>
+                            <td><img style="width: 8rem;" src="../../assets/{{inactivo.imagen}}" onError="this.src='assets/no-image.jpg'"></td>
                             <td>
                                 <div class="btn-group mr-2" role="group" aria-label="Second group">
                                     <button type="button" class="btn btn-secondary" (click)="deleteServicio(inactivo.id_servicio,1)"><i class="fas fa-trash-restore"></i></button>
