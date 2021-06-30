@@ -8,6 +8,10 @@
     color: red;
     margin: 2px;
 }
+p {
+    color: red;
+    display: inline-block;
+}
 #busqueda {
     width: 260px;
 }

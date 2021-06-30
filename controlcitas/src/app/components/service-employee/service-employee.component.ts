@@ -33,6 +33,7 @@ export class ServiceEmployeeComponent implements OnInit {
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('kinto').style.display = 'none';
   }
 
   // obtener todos los empleados de la tabla empleados
@@ -109,15 +110,21 @@ export class ServiceEmployeeComponent implements OnInit {
 
   // peticion para asignar un servicio al empleado
   signServices(){
-    this.employee.id_empleado_servicio = 0;
-    this.citasApiS.alta('/employee_service', this.employee).then((res: any) => {
-      document.getElementById('dos').style.display = 'block';
-      setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
-      console.log(this.employee, res)
-      this.employeeSigned();
-    }).catch((error) => {
-      console.log(error);
-    });
+    console.log(this.employee)
+    if (this.employee.id_servicio === null){
+      document.getElementById('kinto').style.display = 'block';
+      setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
+    }else {
+      this.employee.id_empleado_servicio = 0;
+      this.citasApiS.alta('/employee_service', this.employee).then((res: any) => {
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+        console.log(this.employee, res)
+        this.employeeSigned();
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   // peticion borrar asignacion de servicio al empleado

@@ -20,6 +20,7 @@
                 </div>
             </div>
             <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">{{strings.alert12}}</ngb-alert>
+            <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">{{strings.alert}}</ngb-alert>
         </div>
     </div>
     <div class="tablas">
@@ -73,7 +74,7 @@
                     </button>                
                 </div>
             </div>
-            <ngb-alert id="unos" type="warning" (close)="cerrar('unos')">{{strings.alert12}}</ngb-alert>
+            <ngb-alert id="unos" type="warning" (close)="cerrar('unos')">{{strings.alert21}}</ngb-alert>
         </div>
     </div>
     <ngb-alert id="tres" type="success" (close)="cerrar('tres')">{{strings.alert14}}</ngb-alert>
@@ -143,7 +144,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label>{{strings.services}}</label>
+                            <label>{{strings.services}}<p>*</p></label>
                             <select id="no_servicio" [(ngModel)]="employee.id_servicio" class="form-control">
                                 <option *ngFor="let s of services" value="{{s.id_servicio}}">
                                     {{s.nombre}}
@@ -187,7 +188,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label>{{strings.newS}}</label>
+                            <label>{{strings.newS}}<p>*</p></label>
                             <select id="idServicio" [(ngModel)]="employee.id_servicio" class="form-control">
                                 <option *ngFor="let s of services" value="{{s.id_servicio}}">
                                     {{s.nombre}}

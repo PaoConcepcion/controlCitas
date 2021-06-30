@@ -1,0 +1,13 @@
+.container {
+    margin: 8rem 3rem 1rem;
+}
+.validation-error {
+    color: red;
+    margin: 2px;
+}
+.tablas {
+    margin: 0 3rem 3rem;
+}
+#searchs {
+    border-radius: 10px;
+}

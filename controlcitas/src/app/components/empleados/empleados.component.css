@@ -46,4 +46,5 @@ input {
 }
 p {
     color: red;
+    display: inline-block;
 }

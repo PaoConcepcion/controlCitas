@@ -28,6 +28,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarHeaderComponent } from './utils/calendar-header/calendar-header.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     ServicesComponent,
     CalendarHeaderComponent,
     CalendarComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    ScheduleComponent
   ],
   imports: [
     RouterModule,

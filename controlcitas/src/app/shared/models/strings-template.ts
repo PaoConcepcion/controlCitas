@@ -37,6 +37,8 @@ export const strings = {
   alert18: 'Empleado recuperado exitosamente',
   alert19: 'Noticia agregada correctamente',
   alert20: 'La noticia ha sido eliminada',
+  alert21: 'Servicio no encontrado',
+  alert22: 'Horario asignado',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',
@@ -100,5 +102,13 @@ export const strings = {
   search: 'Buscar',
   view:'Mostrar',
   schedule: 'Agendar',
-  title: 'Titulo'
+  title: 'Titulo',
+  schedules: 'Asignar citas',
+  monday: 'Lunes',
+  tuesday: 'Tuesday',
+  in: 'Entrada',
+  out: 'Salida',
+  start_rest: '',
+  end_rest: '',
+  sche: 'Horarios',
 };

@@ -1,11 +1,12 @@
 <div class="form">
     <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert19}}</ngb-alert>
+    <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert}}</ngb-alert>
     <form [formGroup]="newsForm" (ngSubmit)="newRegister(newsForm.value)" 
     class="col bg-light shadow-sm p-3 mb-5 rounded border">
         <h4 class="text-center">{{strings.new_notice}}</h4><br>
         <div class="row">
             <div class="col">
-                <label class="col-2 col-form-label">{{strings.title}}</label>
+                <label class="col col-form-label">{{strings.title}}<p>*</p></label>
                 <input type="text" id="titulo" class="form-control" formControlName="titulo" 
                 [(ngModel)]="new.titulo">
             </div>
@@ -20,9 +21,9 @@
         </div>
         <div class="row">
             <div class="col">
-                <label class="col-2 col-form-label">{{strings.description}}</label>
+                <label class="col-2 col-form-label">{{strings.description}}<p>*</p></label>
                 <textarea type="text" id="descripcion" class="form-control" formControlName="descripcion" 
-                [(ngModel)]="new.descripcion"></textarea>
+                [(ngModel)]="new.descripcion" maxlength="40"></textarea>
             </div>
         </div>
         <div class="validation-error">
@@ -33,7 +34,7 @@
               </div>
             </ng-container>
           </div>
-        <label class="col-2 col-form-label">{{strings.image}}</label>
+        <label class="col-2 col-form-label">{{strings.image}}<p>*</p></label>
         <input type="file" id="imagen" class="form-control" formControlName="imagen" [(ngModel)]="new.imagen"
         (change)="upload($event)">
         <div class="validation-error">
@@ -49,7 +50,7 @@
         </div>
         <br>
         <div class="boton">
-            <button type="submit" id="registrar" class="btn btn-secondary" [disabled]="!newsForm.valid">
+            <button type="submit" id="registrar" class="btn btn-secondary">
                 {{strings.send}}
             </button>
         </div>
