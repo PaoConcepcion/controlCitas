@@ -65,7 +65,7 @@
         <div class="container">
             <div class="row my-5" *ngFor="let servicesList of servicios">
                 <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let service of servicesList">
-                    <figure [routerLink]="['/service-client',service.id_servicio]">
+                    <figure id="cardhome" [routerLink]="['/service-client',service.id_servicio]">
                         <img src="../../assets/{{service.imagen}}" alt="" onError="this.src='assets/no-image.jpg'">
                         <div class="capa">
                             <h1 class="titulo-galeria">
