@@ -40,6 +40,7 @@ export const strings = {
   alert20: 'La noticia ha sido eliminada',
   alert23: 'Servicio no encontrado',
   alert22: 'Horario asignado',
+  alert24: 'Horario eliminado',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',
@@ -119,4 +120,5 @@ export const strings = {
   month: 'Mes',
   week: 'Semana',
   day: 'Día',
+  sche_emplo: 'Horarios de los empleados'
 };
