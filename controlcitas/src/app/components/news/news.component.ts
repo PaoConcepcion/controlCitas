@@ -27,7 +27,6 @@ export class NewsComponent implements OnInit {
   validation_messages = {
     titulo: [
       { type: "required", message: "se requiere de un titulo"},
-      { type: "maxLenght", message: "longitud maxima de 40"}
     ],
     descripcion: [
       { type: "required", message: "se requiere de una descripcion"},
@@ -46,7 +45,6 @@ export class NewsComponent implements OnInit {
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(40),
       ])),
       descripcion: new FormControl("", Validators.compose([
         Validators.required,
@@ -61,6 +59,7 @@ export class NewsComponent implements OnInit {
     this.getNews();
     document.getElementById('uno').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
+    document.getElementById('cuatro').style.display = 'none';
   }
 
   getNew(id_noticia) {
@@ -85,29 +84,35 @@ export class NewsComponent implements OnInit {
   }
 
   newRegister(values){
-    if(this.id == null){
-      this.id = 0;
-    } else {
-      this.id = this.new.id_noticia;
+    if (!this.newsForm.valid){
+      document.getElementById('cuatro').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatro').style.display = 'none', 3000);
+    }else {
+      if(this.id == null){
+        this.id = 0;
+      } else {
+        this.id = this.new.id_noticia;
+      }
+      this.new = values;
+      this.new.id_noticia = this.id;
+      this.new.imagen = this.imagen[0].name;
+      this.citasApiS.alta('/news', this.new).then((res: any) => {
+        this.getNews();
+        this.newsForm.reset();
+        console.log(values, res);
+      }).catch((error) => {
+        console.log(error);
+      });
+      const formD = new FormData();
+      this.imagen.forEach(archivo => {
+        formD.append('imagen', archivo);
+      });
+      this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
+        console.log(res);
+      });
+      document.getElementById('uno').style.display = 'block';
+      setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
     }
-    this.new = values;
-    this.new.id_noticia = this.id;
-    this.new.imagen = this.imagen[0].name;
-    this.citasApiS.alta('/news', this.new).then((res: any) => {
-      this.getNews();
-      console.log(values, res);
-    }).catch((error) => {
-      console.log(error);
-    });
-    const formD = new FormData();
-    this.imagen.forEach(archivo => {
-      formD.append('imagen', archivo);
-    });
-    this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
-      console.log(res);
-    });
-    document.getElementById('uno').style.display = 'block';
-    setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
     this.id = null;
   }
 

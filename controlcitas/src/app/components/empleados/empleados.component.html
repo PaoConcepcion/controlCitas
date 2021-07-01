@@ -8,8 +8,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label class="col col-form-label">{{strings.sucursal}}</label>
-                            <!-- <p>*</p> -->
+                            <label class="col col-form-label">{{strings.sucursal}}<p>*</p></label>
                             <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
                                 <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                     {{sucursal.nombre}}
@@ -28,7 +27,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label class="col-2 col-form-label">{{strings.name}}</label>
+                        <label class="col-2 col-form-label">{{strings.name}}<p>*</p></label>
                         <input type="text" id="nombre" class="form-control" formControlName="nombre" 
                         [(ngModel)]="employee.nombre" maxlength="30">
                     </div>
@@ -45,7 +44,7 @@
                     <div class="col">
                         <div class="form-group">
                             <div class="form-group">
-                                <label class="col col-form-label">{{strings.surname1}}</label>
+                                <label class="col col-form-label">{{strings.surname1}}<p>*</p></label>
                                 <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
                                 [(ngModel)]="employee.apellido_paterno" maxlength="30">
                             </div>
@@ -53,7 +52,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="col col-form-label">{{strings.surname2}}</label>
+                            <label class="col col-form-label">{{strings.surname2}}<p>*</p></label>
                             <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
                             [(ngModel)]="employee.apellido_materno" maxlength="30">                    
                         </div>
@@ -79,7 +78,7 @@
                     <div class="col">
                         <div class="form-group">
                             <div class="form-group">
-                                <label class="col-2 col-form-label">{{strings.email}}</label>
+                                <label class="col col-form-label">{{strings.email}}<p>*</p></label>
                                 <input type="email" id="correo" class="form-control" formControlName="correo" 
                                 [(ngModel)]="employee.correo" maxlength="50">
                             </div>
@@ -87,7 +86,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.phone}}</label>
+                            <label class="col col-form-label">{{strings.phone}}<p>*</p></label>
                             <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
                             [(ngModel)]="employee.telefono" maxlength="10" (keypress)="onlyNumberKey($event)">
                         </div>
@@ -113,7 +112,7 @@
                     <div class="col">
                         <div class="form-group">
                             <div class="form-group">
-                                <label class="col col-form-label">{{strings.new_password}}</label>
+                                <label class="col col-form-label">{{strings.new_password}}<p>*</p></label>
                                 <input type="password" id="contrasena" class="form-control" 
                                 formControlName="contrasena" minlength="6">                      
                             </div>
@@ -121,7 +120,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="col col-form-label">{{strings.verific_password}}</label>
+                            <label class="col col-form-label">{{strings.verific_password}}<p>*</p></label>
                             <input type="password" id="verificar_contrasena" class="form-control" 
                             formControlName="verificar_contrasena" minlength="6">                  
                         </div>
@@ -147,7 +146,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label class="col col-form-label">{{strings.role}}</label>
+                            <label class="col col-form-label">{{strings.role}}<p>*</p></label>
                             <select id="rol" class="form-control" formControlName="rol">
                                 <option value="employee" selected>
                                     {{strings.employee}}
@@ -202,11 +201,11 @@
                         <td>{{e.telefono}}</td>
                         <td>{{e.rol}}</td>
                         <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonDesactivar" class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(e.id_empleado, estado = 0)">
                                 <i class="fas fa-trash" style="color: darkred;"></i>
                             </button>
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonEditar" class="btn btn-outline-success m-1" type="button"
                             (click)="getEmployee(e.id_empleado)">
                                 <i class="fas fa-user-edit"></i>
                             </button>
@@ -241,7 +240,7 @@
                         <td>{{d.telefono}}</td>
                         <td>{{d.rol}}</td>
                         <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonReactivar" class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(d.id_empleado, estado = 1)">
                             <i class="fas fa-redo"></i>
                             </button>

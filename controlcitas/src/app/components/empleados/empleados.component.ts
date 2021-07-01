@@ -35,15 +35,15 @@ export class EmpleadosComponent implements OnInit {
     ],
     nombre: [
       { type: "required", message: "se requiere del nombre"},
-      { type: "minLenght", message: "longitud minima de 3"}
+      { type: "minLength", message: "longitud minima de 3"}
     ],
     apellido_materno: [
       { type: "required", message: "se requiere del apellido materno"},
-      { type: "minLenght", message: "longitud minima de 4"}
+      { type: "minLength", message: "longitud minima de 4"}
     ],
     apellido_paterno: [
       { type: "required", message: "se requiere del apellido paterno"},
-      { type: "minLenght", message: "longitud minima de 4"}
+      { type: "minLength", message: "longitud minima de 4"}
     ],
     correo: [
       { type: "required", message: "se requiere del correo"},
@@ -51,15 +51,16 @@ export class EmpleadosComponent implements OnInit {
     ],
     telefono: [
       { type: "required", message: "se requiere del telefono"},
-      { type: "maxLenght", message: "longitud minima de 10"},
+      { type: "minlength", message: "longitud minima de 8"},
+      { type: "maxlength", message: "longitud maxima de 12"},
     ],
     contrasena: [
       { type: "required", message: "se requiere de una contraseña"},
-      { type: "minLenght", message: "longitud minima de 8"},
+      { type: "minLength", message: "longitud minima de 8"},
     ],
     verificar_contrasena: [
       { type: "required", message: "verifique su contraseña"},
-      { type: "minLenght", message: "longitud minima de 6"},
+      { type: "minLength", message: "longitud minima de 8"},
     ],
     rol: [
       { type: "required", message: "no se ha seleccido el tipo de usuario"},
@@ -98,7 +99,8 @@ export class EmpleadosComponent implements OnInit {
       ])),
       telefono: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(8),
+        Validators.maxLength(12)
       ])),
       rol: new FormControl(null, Validators.compose([
         Validators.required,
@@ -163,11 +165,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   editEmployee(values){
-    if (values.id_sucursal === null || values.nombre === null
-      || values.apellido_paterno === null || values.apellido_materno === null
-      || values.correo === null || values.telefono === null ||
-      values.contrasena === null || values.rol === null ||
-      values.verificar_contrasena === null){
+    if (!this.employeeForm.valid){
         document.getElementById('kinto').style.display = 'block';
         setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
     }else {
