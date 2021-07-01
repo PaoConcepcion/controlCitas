@@ -201,11 +201,11 @@
                         <td>{{e.telefono}}</td>
                         <td>{{e.rol}}</td>
                         <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonDesactivar" class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(e.id_empleado, estado = 0)">
                                 <i class="fas fa-trash" style="color: darkred;"></i>
                             </button>
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonEditar" class="btn btn-outline-success m-1" type="button"
                             (click)="getEmployee(e.id_empleado)">
                                 <i class="fas fa-user-edit"></i>
                             </button>
@@ -240,7 +240,7 @@
                         <td>{{d.telefono}}</td>
                         <td>{{d.rol}}</td>
                         <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
+                            <button id="botonReactivar" class="btn btn-outline-success m-1" type="button"
                             (click)="desactiveEmployees(d.id_empleado, estado = 1)">
                             <i class="fas fa-redo"></i>
                             </button>
