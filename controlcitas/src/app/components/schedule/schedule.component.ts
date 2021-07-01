@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from './../../shared/models/strings-template';
 
@@ -11,22 +12,50 @@ export class ScheduleComponent implements OnInit {
   schedules: any [] = [];
   employees: any [] = [];
   busqueda: any;
+  nombre: string;
+  scheForm: FormGroup;
   strings = strings;
   new = {
     id_empleado: null,
     lunes: null,
     martes: null,
+    miercoles: null,
     entrada: null,
     salida: null,
     descanso_inicio: null,
     descanso_fin: null
   };
 
-  constructor(private citasApi: CitasApiService) { }
+  constructor(private citasApi: CitasApiService, 
+    private formB: FormBuilder) {
+    this.scheForm = this.formB.group({
+      nombre: new FormControl(null, Validators.compose([
+        Validators.required,
+      ])),
+      id_empleado: new FormControl(null, Validators.compose([
+        Validators.required,
+      ])),
+      lunes: new FormControl(null),
+      martes: new FormControl(null),
+      miercoles: new FormControl(null),
+      entrada: new FormControl(null, Validators.compose([
+        Validators.required,
+      ])),
+      salida: new FormControl(null, Validators.compose([
+        Validators.required,
+      ])),
+      descanso_inicio: new FormControl(null, Validators.compose([
+        Validators.required,
+      ])),
+      descanso_fin: new FormControl(null, Validators.compose([
+        Validators.required,
+      ]))
+    })
+  }
 
   ngOnInit(): void {
     document.getElementById('uno').style.display = 'none';
-    this.getEmployees();
+    document.getElementById('dos').style.display = 'none';
   }
 
   getEmployees(){
@@ -77,7 +106,7 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  signSchedule(){
+  signSchedule(values){
     this.citasApi.alta('/./', this.new).then((res: any) => {
       console.log(res);
       document.getElementById('uno').style.display = 'block';

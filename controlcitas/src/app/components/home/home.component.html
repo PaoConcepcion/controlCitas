@@ -19,7 +19,7 @@
                 </ol>
                 <div *ngIf="imgCarrusel.length > 0" class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="../../assets/{{imgCarrusel[0].imagen}}" alt="First slide">
+                        <img class="d-block w-100" src="../../assets/{{imgCarrusel[0].imagen}}" alt="First slide" onError="this.src='assets/no-image.jpg'">
                         <div class="carousel-caption d-none d-md-block">
                             <h1 class="title" style="color: #fff; text-shadow: 0.1em 0.1em 0.2em #000">{{imgCarrusel[0].titulo}}</h1>
                             <p class="p-carrusel" style="color: #fff; text-shadow: 0.1em 0.1em 0.2em #000">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="carousel-item" *ngFor="let aux of imgCarrusel | slice:1">
-                        <img class="d-block w-100" src="../../assets/{{aux.imagen}}" alt="Second slide">
+                        <img class="d-block w-100" src="../../assets/{{aux.imagen}}" alt="Second slide" onError="this.src='assets/no-image.jpg'">
                         <div class="carousel-caption d-none d-md-block">
                             <h1 class="title" style="color: #fff; text-shadow: 0.1em 0.1em 0.2em #000">{{aux.titulo}}</h1>
                             <p class="p-carrusel" style="color: #fff; text-shadow: 0.1em 0.1em 0.2em #000">
@@ -65,13 +65,12 @@
         <div class="container">
             <div class="row my-5" *ngFor="let servicesList of servicios">
                 <div class="contenedor col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let service of servicesList">
-                    <figure>
-                        <img src="../../assets/{{service.imagen}}" alt="">
+                    <figure id="cardhome" [routerLink]="['/service-client',service.id_servicio]">
+                        <img src="../../assets/{{service.imagen}}" alt="" onError="this.src='assets/no-image.jpg'">
                         <div class="capa">
                             <h1 class="titulo-galeria">
                                 {{service.nombre}}
                             </h1>
-                            <button type="button" class="btn btn-danger btn-sm mt-3" (click)="buscar(service.ide_servicio)">Search</button>
                         </div>
                     </figure>
                 </div>

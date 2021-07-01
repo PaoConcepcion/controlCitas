@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { setHours, setMinutes } from 'date-fns';
-import { colors } from './../../utils/colors';
+import { CitasApiService } from '../../services/citas-api/citas-api.service';
+import { getHours } from 'date-fns';
 
 @Component({
   selector: 'app-calendar',
@@ -9,37 +9,42 @@ import { colors } from './../../utils/colors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: []
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit  {
 
   view: CalendarView = CalendarView.Day;
-
   viewDate: Date = new Date();
+  events: CalendarEvent[] = [];
 
-  events: CalendarEvent[] = [
-    {
-      title: 'No event end date',
-      start: setHours(setMinutes(new Date(), 0), 3),
-      color: colors.yellow,
-    },
-    {
-      title: 'No event end date',
-      start: setHours(setMinutes(new Date(), 0), 5),
-      color: colors.purple,
-    },
-    {
-      title: 'No event end date',
-      start: setHours(setMinutes(new Date(), 0), 4),
-      color: colors.blue,
-    },
-    {
-      title: 'No event end date',
-      start: setHours(setMinutes(new Date(), 0), 6),
-      color: colors.red,
-    },
-    {
-      title: 'No event end date',
-      start: setHours(setMinutes(new Date(), 0), 2),
-      color: colors.green,
-    },
-  ];
+  dayStartHour = Math.max(8);
+  dayEndHour = Math.min(20);
+
+  constructor(private citasApiService: CitasApiService) { }
+
+  ngOnInit(): void {
+    this.actualizar();
+  }
+
+  private actualizar() {
+    this.citasApiService.consulta('/datesEmployee')
+      .subscribe((res: any) => {
+        for (const o of res) {
+          this.events.push(
+            {
+              title: o.nombre,
+              start: new Date(o.fecha +' '+ o.hora_entrada),
+              end: new Date(o.fecha +' '+ o.hora_salida),
+              color: colors.blue,
+            }
+          );
+        }
+    });
+  }
+
 }
+
+const colors: any = {
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF',
+  },
+};

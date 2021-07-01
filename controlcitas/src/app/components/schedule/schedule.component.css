@@ -11,3 +11,9 @@
 #searchs {
     border-radius: 10px;
 }
+#busqueda {
+    width: 260px;
+}
+.modal-body label{
+    padding: 10px 0px;
+}

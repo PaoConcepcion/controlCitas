@@ -5,7 +5,7 @@
     </button>
 
     <a class="navbar-brand" href="#">
-        <img src="../../assets/tijeras.png" width="40" height="30" alt="">
+        <img src="../../assets/tijeras.png" width="40" height="30" alt="" onError="this.src='assets/no-image.jpg'">
     </a>
 
     <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
@@ -45,8 +45,8 @@
         </ul>
         <ng-container *ngIf="(user$ | async)?.length <= 0">
             <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
+                <input id="textobusquedaservicios" class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
+                <button id="botonbusquedaservicios" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
             </div>
         </ng-container>
 

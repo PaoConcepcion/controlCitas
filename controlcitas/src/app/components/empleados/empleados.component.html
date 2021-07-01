@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label class="col col-form-label">{{strings.phone}}<p>*</p></label>
                             <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
-                            [(ngModel)]="employee.telefono" maxlength="12" (keypress)="onlyNumberKey($event)">
+                            [(ngModel)]="employee.telefono" maxlength="10" (keypress)="onlyNumberKey($event)">
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                             <div class="form-group">
                                 <label class="col col-form-label">{{strings.new_password}}<p>*</p></label>
                                 <input type="password" id="contrasena" class="form-control" 
-                                formControlName="contrasena" minlength="8">                      
+                                formControlName="contrasena" minlength="6">                      
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <label class="col col-form-label">{{strings.verific_password}}<p>*</p></label>
                             <input type="password" id="verificar_contrasena" class="form-control" 
-                            formControlName="verificar_contrasena" minlength="8">                  
+                            formControlName="verificar_contrasena" minlength="6">                  
                         </div>
                     </div>
                 </div>

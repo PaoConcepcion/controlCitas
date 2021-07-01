@@ -2,7 +2,7 @@
     <div class="contain">
         <div class="row mb-4">
             <div class="alertas">
-                <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert22}}</ngb-alert>
+                <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert23}}</ngb-alert>
                 <ngb-alert id="dos" type="warning" (close)="cerrar('dos')">{{strings.alert12}}</ngb-alert>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
@@ -15,16 +15,16 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="searchs">
                         <input type="text" [(ngModel)]="busqueda" id="buscador">
-                        <button>
+                        <button id="search_employees" (click)="searchEmployee()">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                         <button id="search_employees" (click)="searchEmployee()" 
                         class="btn btn-outline-warning btn-block">
                             {{strings.look}}
                         </button>                
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                         <td class="text-center">
                             <button class="btn btn-outline-success m-1" type="button"
                             data-bs-toggle="modal" data-bs-target="#modalSign"
-                            (click)="new.id_empleado = e.id_empleado">
+                            (click)="new.id_empleado = e.id_empleado; nombre = e.nombre">
                                 {{strings.schedules}}
                             </button>
                         </td>
@@ -88,8 +88,8 @@
                 </tbody>
             </table>
         </div>
-        <!-- Tabla asignar servicios -->
-        <!-- <div class="modal fade" id="modalService" tabindex="-1" aria-hidden="true">
+        <!-- Tabla asignar Horario -->
+        <div class="modal fade" id="modalSign" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -97,53 +97,82 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.name}}</label>
-                                    <input type="text" [(ngModel)]="nombre" disabled
-                                    class="form-control">
+                            <form [formGroup]="scheForm" (ngSubmit)="signSchedule(scheForm.value)" 
+                            class="col bg-light shadow-sm p-3 mb-5 rounded border">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>{{strings.name}}</label>
+                                        <input type="text" [(ngModel)]="nombre" class="form-control"
+                                        formControlName="nombre">
+                                    </div>
+                                    <div class="col">
+                                        <label>{{strings.no_employee}}</label>
+                                        <input type="text" [(ngModel)]="new.id_empleado" 
+                                        class="form-control" formControlName="id_empleado">
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label>{{strings.no_employee}}</label>
-                                    <input type="text" [(ngModel)]="employee.id_empleado" disabled
-                                    class="form-control">
+                                <div class="row">
+                                    <label>{{strings.sche}}</label>
+                                    <div class="col">
+                                        <input type="checkbox" [(ngModel)]="new.lunes"
+                                        value="1" formControlName="lunes">
+                                        {{strings.monday}}
+                                    </div>
+                                    <div class="col">
+                                        <input type="checkbox" [(ngModel)]="new.martes"
+                                        formControlName="martes" value="1">
+                                        {{strings.tuesday}}
+                                    </div>
+                                    <div class="col">
+                                        <input type="checkbox" [(ngModel)]="new.miercoles" value="1"
+                                        formControlName="miercoles">
+                                        {{strings.wednesday}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.surname}}</label>
-                                    <input type="text" [(ngModel)]="apellidos" disabled
-                                    class="form-control">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>{{strings.in}}</label>
+                                        <input type="time" [(ngModel)]="new.entrada" 
+                                        class="form-control" formControlName="entrada">
+                                    </div>
+                                    <!-- <ng-container *ngFor="let validation of validation_messages.telefono">
+                                        <div *ngIf="employeeForm.get('telefono').hasError(validation.type) &&
+                                        (employeeForm.get('telefono').dirty || employeeForm.get('telefono').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container> -->
+                                    <div class="col">
+                                        <label>{{strings.out}}</label>
+                                        <input type="time" [(ngModel)]="new.salida" 
+                                        class="form-control" formControlName="salida">
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label>{{strings.phone}}</label>
-                                    <input type="tel" [(ngModel)]="phone" disabled
-                                    class="form-control">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>{{strings.start_rest}}</label>
+                                        <input type="time" [(ngModel)]="new.descanso_inicio" 
+                                        class="form-control" formControlName="descanso_inicio">
+                                    </div>
+                                    <div class="col">
+                                        <label>{{strings.end_rest}}</label>
+                                        <input type="time" [(ngModel)]="new.descanso_fin" 
+                                        class="form-control" formControlName="descanso_fin">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.services}}<p>*</p></label>
-                                    <select id="no_servicio" [(ngModel)]="employee.id_servicio" class="form-control">
-                                        <option *ngFor="let s of services" value="{{s.id_servicio}}">
-                                            {{s.nombre}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar_form">
                                 {{strings.cancel}}
                             </button>
-                            <button type="submit" class="btn btn-primary" (click)="signServices()"
-                            id="signService" data-bs-dismiss="modal">
+                            <button type="submit" class="btn btn-primary" id="sign_schedule" 
+                            data-bs-dismiss="modal">
                                 {{strings.send}}
                             </button>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         <!-- Tabla edita/eliminar Servicios-empleados -->
         <!-- <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">

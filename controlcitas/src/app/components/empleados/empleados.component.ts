@@ -91,11 +91,11 @@ export class EmpleadosComponent implements OnInit {
       ])),
       contrasena: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
       ])),
       verificar_contrasena: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
       ])),
       telefono: new FormControl(null, Validators.compose([
         Validators.required,

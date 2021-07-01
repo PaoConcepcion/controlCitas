@@ -27,12 +27,35 @@ export class EditServicesComponent implements OnInit {
 
   public newServicioForm = new FormGroup({
     id_servicio: new FormControl(''),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    descripcion: new FormControl('', Validators.required),
-    imagen: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-    costo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)]),
-    duracion: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(5)])
+    nombre: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(50)])),
+    descripcion: new FormControl('', Validators.compose([Validators.required])),
+    imagen: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(200)])),
+    costo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)])),
+    duracion: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(5)]))
   });
+
+  validation_messages = {
+    nombre: [
+      { type: "required", message: "Se requiere de un titulo"},
+      { type: "maxLenght", message: "Longitud maxima de 50"}
+    ],
+    descripcion: [
+      { type: "required", message: "Se requiere de una descripcion"},
+    ],
+    costo: [
+      { type: "required", message: "Se requiere de un costo"},
+      { type: "pattern", message: "Solo números decimales"},
+      { type: "maxLength", message: "Longitud maxima de 10"},
+    ],
+    duracion: [
+      { type: "required", message: "Se requiere de una duracion"},
+      { type: "pattern", message: "Solo núemeros son aceptados"},
+      { type: "maxLength", message: "Longitud maxima de 5"},
+    ],
+    imagen: [
+      { type: "required", message: "Imagen no insertada"},
+    ],
+  }
 
   public buscarForm = new FormGroup({
     busqueda: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -88,11 +111,9 @@ export class EditServicesComponent implements OnInit {
   }
 
   public newServicio(form, tuplaId = this.tuplaId) {
-    console.log('form img-> ' + form.imagen);
     if(form.imagen == '' && this.imagen.length > 0){
-      form.imagen = 'a';
+      this.newServicioForm.get('imagen').setValue('a');
     }
-    console.log('form img-> ' + form.imagen);
     if (this.newServicioForm.valid ) {
 
       if ( this.imagen.length > 0 ){
@@ -111,7 +132,7 @@ export class EditServicesComponent implements OnInit {
       // Guardar el registro en la base de datos
       if (this.currentStatus == 1) {
         const data = {
-          id_servicio: 0,
+          id_servicio: '0',
           nombre: form.nombre,
           descripcion: form.descripcion,
           // imagen: form.imagen,
@@ -252,5 +273,9 @@ export class EditServicesComponent implements OnInit {
   mostrarAlerta(alerta: string) {
     document.getElementById(alerta).style.display = 'block';
     setTimeout(() => document.getElementById(alerta).style.display = 'none', 5000);
+  }
+
+  onlyNumberKey(event) {
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46;
   }
 }
