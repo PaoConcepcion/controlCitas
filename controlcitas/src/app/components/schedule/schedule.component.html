@@ -2,10 +2,18 @@
     <div class="contain">
         <div class="row mb-4">
             <div class="alertas">
-                <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert23}}</ngb-alert>
-                <ngb-alert id="dos" type="warning" (close)="cerrar('dos')">{{strings.alert12}}</ngb-alert>
-                <ngb-alert id="tres" type="success" (close)="cerrar('tres')">{{strings.alert16}}</ngb-alert>
-                <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">{{strings.alert24}}</ngb-alert>
+                <ngb-alert class="alerta" id="uno" type="success" (close)="cerrar('uno')">
+                    {{strings.alert23}}
+                </ngb-alert>
+                <ngb-alert class="alerta" id="dos" type="warning" (close)="cerrar('dos')">
+                    {{strings.alert12}}
+                </ngb-alert>
+                <ngb-alert class="alerta" id="tres" type="success" (close)="cerrar('tres')">
+                    {{strings.alert16}}
+                </ngb-alert>
+                <ngb-alert class="alerta" id="kinto" type="danger" (close)="cerrar('kinto')">
+                    {{strings.alert24}}
+                </ngb-alert>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
                 <button id="search_all_employees" class="btn btn-outline-info btn-block" (click)="getEmployees()">
@@ -21,17 +29,11 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                        <button id="search_employees" (click)="searchEmployee()" 
-                        class="btn btn-outline-warning btn-block">
-                            {{strings.look}}
-                        </button>                
-                    </div> -->
                 </div>
             </div>
         </div>
         <br>
-        <div class="tablas">
+        <div class="tablas" *ngIf="employees.length != 0">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -59,7 +61,26 @@
         </div>
         <br>
         <h4>{{strings.sche_emplo}}</h4>
-        <div class="tablas">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
+            <button id="search_all_employees" class="btn btn-outline-info btn-block" (click)="getEmployees()">
+                {{strings.show_all}}
+            </button>        
+        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
+            <h5>{{strings.look_by_id}}</h5>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="searchs">
+                    <input type="text" [(ngModel)]="busqueda2" id="buscador2">
+                    <button id="search_schedule" (click)="search()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ngb-alert class="alerta" id="alertas" type="warning" (close)="cerrar('alertas')">
+            {{strings.alert12}}
+        </ngb-alert>
+        <div class="tablas" *ngIf="schedules.length != 0">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -98,8 +119,8 @@
                             (click)="new.id_empleado = sch.id_empleado;
                             new.entrada = sch.entrada; new.salida = sch.salida;
                             new.id_horario = sch.id_horario; new.descanso_fin = sch.descanso_fin;
-                            new.descanso_inicio = sch.descanso_inicio">
-                                {{strings.edit}}
+                            new.descanso_inicio = sch.descanso_inicio" id="boton1">
+                                <i class="far fa-edit"></i>
                             </button>
                         </td>
                     </tr>
@@ -166,7 +187,8 @@
                                     <div class="col">
                                         <label>{{strings.in}}<p>*</p></label>
                                         <input type="time" [(ngModel)]="new.entrada" 
-                                        class="form-control" formControlName="entrada">
+                                        class="form-control" formControlName="entrada"
+                                        id="entrada">
                                         <div class="validation-error">
                                             <ng-container *ngFor="let validation of validation_messages.entrada">
                                                 <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
@@ -179,7 +201,8 @@
                                     <div class="col">
                                         <label>{{strings.out}}<p>*</p></label>
                                         <input type="time" [(ngModel)]="new.salida" 
-                                        class="form-control" formControlName="salida">
+                                        class="form-control" formControlName="salida"
+                                        id="salida">
                                         <div class="validation-error">
                                             <ng-container *ngFor="let validation of validation_messages.salida">
                                                 <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
@@ -194,7 +217,8 @@
                                     <div class="col">
                                         <label>{{strings.start_rest}}<p>*</p></label>
                                         <input type="time" [(ngModel)]="new.descanso_inicio" 
-                                        class="form-control" formControlName="descanso_inicio">
+                                        class="form-control" formControlName="descanso_inicio"
+                                        id="descanso">
                                         <div class="validation-error">
                                             <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
                                                 <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
@@ -207,7 +231,8 @@
                                     <div class="col">
                                         <label>{{strings.end_rest}}<p>*</p></label>
                                         <input type="time" [(ngModel)]="new.descanso_fin" 
-                                        class="form-control" formControlName="descanso_fin">
+                                        class="form-control" formControlName="descanso_fin"
+                                        id="regreso">
                                         <div class="validation-error">
                                             <ng-container *ngFor="let validation of validation_messages.descanso_fin">
                                                 <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&
@@ -219,7 +244,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar_form"
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar"
                                     (click)="redo()">
                                         {{strings.cancel}}
                                     </button>
@@ -286,7 +311,7 @@
                                 <div class="col">
                                     <label>{{strings.in}}<p>*</p></label>
                                     <input type="time" [(ngModel)]="new.entrada" class="form-control"
-                                    formControlName="entrada">
+                                    formControlName="entrada" id="entrada2">
                                     <div class="validation-error">
                                         <ng-container *ngFor="let validation of validation_messages.entrada">
                                             <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
@@ -299,7 +324,7 @@
                                 <div class="col">
                                     <label>{{strings.out}}<p>*</p></label>
                                     <input type="time" [(ngModel)]="new.salida" class="form-control"
-                                    formControlName="salida">
+                                    formControlName="salida" id="salida2">
                                     <div class="validation-error">
                                         <ng-container *ngFor="let validation of validation_messages.salida">
                                             <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
@@ -314,7 +339,8 @@
                                 <div class="col">
                                     <label>{{strings.start_rest}}<p>*</p></label>
                                     <input type="time" [(ngModel)]="new.descanso_inicio" 
-                                    class="form-control" formControlName="descanso_inicio">
+                                    class="form-control" formControlName="descanso_inicio"
+                                    id="descanso_inicio">
                                     <div class="validation-error">
                                         <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
                                             <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
@@ -327,7 +353,8 @@
                                 <div class="col">
                                     <label>{{strings.end_rest}}<p>*</p></label>
                                     <input type="time" [(ngModel)]="new.descanso_fin" 
-                                    class="form-control" formControlName="descanso_fin">
+                                    class="form-control" formControlName="descanso_fin"
+                                    id="descanso_fin">
                                     <div class="validation-error">
                                         <ng-container *ngFor="let validation of validation_messages.descanso_fin">
                                             <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&

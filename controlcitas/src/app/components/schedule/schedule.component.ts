@@ -12,6 +12,7 @@ export class ScheduleComponent implements OnInit {
   schedules: any [] = [];
   employees: any [] = [];
   busqueda: any;
+  busqueda2: number;
   nombre: string;
   scheForm: FormGroup;
   strings = strings;
@@ -82,11 +83,12 @@ export class ScheduleComponent implements OnInit {
     document.getElementById('cuatro').style.display = 'none';
     document.getElementById('cuatros').style.display = 'none';
     document.getElementById('kinto').style.display = 'none';
+    document.getElementById('alertas').style.display = 'none';
     this.getAll();
   }
 
   getEmployees(){
-    this.citasApi.consulta('/employees').subscribe((res: any) => {
+    this.citasApi.consulta('/employeesSchedule').subscribe((res: any) => {
       this.employees = res;
       err =>{
         console.log(err);
@@ -96,7 +98,7 @@ export class ScheduleComponent implements OnInit {
 
   searchEmployee(){
     this.employees = [];
-    this.citasApi.consulta(`/employees`).subscribe((res: any) => {
+    this.citasApi.consulta(`/employeesSchedule`).subscribe((res: any) => {
       for (const employee of res){
         if (employee.nombre === this.busqueda || employee.id_empleado === this.busqueda){
           this.employees.push(employee);
@@ -113,7 +115,6 @@ export class ScheduleComponent implements OnInit {
   }
 
   getAll(){
-    this.schedules = [];
     this.citasApi.consulta('/schedules').subscribe((res: any) => {
       this.schedules = res;
       err =>{
@@ -123,14 +124,24 @@ export class ScheduleComponent implements OnInit {
   }
 
   search(){
-    this.schedules = [];
-    this.citasApi.busqueda(`/./${this.busqueda}`)
-    .subscribe((res: any) => {
-      this.schedules = res;
-      err =>{
-        console.log(err);
-      }
-    });
+    if (!this.busqueda2){
+      this.getAll();
+    }else {
+      this.schedules = [];
+      this.citasApi.busqueda(`/schedules/${this.busqueda2}`)
+      .subscribe((res: any) => {
+        const value = res;
+        if (!value){
+          document.getElementById('alertas').style.display = 'block';
+          setTimeout(() => document.getElementById('alertas').style.display = 'none', 3000);
+        }else {
+          this.schedules.push(res);
+          err =>{
+            console.log(err);
+          }
+        }
+      });
+    }
   }
 
   signSchedule(values){
