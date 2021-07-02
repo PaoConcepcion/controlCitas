@@ -12,8 +12,12 @@
     border-radius: 10px;
 }
 #busqueda {
-    width: 260px;
+    width: 300px;
 }
 .modal-body label{
     padding: 10px 0px;
+}
+p {
+    color: red;
+    display: inline-block;
 }
