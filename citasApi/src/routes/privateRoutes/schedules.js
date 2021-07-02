@@ -3,6 +3,17 @@ const router = express.Router();
 
 const mysqlConnection = require('../../database');
 
+router.get('/employeesSchedule', (req, res) => {
+    mysqlConnection.query(`SELECT id_empleado, nombre, apellido_paterno FROM empleados WHERE id_empleado 
+    NOT IN (SELECT id_empleado FROM horarios) AND estatus = 1;`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 router.post('/schedules', (req, res) => {
     const { id_horario, id_empleado, lunes, martes, miercoles, jueves,  viernes, sabado, domingo, entrada, salida, descanso_inicio, descanso_fin } = req.body;
     const query = `
