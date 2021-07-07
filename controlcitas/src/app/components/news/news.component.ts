@@ -18,6 +18,7 @@ export class NewsComponent implements OnInit {
     descripcion: null,
     imagen: null
   };
+  busqueda: any;
   id: number;
   imagen: any = [];
   preview: string;

@@ -107,7 +107,7 @@ export const strings = {
   title: 'Titulo',
   schedules: 'Asignar horario',
   monday: 'Lunes',
-  tuesday: 'Tuesday',
+  tuesday: 'Martes',
   wednesday: 'Miercoles',
   thursday: 'Jueves',
   friday: 'Viernes',
@@ -126,4 +126,5 @@ export const strings = {
   day: 'Día',
   sche_emplo: 'Horarios de los empleados',
   days: 'Debe seleccionar al menos 4 dias de la semana',
+  search_employee: 'Buscar empleado',
 };

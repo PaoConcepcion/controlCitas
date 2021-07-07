@@ -1,65 +1,90 @@
-<div class="form">
+<div class="container">
     <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert19}}</ngb-alert>
     <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert}}</ngb-alert>
-    <form [formGroup]="newsForm" (ngSubmit)="newRegister(newsForm.value)" 
-    class="col bg-light shadow-sm p-3 mb-5 rounded border">
-        <h4 class="text-center">{{strings.new_notice}}</h4><br>
-        <div class="row">
-            <div class="col">
-                <label class="col col-form-label">{{strings.title}}<p>*</p></label>
-                <input type="text" id="titulo" class="form-control" formControlName="titulo" 
-                [(ngModel)]="new.titulo">
+    <div class="formulario">
+        <form [formGroup]="newsForm" (ngSubmit)="newRegister(newsForm.value)" 
+        class="col bg-light shadow-sm p-3 mb-5 rounded border">
+            <h4 class="text-center">{{strings.new_notice}}</h4><br>
+            <div class="row">
+                <div class="col">
+                    <label class="col col-form-label">{{strings.title}}<p>*</p></label>
+                    <input type="text" id="titulo" class="form-control" formControlName="titulo" 
+                    [(ngModel)]="new.titulo" placeholder="Titulo de la noticia">
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.titulo">
+                          <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
+                          (newsForm.get('titulo').dirty || newsForm.get('titulo').touched)">
+                          {{validation.message}}
+                          </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>{{strings.image}}<p>*</p></label>
+                    <input type="file" id="imagen" class="form-control" formControlName="imagen" 
+                    [(ngModel)]="new.imagen" (change)="upload($event)">
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.imagen">
+                          <div *ngIf="newsForm.get('imagen').hasError(validation.type) &&
+                          (newsForm.get('imagen').dirty || newsForm.get('imagen').touched)">
+                          {{validation.message}}
+                          </div>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="validation-error">
-            <ng-container *ngFor="let validation of validation_messages.titulo">
-              <div *ngIf="newsForm.get('titulo').hasError(validation.type) &&
-              (newsForm.get('titulo').dirty || newsForm.get('titulo').touched)">
-              {{validation.message}}
-              </div>
-            </ng-container>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label class="col-2 col-form-label">{{strings.description}}<p>*</p></label>
-                <textarea type="text" id="descripcion" class="form-control" formControlName="descripcion" 
-                [(ngModel)]="new.descripcion" maxlength="40"></textarea>
+            <div class="row">
+                <div class="col">
+                    <label>{{strings.description}}<p>*</p></label>
+                    <textarea type="text" id="descripcion" class="form-control" formControlName="descripcion" 
+                    [(ngModel)]="new.descripcion" maxlength="40" placeholder="Descripcion de la noticia">
+                    </textarea>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.descripcion">
+                          <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
+                          (newsForm.get('descripcion').dirty || newsForm.get('descripcion').touched)">
+                          {{validation.message}}
+                          </div>
+                        </ng-container>
+                      </div>
+                </div>
+                <div class="col">
+                    <div *ngIf="preview" class="imagencita">
+                        <img [src]="preview" id="visualizacion" width="300px" alt="">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="validation-error">
-            <ng-container *ngFor="let validation of validation_messages.descripcion">
-              <div *ngIf="newsForm.get('descripcion').hasError(validation.type) &&
-              (newsForm.get('descripcion').dirty || newsForm.get('descripcion').touched)">
-              {{validation.message}}
-              </div>
-            </ng-container>
-          </div>
-        <label class="col-2 col-form-label">{{strings.image}}<p>*</p></label>
-        <input type="file" id="imagen" class="form-control" formControlName="imagen" [(ngModel)]="new.imagen"
-        (change)="upload($event)">
-        <div class="validation-error">
-            <ng-container *ngFor="let validation of validation_messages.imagen">
-              <div *ngIf="newsForm.get('imagen').hasError(validation.type) &&
-              (newsForm.get('imagen').dirty || newsForm.get('imagen').touched)">
-              {{validation.message}}
-              </div>
-            </ng-container>
-        </div>
-        <div *ngIf="preview" class="imagencita">
-            <img [src]="preview" id="visualizacion" width="300px" alt="">
-        </div>
-        <br>
-        <div class="boton">
-            <button type="submit" id="registrar" class="btn btn-secondary">
-                {{strings.send}}
-            </button>
-        </div>
-    </form>
-    <br>
+            <br>
+            <div class="boton">
+                <button type="submit" id="registrar" class="btn btn-secondary">
+                    {{strings.send}}
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- tabla de noticias -->
-    <div>
+    <div class="table-news">
+        <!-- <div class="row mb-4">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
+                <button id="search_all_employees" class="btn btn-outline-info btn-block">
+                    {{strings.show_all}}
+                </button>        
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
+                <h5>{{strings.look_by_name}}</h5>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="searchs">
+                        <input type="text" [(ngModel)]="busqueda" id="buscador">
+                        <button id="search_employees">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
         <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert20}}</ngb-alert>
-        <table class="table table-striped">
+        <table>
             <thead>
                 <tr>
                     <th class="text-center">{{strings.id}}</th>
