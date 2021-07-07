@@ -1,19 +1,26 @@
 .container {
-    margin: 8rem 3rem 1rem;
+    margin: 8rem auto 1rem;
 }
 .validation-error {
     color: red;
     margin: 2px;
 }
+.alerta {
+    padding: 2px;
+}
 .tablas {
-    margin: 0 3rem 3rem;
+    margin: 2rem 0 3rem;
 }
 #searchs {
     border-radius: 10px;
 }
 #busqueda {
-    width: 260px;
+    width: 300px;
 }
 .modal-body label{
     padding: 10px 0px;
+}
+p {
+    color: red;
+    display: inline-block;
 }
