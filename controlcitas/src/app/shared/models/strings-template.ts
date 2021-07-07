@@ -105,7 +105,7 @@ export const strings = {
   view:'Mostrar',
   schedule: 'Agendar',
   title: 'Titulo',
-  schedules: 'Asignar citas',
+  schedules: 'Asignar horarios',
   monday: 'Lunes',
   tuesday: 'Tuesday',
   wednesday: 'Miercoles',

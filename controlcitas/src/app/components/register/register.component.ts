@@ -123,7 +123,8 @@ export class RegisterComponent implements OnInit {
             } else {
               document.getElementById('cuatro').style.display = 'block';
               setTimeout(() => document.getElementById('cuatro').style.display = 'none', 5000);
-              this.newUserForm.setValue({
+              this.newUserForm.reset();
+              /* this.newUserForm.setValue({
                 nombre: '',
                 correo: '',
                 contrasena: '',
@@ -133,7 +134,7 @@ export class RegisterComponent implements OnInit {
                 rol: '',
                 contrasenaVerf: '',
                 id_sucursal: ''
-              });
+              }); */
             }
           })
           .catch((err) => {
