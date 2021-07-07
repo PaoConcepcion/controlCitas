@@ -127,5 +127,5 @@ export const strings = {
   sche_emplo: 'Horarios de los empleados',
   days: 'Debe seleccionar al menos 4 dias de la semana',
   search_employee: 'Buscar empleado',
-  
+  sign_schedule: 'Asignar horario por empleado'
 };
