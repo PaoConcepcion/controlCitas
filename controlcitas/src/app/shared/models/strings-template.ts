@@ -102,7 +102,7 @@ export const strings = {
   cancel: 'Cancelar',
   delete: 'Borrar',
   search: 'Buscar',
-  view:'Mostrar',
+  view: 'Mostrar',
   schedule: 'Agendar',
   title: 'Titulo',
   schedules: 'Asignar horarios',
@@ -126,4 +126,5 @@ export const strings = {
   day: 'Día',
   sche_emplo: 'Horarios de los empleados',
   days: 'Debe seleccionar al menos 4 dias de la semana',
+  hour: 'Hora',
 };

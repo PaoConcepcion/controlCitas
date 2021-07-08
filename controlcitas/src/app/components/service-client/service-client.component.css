@@ -1,0 +1,9 @@
+::ng-deep .my-class .modal-dialog { 
+    max-width: 80%;
+    width: 80%;
+}
+
+.validation-error{
+    padding: 4px;
+    color: rgb(207, 23, 23);
+}

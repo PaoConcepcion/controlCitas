@@ -4,7 +4,7 @@ const router = express.Router();
 const mysqlConnection = require('../../database');
 
 router.get('/schedules_employee', (req, res) => {
-    const id_empleado = req.id_empleado;// 
+    const id_empleado = req.id_empleado;
     mysqlConnection.query(`SELECT hour(entrada) as entrada, hour(salida) as salida, descanso_inicio, descanso_fin, lunes, martes, miercoles, jueves, viernes, sabado, domingo FROM horarios WHERE id_empleado = ${id_empleado}`, (err, rows, fields) => {
         if(!err){
             res.json(rows[0]);
