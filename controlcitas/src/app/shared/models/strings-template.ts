@@ -41,6 +41,7 @@ export const strings = {
   alert23: 'Servicio no encontrado',
   alert22: 'Horario asignado',
   alert24: 'Horario eliminado',
+  alert25: 'Noticia no encontrada',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',
@@ -127,5 +128,8 @@ export const strings = {
   sche_emplo: 'Horarios de los empleados',
   days: 'Debe seleccionar al menos 4 dias de la semana',
   search_employee: 'Buscar empleado',
-  sign_schedule: 'Asignar horario por empleado'
+  sign_schedule: 'Asignar horario por empleado',
+  new_news: 'Nueva noticia',
+  control_news: 'Modulo noticias',
+  no_notice: 'Numero de noticia',
 };

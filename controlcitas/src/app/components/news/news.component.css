@@ -1,11 +1,9 @@
 .container {
-    margin: 8rem auto 1rem;
+    margin: 7.5rem auto 1rem;
     width: 80%;
-    /* border: springgreen solid; */
 }
 .table-news {
-    margin: 20px;
-    /* border: steelblue solid; */
+    margin: 2rem;
 }
 table {
     border: #e4e4e4 solid;
@@ -24,7 +22,10 @@ td {
 }
 .imagencita img{
     margin: 2px;
-    border: lightgray 2px;
+    border: #e4e4e4 2px;
+}
+.boton button{
+    margin: 5px;
 }
 .validation-error{
     padding: 4px;

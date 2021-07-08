@@ -19,7 +19,6 @@ export class NewsComponent implements OnInit {
     imagen: null
   };
   busqueda: any;
-  id: number;
   imagen: any = [];
   preview: string;
   imagenUpload: null;
@@ -38,10 +37,8 @@ export class NewsComponent implements OnInit {
   }
 
   constructor(
-    private formB: FormBuilder,
-    private citasApiS: CitasApiService,
-    private sanitizer: DomSanitizer
-  ) {
+    private formB: FormBuilder, private sanitizer: DomSanitizer,
+    private citasApiS: CitasApiService) {
     this.newsForm = this.formB.group({
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
@@ -59,8 +56,11 @@ export class NewsComponent implements OnInit {
   ngOnInit(): void {
     this.getNews();
     document.getElementById('uno').style.display = 'none';
+    document.getElementById('dos').style.display = 'none';
+    document.getElementById('unos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('cuatros').style.display = 'none';
   }
 
   getNew(id_noticia) {
@@ -72,7 +72,6 @@ export class NewsComponent implements OnInit {
         console.log(err);
       }
     });
-    this.id = id_noticia
   }
 
   getNews() {
@@ -84,23 +83,45 @@ export class NewsComponent implements OnInit {
     });
   }
 
+  search(){
+    if (!this.busqueda){
+      this.getNews();
+    }else {
+      this.news = [];
+      this.citasApiS.consulta('/news').subscribe((res: any) => {
+        for (const news of res){
+          if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
+            this.news.push(news);
+          }
+        };
+        if (this.news.length <= 0){
+          document.getElementById('dos').style.display = 'block';
+          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+        };
+        err =>{
+          console.log(err);
+        }
+      });
+    }
+  }
+
   newRegister(values){
     if (!this.newsForm.valid){
       document.getElementById('cuatro').style.display = 'block';
       setTimeout(() => document.getElementById('cuatro').style.display = 'none', 3000);
+      document.getElementById('cuatros').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatros').style.display = 'none', 3000);
     }else {
-      if(this.id == null){
-        this.id = 0;
-      } else {
-        this.id = this.new.id_noticia;
+      if(this.new.id_noticia == null || this.new.id_noticia == undefined){
+        this.new.id_noticia = 0;
+      }else {
+        this.new = values;
       }
-      this.new = values;
-      this.new.id_noticia = this.id;
       this.new.imagen = this.imagen[0].name;
+      console.log(values);
       this.citasApiS.alta('/news', this.new).then((res: any) => {
-        this.getNews();
+        console.log(this.new);
         this.newsForm.reset();
-        console.log(values, res);
       }).catch((error) => {
         console.log(error);
       });
@@ -113,8 +134,9 @@ export class NewsComponent implements OnInit {
       });
       document.getElementById('uno').style.display = 'block';
       setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
+      document.getElementById('unos').style.display = 'block';
+      setTimeout(() => document.getElementById('unos').style.display = 'none', 3000);
     }
-    this.id = null;
   }
 
   deleteNews(id){
@@ -161,5 +183,9 @@ export class NewsComponent implements OnInit {
 
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
+  }
+
+  cancel(){
+    this.newsForm.reset();
   }
 }
