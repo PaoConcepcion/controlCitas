@@ -144,4 +144,5 @@ export const strings = {
   no_notice: 'Numero de noticia',
   get_schedule: 'Horarios',
   emplo_unsign: 'Empleados sin horario',
+  edit_schedule: 'Cambiar horario',
 };

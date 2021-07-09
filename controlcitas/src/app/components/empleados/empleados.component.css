@@ -1,12 +1,26 @@
-.form {
-    margin: 8rem 10rem;
+.container {
+    margin: 7.5rem auto 0;
+    min-height: 520px;
+    max-height: max-content;
+    border: cadetblue solid;
 }
-.botton button {
-    margin: 0 1rem;
+.form {
+    width: 45%;
+    float: left;
+    border: brown solid;
+}
+.tablas {
+    width: 50%;
+    height: 480px;
+    overflow: scroll;
+    float: right;
+    border: chartreuse solid;
+}
+/* .tablas button {
     border: none;
     float: right;
     font-size: 28px;
-}
+} */
 .show {
     color: lightgray;
 }
@@ -22,18 +36,6 @@
 .validation-error {
     color: red;
     margin: 2px;
-}
-#uno {
-    color: black;
-}
-#dos {
-    color: black;
-}
-#tres {
-    color: black;
-}
-#cuatro {
-    color: black;
 }
 #kinto {
     color: black;

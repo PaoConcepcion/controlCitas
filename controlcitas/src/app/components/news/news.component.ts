@@ -27,9 +27,11 @@ export class NewsComponent implements OnInit {
   validation_messages = {
     titulo: [
       { type: "required", message: "se requiere de un titulo"},
+      { type: "minlength", message: "echale mas, deben ser 6 weon"}
     ],
     descripcion: [
       { type: "required", message: "se requiere de una descripcion"},
+      { type: "minlength", message: "falta texto we, ponele 8"}
     ],
     imagen: [
       { type: "required", message: "imagen no insertada"},
@@ -43,9 +45,11 @@ export class NewsComponent implements OnInit {
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
         Validators.required,
+        Validators.minLength(6)
       ])),
       descripcion: new FormControl("", Validators.compose([
         Validators.required,
+        Validators.minLength(8)
       ])),
       imagen: new FormControl("", Validators.compose([
         Validators.required,
