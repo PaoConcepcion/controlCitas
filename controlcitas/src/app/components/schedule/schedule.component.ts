@@ -10,9 +10,9 @@ import { strings } from './../../shared/models/strings-template';
 })
 export class ScheduleComponent implements OnInit {
   schedules: any [] = [];
+  sche: boolean = false;
   employees: any [] = [];
   busqueda: any;
-  busqueda2: number;
   nombre: string;
   scheForm: FormGroup;
   strings = strings;
@@ -85,6 +85,7 @@ export class ScheduleComponent implements OnInit {
     document.getElementById('kinto').style.display = 'none';
     document.getElementById('alertas').style.display = 'none';
     this.getAll();
+    this.getEmployees();
   }
 
   getEmployees(){
@@ -97,21 +98,25 @@ export class ScheduleComponent implements OnInit {
   }
 
   searchEmployee(){
-    this.employees = [];
-    this.citasApi.consulta(`/employeesSchedule`).subscribe((res: any) => {
-      for (const employee of res){
-        if (employee.nombre === this.busqueda || employee.id_empleado === this.busqueda){
-          this.employees.push(employee);
+    if (!this.busqueda){
+      this.getEmployees();
+    }else {
+      this.employees = [];
+      this.citasApi.consulta(`/employeesSchedule`).subscribe((res: any) => {
+        for (const employee of res){
+          if (employee.nombre == this.busqueda || employee.id_empleado == this.busqueda){
+            this.employees.push(employee);
+          }
         }
-      }
-      if (this.employees.length <= 0){
-        document.getElementById('dos').style.display = 'block';
-        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
-      };
-      err =>{
-        console.log(err);
-      }
-    });
+        if (this.employees.length <= 0){
+          document.getElementById('dos').style.display = 'block';
+          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+        };
+        err =>{
+          console.log(err);
+        }
+      });
+    }
   }
 
   getAll(){
@@ -124,11 +129,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   search(){
-    if (!this.busqueda2){
+    if (!this.busqueda){
       this.getAll();
     }else {
       this.schedules = [];
-      this.citasApi.busqueda(`/schedules/${this.busqueda2}`)
+      this.citasApi.busqueda(`/schedules/${this.busqueda}`)
       .subscribe((res: any) => {
         const value = res;
         if (!value){
@@ -156,6 +161,7 @@ export class ScheduleComponent implements OnInit {
       }else {
         this.citasApi.alta('/schedules', this.new).then((res: any) => {
           console.log(this.new ,res);
+          this.getEmployees();
           this.getAll();
           this.scheForm.reset();
           document.getElementById('uno').style.display = 'block';
@@ -187,6 +193,8 @@ export class ScheduleComponent implements OnInit {
         descanso_inicio: value.descanso_inicio,
         descanso_fin: value.descanso_fin
       }
+      console.log(value)
+      console.log(schedule)
       const dias = schedule.lunes + schedule.martes + schedule.miercoles
       + schedule.jueves + schedule.viernes + schedule.sabado + schedule.domingo;
       if (dias <= 3){
@@ -197,6 +205,7 @@ export class ScheduleComponent implements OnInit {
         .subscribe((res: any) => {
           console.log(schedule, res);
           this.getAll();
+          this.getEmployees();
           this.scheForm.reset();
           document.getElementById('tres').style.display = 'block';
           setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
@@ -229,12 +238,13 @@ export class ScheduleComponent implements OnInit {
   }
 
   redo(){
-    this.new.lunes = 0;
-    this.new.martes = 0;
-    this.new.miercoles = 0;
-    this.new.jueves = 0;
-    this.new.viernes = 0;
-    this.new.sabado = 0;
-    this.new.domingo = 0;
+    this.scheForm.reset();
+      this.new.lunes = 0;
+      this.new.martes = 0;
+      this.new.miercoles = 0;
+      this.new.jueves = 0;
+      this.new.viernes = 0;
+      this.new.sabado = 0;
+      this.new.domingo = 0;
   }
 }

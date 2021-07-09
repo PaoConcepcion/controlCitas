@@ -1,21 +1,38 @@
 .container {
-    margin: 8rem auto 1rem;
+    margin: 8rem auto;
+    width: 90%;
+    min-height: 400px;
+    max-height: max-content;
+}
+.box{
+    width: 100%;
 }
 .validation-error {
     color: red;
     margin: 2px;
 }
+.alerts {
+    color: #4dc962
+}
 .alerta {
     padding: 2px;
 }
-.tablas {
-    margin: 2rem 0 3rem;
+.table-employees table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 90%;
+    margin: 0 auto;
 }
-#searchs {
-    border-radius: 10px;
+tr {
+    background-color: steelblue;
 }
-#busqueda {
-    width: 300px;
+th{
+    height: 50px;
+    padding: 10px;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 1.5%;
 }
 .modal-body label{
     padding: 10px 0px;

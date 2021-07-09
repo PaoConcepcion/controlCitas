@@ -1,58 +1,82 @@
 <div class="container">
-    <div class="contain">
+    <div class="box">
+        <div class="alertas">
+            <ngb-alert id="dos" type="warning" (close)="cerrar('dos')">
+                {{strings.alert26}}
+            </ngb-alert>
+            <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">
+                {{strings.alert24}}
+            </ngb-alert>
+            <ngb-alert id="alertas" type="warning" (close)="cerrar('alertas')">
+                {{strings.alert12}}
+            </ngb-alert>
+        </div>
         <div class="row mb-4">
-            <div class="alertas">
-                <ngb-alert class="alerta" id="uno" type="success" (close)="cerrar('uno')">
-                    {{strings.alert23}}
-                </ngb-alert>
-                <ngb-alert class="alerta" id="dos" type="warning" (close)="cerrar('dos')">
-                    {{strings.alert12}}
-                </ngb-alert>
-                <ngb-alert class="alerta" id="tres" type="success" (close)="cerrar('tres')">
-                    {{strings.alert16}}
-                </ngb-alert>
-                <ngb-alert class="alerta" id="kinto" type="danger" (close)="cerrar('kinto')">
-                    {{strings.alert24}}
-                </ngb-alert>
-            </div>
             <h4>{{strings.sign_schedule}}</h4>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-                <button id="search_all_employees" class="btn btn-outline-info btn-block" (click)="getEmployees()">
+                <button id="search_all_employees" class="btn btn-outline-info btn-block" 
+                (click)="getEmployees()" *ngIf="sche === false">
                     {{strings.show_all}}
-                </button>        
+                </button>
+                <button id="search_schedule" class="btn btn-outline-info btn-block" 
+                (click)="getAll()" *ngIf="sche === true">
+                    {{strings.show_all}}
+                </button>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
-                <h5>{{strings.look_by_name}}</h5>
+                <h5>{{strings.search}}</h5>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="searchs">
-                        <input type="text" [(ngModel)]="busqueda" id="buscador">
-                        <button id="search_employees" (click)="searchEmployee()">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <input id="buscador" type="text" [(ngModel)]="busqueda"
+                        placeholder="Inserte el nombre o ID">
+                        <button id="search_employees" (click)="searchEmployee()"
+                        *ngIf="sche === false">
                             <i class="fas fa-search"></i>
+                        </button>
+                        <button id="searching" (click)="search()"
+                        *ngIf="sche === true">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <button id="add_notice" class="btn btn-outline-info btn-block"
+                        (click)="sche = true" *ngIf="sche === false">
+                            {{strings.get_schedule}}
+                        </button>
+                        <button id="add_notice" class="btn btn-outline-info btn-block"
+                        (click)="sche = false" *ngIf="sche ===true">
+                            {{strings.emplo_unsign}}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        <div class="tablas" *ngIf="employees.length != 0">
-            <table class="table table-striped">
+        <h5 class="alerts" *ngIf="employees.length == 0 && sche === false">
+            {{strings.alert27}}
+        </h5>
+        <div class="table-employees" *ngIf="employees.length != 0 && sche === false">
+            <table>
                 <thead>
                     <tr>
                         <th class="text-center">{{strings.no_employee}}</th>
                         <th class="text-center">{{strings.name}}</th>
+                        <th class="text-center">{{strings.surname1}}</th>
                         <th class="text-center">{{strings.email}}</th>
-                        <th class="text-center"></th>
+                        <th class="text-center">{{strings.sche_emplo}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-center" *ngFor="let e of employees">
                         <td>{{e.id_empleado}}</td>
                         <td>{{e.nombre}}</td>
+                        <td>{{e.apellido_paterno}}</td>
                         <td>{{e.correo}}</td>
                         <td class="text-center">
                             <button class="btn btn-outline-success m-1" type="button"
                             data-bs-toggle="modal" data-bs-target="#modalSign"
-                            (click)="new.id_empleado = e.id_empleado; nombre = e.nombre">
+                            (click)="new.id_empleado = e.id_empleado; 
+                            nombre = e.nombre">
                                 {{strings.schedules}}
                             </button>
                         </td>
@@ -60,43 +84,22 @@
                 </tbody>
             </table>
         </div>
-        <br>
-        <h4>{{strings.sche_emplo}}</h4>
-        <!-- <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-            <button id="search_all_employees" class="btn btn-outline-info btn-block" (click)="getEmployees()">
-                {{strings.show_all}}
-            </button>        
-        </div> -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
-            <h5>{{strings.look_by_id}}</h5>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="searchs">
-                    <input type="text" [(ngModel)]="busqueda2" id="buscador2">
-                    <button id="search_schedule" (click)="search()">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <ngb-alert class="alerta" id="alertas" type="warning" (close)="cerrar('alertas')">
-            {{strings.alert12}}
-        </ngb-alert>
-        <div class="tablas" *ngIf="schedules.length != 0">
-            <table class="table table-striped">
+        <h5 class="alerts" *ngIf="schedules.length == 0 && sche === true">{{strings.alert28}}</h5>
+        <div class="table-employees" *ngIf="schedules.length != 0 && sche === true">
+            <table>
                 <thead>
                     <tr>
-                        <th class="text-center">{{strings.no_employee}}</th>
-                        <th class="text-center">{{strings.monday}}</th>
-                        <th class="text-center">{{strings.tuesday}}</th>
-                        <th class="text-center">{{strings.wednesday}}</th>
-                        <th class="text-center">{{strings.thursday}}</th>
-                        <th class="text-center">{{strings.friday}}</th>
-                        <th class="text-center">{{strings.saturday}}</th>
-                        <th class="text-center">{{strings.sunday}}</th>
+                        <th class="text-center">{{strings.employee}}</th>
+                        <th class="text-center">{{strings.mon}}</th>
+                        <th class="text-center">{{strings.tue}}</th>
+                        <th class="text-center">{{strings.wed}}</th>
+                        <th class="text-center">{{strings.thu}}</th>
+                        <th class="text-center">{{strings.fri}}</th>
+                        <th class="text-center">{{strings.sat}}</th>
+                        <th class="text-center">{{strings.sun}}</th>
                         <th class="text-center">{{strings.in}}</th>
                         <th class="text-center">{{strings.out}}</th>
                         <th class="text-center">{{strings.start_rest}}</th>
-                        <th class="text-center">{{strings.end_rest}}</th>
                         <th class="text-center"></th>
                     </tr>
                 </thead>
@@ -112,8 +115,7 @@
                         <td>{{sch.domingo}}</td>
                         <td>{{sch.entrada}}</td>
                         <td>{{sch.salida}}</td>
-                        <td>{{sch.descanso_inicio}}</td>
-                        <td>{{sch.descanso_fin}}</td>
+                        <td>{{sch.descanso_inicio}} a {{sch.descanso_fin}}</td>
                         <td class="text-center">
                             <button class="btn btn-outline-success m-1" type="button"
                             data-bs-toggle="modal" data-bs-target="#modalEdit"
@@ -128,255 +130,269 @@
                 </tbody>
             </table>
         </div>
-        <!-- Tabla asignar Horario -->
-        <div class="modal fade" id="modalSign" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{strings.employee_sucursal}}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <!-- Tabla asignar Horario -->
+    <div class="modal fade" id="modalSign" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{strings.employee_sucursal}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close" (click)="redo()"></button>
+                </div>
+                <div class="modal-body">
+                    <ngb-alert id="uno" type="success" (close)="cerrar('uno')">
+                        {{strings.alert22}}
+                    </ngb-alert>
+                    <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">
+                        {{strings.alert}}
+                    </ngb-alert>
+                    <form [formGroup]="scheForm" (ngSubmit)="signSchedule(scheForm.value)" 
+                    class="col bg-light shadow-sm p-3 mb-5 rounded border">
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.name}}</label>
+                                <input type="text" [(ngModel)]="nombre" 
+                                class="form-control" formControlName="nombre"
+                                disabled>
+                            </div>
+                            <div class="col">
+                                <label>{{strings.no_employee}}</label>
+                                <input type="text" [(ngModel)]="new.id_empleado" 
+                                class="form-control" formControlName="id_empleado"
+                                disabled>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert}}</ngb-alert>
-                            <form [formGroup]="scheForm" (ngSubmit)="signSchedule(scheForm.value)" 
-                            class="col bg-light shadow-sm p-3 mb-5 rounded border">
-                                <div class="row">
-                                    <div class="col">
-                                        <label>{{strings.name}}</label>
-                                        <input type="text" [(ngModel)]="nombre" 
-                                        class="form-control" formControlName="nombre"
-                                        disabled>
-                                    </div>
-                                    <div class="col">
-                                        <label>{{strings.no_employee}}</label>
-                                        <input type="text" [(ngModel)]="new.id_empleado" 
-                                        class="form-control" formControlName="id_empleado"
-                                        disabled>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label>{{strings.sche}}</label><br>
-                                        <input type="checkbox" [(ngModel)]="new.lunes"
-                                        value="1" formControlName="lunes" id="lunes">
-                                        {{strings.monday}}<br>
-                                        <input type="checkbox" [(ngModel)]="new.martes"
-                                        formControlName="martes" value="1" id="martes">
-                                        {{strings.tuesday}}<br>
-                                        <input type="checkbox" [(ngModel)]="new.miercoles" 
-                                        value="1" formControlName="miercoles" id="miercoles">
-                                        {{strings.wednesday}}<br>
-                                        <input type="checkbox" [(ngModel)]="new.jueves" 
-                                        value="1" formControlName="jueves" id="jueves">
-                                        {{strings.thursday}}
-                                    </div>
-                                    <div class="col">
-                                        <br><br><br>
-                                        <input type="checkbox" [(ngModel)]="new.viernes"
-                                        value="1" formControlName="viernes" id="viernes">
-                                        {{strings.friday}}<br>
-                                        <input type="checkbox" [(ngModel)]="new.sabado"
-                                        formControlName="sabado" value="1" id="sabado">
-                                        {{strings.saturday}}<br>
-                                        <input type="checkbox" [(ngModel)]="new.domingo" 
-                                        value="1" formControlName="domingo" id="domingo">
-                                        {{strings.sunday}}
-                                    </div>
-                                </div>
-                                <ngb-alert id="dias" type="danger" (close)="cerrar('dias')">{{strings.days}}</ngb-alert>
-                                <div class="row">
-                                    <div class="col">
-                                        <label>{{strings.in}}<p>*</p></label>
-                                        <input type="time" [(ngModel)]="new.entrada" 
-                                        class="form-control" formControlName="entrada"
-                                        id="entrada">
-                                        <div class="validation-error">
-                                            <ng-container *ngFor="let validation of validation_messages.entrada">
-                                                <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
-                                                (scheForm.get('entrada').dirty || scheForm.get('entrada').touched)">
-                                                {{validation.message}}
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>{{strings.out}}<p>*</p></label>
-                                        <input type="time" [(ngModel)]="new.salida" 
-                                        class="form-control" formControlName="salida"
-                                        id="salida">
-                                        <div class="validation-error">
-                                            <ng-container *ngFor="let validation of validation_messages.salida">
-                                                <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
-                                                (scheForm.get('salida').dirty || scheForm.get('salida').touched)">
-                                                {{validation.message}}
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label>{{strings.start_rest}}<p>*</p></label>
-                                        <input type="time" [(ngModel)]="new.descanso_inicio" 
-                                        class="form-control" formControlName="descanso_inicio"
-                                        id="descanso">
-                                        <div class="validation-error">
-                                            <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
-                                                <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
-                                                (scheForm.get('descanso_inicio').dirty || scheForm.get('descanso_inicio').touched)">
-                                                {{validation.message}}
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>{{strings.end_rest}}<p>*</p></label>
-                                        <input type="time" [(ngModel)]="new.descanso_fin" 
-                                        class="form-control" formControlName="descanso_fin"
-                                        id="regreso">
-                                        <div class="validation-error">
-                                            <ng-container *ngFor="let validation of validation_messages.descanso_fin">
-                                                <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&
-                                                (scheForm.get('descanso_fin').dirty || scheForm.get('descanso_fin').touched)">
-                                                {{validation.message}}
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar"
-                                    (click)="redo()">
-                                        {{strings.cancel}}
-                                    </button>
-                                    <button type="submit" class="btn btn-primary" id="sign_schedule">
-                                        {{strings.send}}
-                                    </button>
-                                </div>
-                            </form>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.sche}}</label><br>
+                                <input type="checkbox" [(ngModel)]="new.lunes"
+                                value="1" formControlName="lunes" id="lunes">
+                                {{strings.monday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.martes"
+                                formControlName="martes" value="1" id="martes">
+                                {{strings.tuesday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.miercoles" 
+                                value="1" formControlName="miercoles" id="miercoles">
+                                {{strings.wednesday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.jueves" 
+                                value="1" formControlName="jueves" id="jueves">
+                                {{strings.thursday}}
+                            </div>
+                            <div class="col">
+                                <br><br><br>
+                                <input type="checkbox" [(ngModel)]="new.viernes"
+                                value="1" formControlName="viernes" id="viernes">
+                                {{strings.friday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.sabado"
+                                formControlName="sabado" value="1" id="sabado">
+                                {{strings.saturday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.domingo" 
+                                value="1" formControlName="domingo" id="domingo">
+                                {{strings.sunday}}
+                            </div>
                         </div>
-                    </div>
+                        <ngb-alert id="dias" type="danger" (close)="cerrar('dias')">{{strings.days}}</ngb-alert>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.in}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.entrada" 
+                                class="form-control" formControlName="entrada"
+                                id="entrada">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.entrada">
+                                        <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
+                                        (scheForm.get('entrada').dirty || scheForm.get('entrada').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>{{strings.out}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.salida" 
+                                class="form-control" formControlName="salida"
+                                id="salida">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.salida">
+                                        <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
+                                        (scheForm.get('salida').dirty || scheForm.get('salida').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.start_rest}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.descanso_inicio" 
+                                class="form-control" formControlName="descanso_inicio"
+                                id="descanso">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
+                                        <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
+                                        (scheForm.get('descanso_inicio').dirty || scheForm.get('descanso_inicio').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>{{strings.end_rest}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.descanso_fin" 
+                                class="form-control" formControlName="descanso_fin"
+                                id="regreso">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.descanso_fin">
+                                        <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&
+                                        (scheForm.get('descanso_fin').dirty || scheForm.get('descanso_fin').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar"
+                            (click)="redo()">
+                                {{strings.cancel}}
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="sign_schedule">
+                                {{strings.send}}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        <!-- Tabla editar/eliminar -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{strings.edit}}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ngb-alert id="cuatros" type="danger" (close)="cerrar('cuatros')">{{strings.alert}}</ngb-alert>
-                        <form [formGroup]="scheForm" (ngSubmit)="editSchedule(scheForm.value)" 
-                        class="col bg-light shadow-sm p-3 mb-5 rounded border">
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.no_employee}}</label>
-                                    <input type="text" [(ngModel)]="new.id_empleado" 
-                                    class="form-control" formControlName="id_empleado"
-                                    disabled>
+        </div>
+    </div>
+    <!-- Tabla editar/eliminar -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{strings.edit}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close" (click)="redo()"></button>
+                </div>
+                <div class="modal-body">
+                    <ngb-alert id="cuatros" type="danger" (close)="cerrar('cuatros')">
+                        {{strings.alert}}
+                    </ngb-alert>
+                    <ngb-alert id="tres" type="success" (close)="cerrar('tres')">
+                        {{strings.alert16}}
+                    </ngb-alert>
+                    <form [formGroup]="scheForm" (ngSubmit)="editSchedule(scheForm.value)" 
+                    class="col bg-light shadow-sm p-3 mb-5 rounded border">
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.no_employee}}</label>
+                                <input type="text" [(ngModel)]="new.id_empleado" 
+                                class="form-control" formControlName="id_empleado"
+                                disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.sche}}</label><br>
+                                <input type="checkbox" [(ngModel)]="new.lunes"
+                                value="1" formControlName="lunes" id="lunes2">
+                                {{strings.monday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.martes"
+                                formControlName="martes" value="1" id="martes2">
+                                {{strings.tuesday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.miercoles" 
+                                value="1" formControlName="miercoles" id="miercoles2">
+                                {{strings.wednesday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.jueves" 
+                                value="1" formControlName="jueves" id="jueves2">
+                                {{strings.thursday}}
+                            </div>
+                            <div class="col">
+                                <br><br>
+                                <input type="checkbox" [(ngModel)]="new.viernes"
+                                value="1" formControlName="viernes" id="viernes2">
+                                {{strings.friday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.sabado"
+                                formControlName="sabado" value="1" id="sabado2">
+                                {{strings.saturday}}<br>
+                                <input type="checkbox" [(ngModel)]="new.domingo" 
+                                value="1" formControlName="domingo" id="domingo2">
+                                {{strings.sunday}}
+                            </div>
+                        </div>
+                        <ngb-alert id="dia" type="danger" (close)="cerrar('dia')">{{strings.days}}</ngb-alert>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.in}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.entrada" class="form-control"
+                                formControlName="entrada" id="entrada2">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.entrada">
+                                        <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
+                                        (scheForm.get('entrada').dirty || scheForm.get('entrada').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.sche}}</label><br>
-                                    <input type="checkbox" [(ngModel)]="new.lunes"
-                                    value="1" formControlName="lunes" id="lunes2">
-                                    {{strings.monday}}<br>
-                                    <input type="checkbox" [(ngModel)]="new.martes"
-                                    formControlName="martes" value="1" id="martes2">
-                                    {{strings.tuesday}}<br>
-                                    <input type="checkbox" [(ngModel)]="new.miercoles" 
-                                    value="1" formControlName="miercoles" id="miercoles2">
-                                    {{strings.wednesday}}<br>
-                                    <input type="checkbox" [(ngModel)]="new.jueves" 
-                                    value="1" formControlName="jueves" id="jueves2">
-                                    {{strings.thursday}}
-                                </div>
-                                <div class="col">
-                                    <br><br><br>
-                                    <input type="checkbox" [(ngModel)]="new.viernes"
-                                    value="1" formControlName="viernes" id="viernes2">
-                                    {{strings.friday}}<br>
-                                    <input type="checkbox" [(ngModel)]="new.sabado"
-                                    formControlName="sabado" value="1" id="sabado2">
-                                    {{strings.saturday}}<br>
-                                    <input type="checkbox" [(ngModel)]="new.domingo" 
-                                    value="1" formControlName="domingo" id="domingo2">
-                                    {{strings.sunday}}
+                            <div class="col">
+                                <label>{{strings.out}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.salida" class="form-control"
+                                formControlName="salida" id="salida2">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.salida">
+                                        <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
+                                        (scheForm.get('salida').dirty || scheForm.get('salida').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
-                            <ngb-alert id="dia" type="danger" (close)="cerrar('dia')">{{strings.days}}</ngb-alert>
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.in}}<p>*</p></label>
-                                    <input type="time" [(ngModel)]="new.entrada" class="form-control"
-                                    formControlName="entrada" id="entrada2">
-                                    <div class="validation-error">
-                                        <ng-container *ngFor="let validation of validation_messages.entrada">
-                                            <div *ngIf="scheForm.get('entrada').hasError(validation.type) &&
-                                            (scheForm.get('entrada').dirty || scheForm.get('entrada').touched)">
-                                            {{validation.message}}
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label>{{strings.out}}<p>*</p></label>
-                                    <input type="time" [(ngModel)]="new.salida" class="form-control"
-                                    formControlName="salida" id="salida2">
-                                    <div class="validation-error">
-                                        <ng-container *ngFor="let validation of validation_messages.salida">
-                                            <div *ngIf="scheForm.get('salida').hasError(validation.type) &&
-                                            (scheForm.get('salida').dirty || scheForm.get('salida').touched)">
-                                            {{validation.message}}
-                                            </div>
-                                        </ng-container>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>{{strings.start_rest}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.descanso_inicio" 
+                                class="form-control" formControlName="descanso_inicio"
+                                id="descanso_inicio">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
+                                        <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
+                                        (scheForm.get('descanso_inicio').dirty || scheForm.get('descanso_inicio').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>{{strings.start_rest}}<p>*</p></label>
-                                    <input type="time" [(ngModel)]="new.descanso_inicio" 
-                                    class="form-control" formControlName="descanso_inicio"
-                                    id="descanso_inicio">
-                                    <div class="validation-error">
-                                        <ng-container *ngFor="let validation of validation_messages.descanso_inicio">
-                                            <div *ngIf="scheForm.get('descanso_inicio').hasError(validation.type) &&
-                                            (scheForm.get('descanso_inicio').dirty || scheForm.get('descanso_inicio').touched)">
-                                            {{validation.message}}
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label>{{strings.end_rest}}<p>*</p></label>
-                                    <input type="time" [(ngModel)]="new.descanso_fin" 
-                                    class="form-control" formControlName="descanso_fin"
-                                    id="descanso_fin">
-                                    <div class="validation-error">
-                                        <ng-container *ngFor="let validation of validation_messages.descanso_fin">
-                                            <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&
-                                            (scheForm.get('descanso_fin').dirty || scheForm.get('descanso_fin').touched)">
-                                            {{validation.message}}
-                                            </div>
-                                        </ng-container>
-                                    </div>
+                            <div class="col">
+                                <label>{{strings.end_rest}}<p>*</p></label>
+                                <input type="time" [(ngModel)]="new.descanso_fin" 
+                                class="form-control" formControlName="descanso_fin"
+                                id="descanso_fin">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.descanso_fin">
+                                        <div *ngIf="scheForm.get('descanso_fin').hasError(validation.type) &&
+                                        (scheForm.get('descanso_fin').dirty || scheForm.get('descanso_fin').touched)">
+                                        {{validation.message}}
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-danger" id="borrar"
-                                data-bs-dismiss="modal" (click)="deleteSchedule()">
-                                    {{strings.delete}}
-                                </button>
-                                <button type="submit" id="editar" class="btn btn-success">
-                                    {{strings.edit}}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" id="borrar"
+                            data-bs-dismiss="modal" (click)="deleteSchedule()">
+                                {{strings.delete}}
+                            </button>
+                            <button type="submit" id="editar" class="btn btn-success">
+                                {{strings.edit}}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
