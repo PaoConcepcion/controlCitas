@@ -13,6 +13,8 @@ export class EmpleadosComponent implements OnInit {
   deleteEmployees = [];
   show: Boolean = true;
   estado: number;
+  busqueda: any;
+  search = [];
   employeeForm: FormGroup;
   employee = {
     id_empleado: null,
@@ -69,6 +71,7 @@ export class EmpleadosComponent implements OnInit {
 
   constructor(private citasApiS: CitasApiService, private formB: FormBuilder) {
     this.employeeForm = this.formB.group({
+      id_empleado: new FormControl(null),
       id_sucursal: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(1)
@@ -115,16 +118,10 @@ export class EmpleadosComponent implements OnInit {
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('seis').style.display = 'none';
+    document.getElementById('ceis').style.display = 'none';
     document.getElementById('kinto').style.display = 'none';
     this.employeeForm.disable();
-  }
-
-  changeState(value){
-    if(value == true){
-      this.show = false;
-    }else {
-      this.show = true;
-    };
   }
 
   getSucursales() {
@@ -162,6 +159,56 @@ export class EmpleadosComponent implements OnInit {
         console.log(err);
       }
     });
+  }
+
+  searchActive(){
+    if (!this.busqueda){
+      this.getEmployees();
+    }else {
+      this.activeEmployees = [];
+      this.citasApiS.consulta('/employees').subscribe((res: any) => {
+        for (const employee of res){
+          if (employee.estatus == 1 && employee.nombre == this.busqueda ||
+            employee.estatus == 1 && employee.apellido_materno == this.busqueda
+            || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
+            || employee.estatus == 1 && employee.id_empleado == this.busqueda){
+            this.activeEmployees.push(employee)
+          }
+        };
+        if (this.activeEmployees.length <= 0){
+          document.getElementById('seis').style.display = 'block';
+          setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
+        };
+        err =>{
+          console.log(err);
+        }
+      });
+    }
+  }
+
+  searchDesactive(){
+    if (!this.busqueda){
+      this.getEmployees();
+    }else {
+      this.deleteEmployees = [];
+      this.citasApiS.consulta('/employees').subscribe((res: any) => {
+        for (const employee of res){
+          if (employee.estatus == 0 && employee.nombre == this.busqueda ||
+            employee.estatus == 0 && employee.id_empleado == this.busqueda ||
+            employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
+            employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
+              this.deleteEmployees.push(employee);
+          }
+        };
+        if (this.deleteEmployees.length <= 0){
+          document.getElementById('ceis').style.display = 'block';
+          setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
+        };
+        err =>{
+          console.log(err);
+        }
+      });
+    }
   }
 
   editEmployee(values){

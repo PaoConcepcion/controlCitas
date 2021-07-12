@@ -141,8 +141,10 @@ export const strings = {
   sign_schedule: 'Asignar horario por empleado',
   new_news: 'Nueva noticia',
   control_news: 'Modulo noticias',
+  control_employee: 'Modulo Empleados',
   no_notice: 'Numero de noticia',
   get_schedule: 'Horarios',
   emplo_unsign: 'Empleados sin horario',
   edit_schedule: 'Cambiar horario',
+  react_employee: 'Reactivar',
 };

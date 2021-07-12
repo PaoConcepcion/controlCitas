@@ -1,52 +1,61 @@
 .container {
-    margin: 7.5rem auto 0;
-    min-height: 520px;
+    margin: 7.5rem auto 1rem;
+    min-height: 630px;
     max-height: max-content;
-    border: cadetblue solid;
+    padding: 0;
+    width: 100%;
 }
-.form {
-    width: 45%;
+.forms {
+    width: 42%;
+    height: 600px;
     float: left;
-    border: brown solid;
+    padding-top: 20px;
+}
+.forms label {
+    margin: 10px;
+}
+.forms button {
+    margin-top: 15px;
+}
+.table {
+    width: 56.5%;
+    height: 100%;
+    float: right;
+}
+#buscador {
+    display: inline-block; 
+    width: max-content;
+}
+.sear {
+    width: max-content;
 }
 .tablas {
-    width: 50%;
-    height: 480px;
+    height: 530px;
     overflow: scroll;
-    float: right;
-    border: chartreuse solid;
+    padding: 0;
 }
-/* .tablas button {
+.tablas table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 100%;
+    margin: 1rem auto;
+}
+th{
+    height: 50px;
+    padding: 10px;
+    background-color: steelblue;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 1.6%;
     border: none;
-    float: right;
-    font-size: 28px;
-} */
-.show {
-    color: lightgray;
-}
-.notShow {
-    color: none;
-}
-#id_sucursal {
-    width: 48%;
-}
-#rol {
-    width: 48%;
 }
 .validation-error {
     color: red;
     margin: 2px;
 }
-#kinto {
-    color: black;
-    position: sticky;
-    top: 10;
-}
-input {
-    width: 100%;
-    height: 30px;
-}
 p {
     color: red;
     display: inline-block;
+    margin: 0;
 }
