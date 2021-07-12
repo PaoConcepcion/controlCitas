@@ -29,23 +29,9 @@ export class CalendarComponent implements OnInit  {
   }
 
   private actualizar() {
-    this.citasApiService.consulta('/datesEmployee')
-      .subscribe((res: any) => {
-        for (const o of res) {
-          this.events.push(
-            {
-              title: o.nombre,
-              start: new Date(o.fecha + ' ' + o.hora_entrada),
-              end: new Date(o.fecha + ' ' + o.hora_salida),
-              color: colors.blue,
-            }
-          );
-        }
-    });
     this.citasApiService.consulta('/schedules_employee')
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
           this.dayStartHour = res.entrada;
           this.dayEndHour = res.salida;
 
@@ -70,7 +56,21 @@ export class CalendarComponent implements OnInit  {
           if (res.sabado == '0') {
             this.excludeDays.push(6);
           }
-          this.refresh.next();
+
+          this.citasApiService.consulta('/datesEmployee')
+            .subscribe((res: any) => {
+              for (const o of res) {
+                this.events.push(
+                  {
+                    title: o.nombre,
+                    start: new Date(o.fecha + ' ' + o.hora_entrada),
+                    end: new Date(o.fecha + ' ' + o.hora_salida),
+                    color: colors.blue,
+                  }
+                );
+              }
+              this.refresh.next();
+          });
         }
     });
   }
@@ -81,9 +81,5 @@ const colors: any = {
   blue: {
     primary: '#1e90ff',
     secondary: '#D1E8FF',
-  },
-  gray: {
-    primary: '#696969',
-    secondary: '#CECECE',
-  },
+  }
 };

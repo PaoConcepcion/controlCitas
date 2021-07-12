@@ -41,6 +41,7 @@ export const strings = {
   alert23: 'Servicio no encontrado',
   alert22: 'Horario asignado',
   alert24: 'Horario eliminado',
+  alert25: 'La cita ha sido registrada correctamente',
   password: 'Contraseña',
   email_address: 'Dirección email',
   email: 'Email',

@@ -7,3 +7,7 @@
     padding: 4px;
     color: rgb(207, 23, 23);
 }
+
+.alert{
+    display: none;
+}

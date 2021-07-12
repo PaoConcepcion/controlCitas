@@ -34,6 +34,7 @@ app.use(require('./routes/publicRoutes/auth'));
 app.use(require('./routes/publicRoutes/users'));
 app.use(require('./routes/publicRoutes/sucursales'));
 app.use(require('./routes/publicRoutes/employee_service'));
+app.use(require('./routes/publicRoutes/dates'));
 app.use(require('./routes/publicRoutes/schedules'));
 
 // Private Routes with token
