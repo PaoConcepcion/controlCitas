@@ -44,6 +44,7 @@ app.use(require('./routes/privateRoutes/branchOffices'));
 app.use(require('./routes/privateRoutes/services'));
 app.use(require('./routes/privateRoutes/employees'));
 app.use(require('./routes/privateRoutes/news'));
+app.use(require('./routes/privateRoutes/auth'));
 app.use(require('./routes/privateRoutes/sucursales'));
 app.use(require('./routes/privateRoutes/employee_service'));
 app.use(require('./routes/privateRoutes/dates'));

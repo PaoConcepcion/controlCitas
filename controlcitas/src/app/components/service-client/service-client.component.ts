@@ -123,6 +123,7 @@ export class ServiceClientComponent implements OnInit {
 
   getEmpleados(form) {
     if (form.sucursal && form.dia) {
+      this.citaForm.controls['hora'].setValue('');
       this.empleados = [];
       form.empleado = '';
       this.citaForm.setValue(form);
@@ -167,6 +168,7 @@ export class ServiceClientComponent implements OnInit {
 
   actualizaCalendario(empleado: string, dia: string) {
     if (empleado && dia) {
+      this.citaForm.controls['hora'].setValue('');
       this.citasApiService.consulta(`/schedules_hours/${empleado}`)
       .subscribe((res: any) => {
         const entrada = res.entrada.split(':', 2);
@@ -204,22 +206,28 @@ export class ServiceClientComponent implements OnInit {
   }
 
   setCita(hora, dia, empleado){
+
     if (this.evento) {
       this.events = this.events.filter((event) => event !== this.evento);
     }
-    
-    this.evento = {
-      title: this.service.nombre,
-      start: new Date(dia + ' ' + hora),
-      end: addMinutes(new Date(dia + ' ' + hora), this.service.duracion),
-      color: colors.purple,
+
+    if (1){
+      this.evento = {
+        title: this.service.nombre,
+        start: new Date(dia + ' ' + hora),
+        end: addMinutes(new Date(dia + ' ' + hora), this.service.duracion),
+        color: colors.purple,
+      }
+      if (hora && empleado && dia) {
+        this.events = [
+          ...this.events,
+          this.evento
+        ];
+      }
+    } else {
+      this.mostrarAlerta('dos');
     }
-    if (hora && empleado && dia) {
-      this.events = [
-        ...this.events,
-        this.evento
-      ];
-    }
+
   }
 
   newCita(dateform, userForm) {

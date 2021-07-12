@@ -143,29 +143,30 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <label>{{strings.hour}}</label>
-                        <input 
-                            type="time" 
-                            class="form-control" 
-                            formControlName="hora" 
-                            id="hora"  
-                            (change)='setCita(citaForm.value.hora, citaForm.value.dia, citaForm.value.empleado)'
-                            min="this.startHour" 
-                            max="this.endHour"
-                            >
-                        <div class="validation-error">
-                            <ng-container *ngFor="let validation of validation_messages.hora">
-                            <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
-                            (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
-                            {{validation.message}}
+                        <div  *ngIf="citaForm.value.empleado">
+                            <label>{{strings.hour}}</label>
+                            <input 
+                                type="time" 
+                                class="form-control" 
+                                formControlName="hora" 
+                                id="hora"  
+                                (change)='setCita(citaForm.value.hora, citaForm.value.dia, citaForm.value.empleado)'
+                                >
+                            <div class="validation-error">
+                                <ng-container *ngFor="let validation of validation_messages.hora">
+                                <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
+                                (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
+                                {{validation.message}}
+                                </div>
+                                </ng-container>
                             </div>
-                            </ng-container>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div *ngIf="citaForm.value.empleado">
                     <label>Horarios disponibles</label>
+                    <ngb-alert id="dos" type="warning" (close)="cerrar('dos')" class="alert">La hora de la cita no es válida</ngb-alert>
                     <mwl-calendar-day-view
                     [viewDate]="viewDate"
                     [events]="events"

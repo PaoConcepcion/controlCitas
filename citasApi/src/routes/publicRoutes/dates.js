@@ -9,7 +9,8 @@ router.get('/datesEmployeeDay/:id_empleado/:dia', (req, res) => {
         from citas, empleados_servicios 
         where citas.id_empleado_servicio = empleados_servicios.id_empleado_servicio
         and citas.fecha = '${dia}'
-        and empleados_servicios.id_empleado = ${id_empleado};`, (err, rows, fields) => {
+        and empleados_servicios.id_empleado = ${id_empleado}
+        order by citas.hora_entrada;`, (err, rows, fields) => {
             if(!err){
                 res.json(rows);
             } else {

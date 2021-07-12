@@ -117,6 +117,7 @@ export class RegisterComponent implements OnInit {
         };
         if (body.contrasena === form.contrasenaVerf) {
           this.authService.register(body).then((data) => {
+            console.log(data);
             if (!data['success']) {
               document.getElementById('tres').style.display = 'block';
               setTimeout(() => document.getElementById('tres').style.display = 'none', 5000);
@@ -124,17 +125,6 @@ export class RegisterComponent implements OnInit {
               document.getElementById('cuatro').style.display = 'block';
               setTimeout(() => document.getElementById('cuatro').style.display = 'none', 5000);
               this.newUserForm.reset();
-              /* this.newUserForm.setValue({
-                nombre: '',
-                correo: '',
-                contrasena: '',
-                apellido_paterno: '',
-                apellido_materno: '',
-                telefono: '',
-                rol: '',
-                contrasenaVerf: '',
-                id_sucursal: ''
-              }); */
             }
           })
           .catch((err) => {
