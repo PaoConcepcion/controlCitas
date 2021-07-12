@@ -35,6 +35,18 @@ router.get('/users/:id_usuario', (req, res) => {
     })
 });
 
+router.get('/users_email/:correo', (req, res) => {
+    const { correo } = req.params;
+    console.log(correo);
+    mysqlConnection.query(`SELECT * FROM usuarios WHERE correo = "${correo}"`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows[0]);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
 router.post('/users', (req, res) => {
     const { id_usuario, nombre, apellido_paterno, apellido_materno, correo, telefono } = req.body;
     const query = `
