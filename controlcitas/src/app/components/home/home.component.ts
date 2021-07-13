@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from '../../shared/models/strings-template';
+import { UserResponse } from '../../shared/models/user.interface';
+import { AuthService } from '../../services/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,29 +13,29 @@ import { strings } from '../../shared/models/strings-template';
 })
 export class HomeComponent implements OnInit {
 
-  /* img1: Imagenes [] = [
-    {nombre: 'Salad', src: '../../assets/food1.jpg', id: 9},
-    {nombre: 'Shellfish', src: '../../assets/food2.jpg', id: 2},
-    {nombre: 'Pasta', src: '../../assets/food3.jpg', id: 10}
-  ];
+  public user$: Observable<UserResponse> = this.authSvc.user$;
 
-  img2: Imagenes [] = [
-    {nombre: 'Meat', src: '../../assets/food4.jpg', id: 3},
-    {nombre: 'Dessert', src: '../../assets/food5.jpg', id: 8},
-    {nombre: 'Breakfast', src: '../../assets/food6.jpg', id: 4},
-  ];
-
-  img3: Imagenes [] = [
-    {nombre: 'Traditional', src: '../../assets/food7.jpg', id: 15},
-    {nombre: 'Drinks', src: '../../assets/food8.jpg', id: 12},
-    {nombre: 'Soups', src: '../../assets/food9.jpg', id: 14},
-  ]; */
+  news: any [] = [];
+  new = {
+    id_sucursal: null,
+    nombre: null,
+    telefono: null,
+    cp: null,
+    colonia: null,
+    calle: null,
+    numero_exterior: null,
+    numero_interior: null,
+    latitud: null,
+    longitud: null
+  };
+  id: number;
+  zoom = 12;
 
   public imgCarrusel = [];
   public strings = strings;
   public servicios = [];
 
-  constructor(private router: Router, private citasApiService: CitasApiService) { }
+  constructor(private router: Router, private citasApiService: CitasApiService, private authSvc: AuthService) { }
 
   buscar(item: any) {
     this.router.navigate(['/buscador', item]);
@@ -40,6 +43,27 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.actualizar();
+    this.consultaSucursalN();
+  }
+
+  busSucursal(id_sucursal){
+    this.citasApiService.busqueda(`/sucursales/${id_sucursal}`).subscribe((res: any) => {
+      this.new = res;
+      console.log(this.new)
+      err =>{
+        console.log(err);
+      }
+    });
+    this.id = id_sucursal
+  }
+
+  consultaSucursalN(){
+    this.citasApiService.consulta('/sucursales').subscribe((res: any) => {
+      this.news = res;
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   private actualizar() {
@@ -49,7 +73,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.citasApiService
-      .consulta('/services')
+      .consulta('/active-services')
       .subscribe((res: any) => {
         let index = 0;
         for (let j = 0; index < res.length; j++) {

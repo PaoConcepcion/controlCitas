@@ -5,7 +5,7 @@
     </button>
 
     <a class="navbar-brand" href="#">
-        <img src="../../assets/tijeras.png" width="40" height="30" alt="">
+        <img src="../../assets/tijeras.png" width="40" height="30" alt="" onError="this.src='assets/no-image.jpg'">
     </a>
 
     <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
@@ -20,7 +20,7 @@
                         <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['news']">Noticias</a>
+                        <a class="nav-link" [routerLink]="['news']">{{strings.news}}</a>
                     </li>  
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['sucursal']">{{strings.register_sucursales}}</a>
@@ -28,20 +28,27 @@
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['employees']">{{strings.employees}}</a>
                     </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
+                    </li>
                     
                 </ng-container>
                 <!--Opciones para emlpleados-->
                 <ng-container *ngIf="(user$ | async)?.rol == 'employee'">
                     
                 </ng-container>
-
                 
             </ng-container>
         </ul>
-        <div class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
-        </div>
+        <ng-container *ngIf="(user$ | async)?.length <= 0">
+            <div class="form-inline my-2 my-lg-0">
+                <input id="textobusquedaservicios" class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
+                <button id="botonbusquedaservicios" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
+            </div>
+        </ng-container>
 
     </div>
 </nav>
@@ -52,6 +59,6 @@
         <a class="nav-link" [routerLink]="['home']">{{strings.home}}</a>
     </li>
     <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['recetas']">{{strings.services}}</a>
+        <a class="nav-link" [routerLink]="['services-page']">{{strings.services}}</a>
     </li>
 </ng-template>

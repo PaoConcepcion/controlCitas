@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CitasApiService } from './../../services/citas-api/citas-api.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { strings } from './../../shared/models/strings-template';
 
 @Component({
   selector: 'app-news',
@@ -17,18 +18,20 @@ export class NewsComponent implements OnInit {
     descripcion: null,
     imagen: null
   };
-  id: number;
+  busqueda: any;
   imagen: any = [];
   preview: string;
   imagenUpload: null;
+  strings = strings;
 
   validation_messages = {
     titulo: [
       { type: "required", message: "se requiere de un titulo"},
-      { type: "maxLenght", message: "longitud maxima de 40"}
+      { type: "minlength", message: "echale mas, deben ser 6 weon"}
     ],
     descripcion: [
       { type: "required", message: "se requiere de una descripcion"},
+      { type: "minlength", message: "falta texto we, ponele 8"}
     ],
     imagen: [
       { type: "required", message: "imagen no insertada"},
@@ -36,18 +39,17 @@ export class NewsComponent implements OnInit {
   }
 
   constructor(
-    private formB: FormBuilder,
-    private citasApiS: CitasApiService,
-    private sanitizer: DomSanitizer
-  ) {
+    private formB: FormBuilder, private sanitizer: DomSanitizer,
+    private citasApiS: CitasApiService) {
     this.newsForm = this.formB.group({
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.maxLength(40),
+        Validators.minLength(6)
       ])),
       descripcion: new FormControl("", Validators.compose([
         Validators.required,
+        Validators.minLength(8)
       ])),
       imagen: new FormControl("", Validators.compose([
         Validators.required,
@@ -57,11 +59,16 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNews();
+    document.getElementById('uno').style.display = 'none';
+    document.getElementById('dos').style.display = 'none';
+    document.getElementById('unos').style.display = 'none';
+    document.getElementById('tres').style.display = 'none';
+    document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('cuatros').style.display = 'none';
   }
 
   getNew(id_noticia) {
     this.citasApiS.busqueda(`/news/${id_noticia}`).subscribe((res: any) => {
-      // validé esta parte para que no marcara error
       res.imagen = '';
       this.new = res;
       console.log(this.new);
@@ -69,7 +76,6 @@ export class NewsComponent implements OnInit {
         console.log(err);
       }
     });
-    this.id = id_noticia
   }
 
   getNews() {
@@ -81,35 +87,68 @@ export class NewsComponent implements OnInit {
     });
   }
 
-  newRegister(values){
-    if(this.id == null){
-      this.id = 0;
-    } else {
-      this.id = this.new.id_noticia;
-    }
-    this.new = values;
-    this.new.id_noticia = this.id;
-    this.new.imagen = this.imagen[0].name;
-    this.citasApiS.alta('/news', this.new).then((res: any) => {
+  search(){
+    if (!this.busqueda){
       this.getNews();
-      console.log(values, res);
-    }).catch((error) => {
-      console.log(error);
-    });
-    const formD = new FormData();
-    this.imagen.forEach(archivo => {
-      formD.append('imagen', archivo);
-    });
-    this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
-      console.log(res);
-    });
-    this.id = null;
+    }else {
+      this.news = [];
+      this.citasApiS.consulta('/news').subscribe((res: any) => {
+        for (const news of res){
+          if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
+            this.news.push(news);
+          }
+        };
+        if (this.news.length <= 0){
+          document.getElementById('dos').style.display = 'block';
+          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+        };
+        err =>{
+          console.log(err);
+        }
+      });
+    }
+  }
+
+  newRegister(values){
+    if (!this.newsForm.valid){
+      document.getElementById('cuatro').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatro').style.display = 'none', 3000);
+      document.getElementById('cuatros').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatros').style.display = 'none', 3000);
+    }else {
+      if(this.new.id_noticia == null || this.new.id_noticia == undefined){
+        this.new.id_noticia = 0;
+      }else {
+        this.new = values;
+      }
+      this.new.imagen = this.imagen[0].name;
+      console.log(values);
+      this.citasApiS.alta('/news', this.new).then((res: any) => {
+        console.log(this.new);
+        this.newsForm.reset();
+      }).catch((error) => {
+        console.log(error);
+      });
+      const formD = new FormData();
+      this.imagen.forEach(archivo => {
+        formD.append('imagen', archivo);
+      });
+      this.citasApiS.upload('/upload', formD).subscribe((res: any) => {
+        console.log(res);
+      });
+      document.getElementById('uno').style.display = 'block';
+      setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
+      document.getElementById('unos').style.display = 'block';
+      setTimeout(() => document.getElementById('unos').style.display = 'none', 3000);
+    }
   }
 
   deleteNews(id){
     this.citasApiS.delete(`/news/${id}`).subscribe((data: any) => {
       console.log(data);
       this.getNews();
+      document.getElementById('tres').style.display = 'block';
+      setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
       err => {
         console.log(err);
       }
@@ -146,4 +185,11 @@ export class NewsComponent implements OnInit {
     }
   })
 
+  cerrar(alerta: string) {
+    document.getElementById(alerta).style.display = 'none';
+  }
+
+  cancel(){
+    this.newsForm.reset();
+  }
 }

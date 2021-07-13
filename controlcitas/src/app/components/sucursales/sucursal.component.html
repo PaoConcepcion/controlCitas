@@ -2,12 +2,11 @@
   <form [formGroup]="newsForm" (ngSubmit)="sucursalRegister(newsForm.value)"
     class="col bg-light shadow-sm p-3 mb-5 rounded border">
     <h4 class="text-center">{{strings.register_sucursales}}</h4><br>
-    <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')">{{strings.alert6}}</ngb-alert>
     <div class="row">
       <div class="col">
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.name}}</label>
-          <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="new.nombre" id="nombreSucrsal">
+          <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="new.nombre" id="nombreSucrsal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.nombre">
               <div *ngIf="newsForm.get('nombre').hasError(validation.type) &&
@@ -25,9 +24,9 @@
         <div class="form-group">
           <div class="form-group">
             <label class="col-2 col-form-label">{{strings.phone}}</label>
-            <input type="text" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
-              id="telefonoSucursal">
-              <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert10}}</ngb-alert>
+            <input type="tel" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
+              id="telefonoSucursal" maxlength="10" minlength="9" (keypress)="onlyNumberKey($event)" required>
+              <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert10}}</ngb-alert>
             <div class="validation-error">
               <ng-container *ngFor="let validation of validation_messages.telefono">
                 <div *ngIf="newsForm.get('telefono').hasError(validation.type) &&
@@ -42,8 +41,9 @@
       <div class="col">
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.cp}}</label>
-          <input type="text" class="form-control" formControlName="cp" [(ngModel)]="new.cp" id="cpSucursal">
-          <ngb-alert id="tres" type="info" (close)="cerrar('tres')">{{strings.alert11}}</ngb-alert>
+          <input type="text" class="form-control" formControlName="cp" [(ngModel)]="new.cp" id="cpSucursal" (keypress)="onlyNumberKey($event)"
+          required maxlength="5" minlength="4">
+          <ngb-alert id="uno" type="danger" (close)="cerrar('uno')">{{strings.alert11}}</ngb-alert>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.cp">
               <div *ngIf="newsForm.get('cp').hasError(validation.type) &&
@@ -61,7 +61,7 @@
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.suburb}}</label>
           <input type="text" class="form-control" formControlName="colonia" [(ngModel)]="new.colonia"
-            id="coloniaSucursal">
+            id="coloniaSucursal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.colonia">
               <div *ngIf="newsForm.get('colonia').hasError(validation.type) &&
@@ -75,7 +75,7 @@
       <div class="col">
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.street}}</label>
-          <input type="text" class="form-control" formControlName="calle" [(ngModel)]="new.calle" id="calleSucursal">
+          <input type="text" class="form-control" formControlName="calle" [(ngModel)]="new.calle" id="calleSucursal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.calle">
               <div *ngIf="newsForm.get('calle').hasError(validation.type) &&
@@ -93,7 +93,7 @@
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.outdoor_number}}</label>
           <input type="text" class="form-control" formControlName="numero_exterior" [(ngModel)]="new.numero_exterior"
-            id="numExtSucursal">
+            id="numExtSucursal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.numero_exterior">
               <div *ngIf="newsForm.get('numero_exterior').hasError(validation.type) &&
@@ -109,14 +109,6 @@
           <label class="col-2 col-form-label">{{strings.interior_number}}</label>
           <input type="text" class="form-control" formControlName="numero_interior" [(ngModel)]="new.numero_interior"
             id="numIntSucursal">
-          <!-- <div class="validation-error">
-            <ng-container *ngFor="let validation of validation_messages.nombre">
-              <div *ngIf="newsForm.get('numero_interior').hasError(validation.type) &&
-              (newsForm.get('numero_interior').dirty || newsForm.get('numero_interior').touched)">
-              {{validation.message}}
-              </div>
-            </ng-container>
-          </div> -->
         </div>
       </div>
     </div>
@@ -126,7 +118,7 @@
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.latitude}}</label>
           <input type="text" class="form-control" formControlName="latitud" [(ngModel)]="new.latitud"
-            id="latitudSucursal">
+            id="latitudSucursal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.latitud">
               <div *ngIf="newsForm.get('latitud').hasError(validation.type) &&
@@ -141,7 +133,7 @@
         <div class="form-group">
           <label class="col-2 col-form-label">{{strings.length}}</label>
           <input type="text" class="form-control" formControlName="longitud" [(ngModel)]="new.longitud"
-            id="longitudSucursal">
+            id="longitudSucursal" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.longitud">
               <div *ngIf="newsForm.get('longitud').hasError(validation.type) &&
@@ -156,8 +148,9 @@
 
     <br>
     <div class="boton">
-      <button type="submit" class="btn btn-secondary" id="registroSucursal">Registrar
-        sucursal</button>
+      <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')">{{strings.alert6}}</ngb-alert>
+      <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert21}}</ngb-alert>
+      <button type="submit" class="btn btn-secondary" id="registroSucursal">{{strings.register_sucursales}}</button>
     </div>
   </form>
   <br>
@@ -165,16 +158,16 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="text-center">ID</th>
-        <th class="text-center">Nombre</th>
-        <th class="text-center">Telefono</th>
-        <th class="text-center">C.P.</th>
-        <th class="text-center">Colonia</th>
-        <th class="text-center">Calle</th>
-        <th class="text-center">Numero exterior</th>
-        <th class="text-center">Numero Interior</th>
-        <th class="text-center">Latitud</th>
-        <th class="text-center">Longitud</th>
+        <th class="text-center">{{strings.id}}</th>
+        <th class="text-center">{{strings.name}}</th>
+        <th class="text-center">{{strings.phone}}</th>
+        <th class="text-center">{{strings.cp}}</th>
+        <th class="text-center">{{strings.suburb}}</th>
+        <th class="text-center">{{strings.street}}</th>
+        <th class="text-center">{{strings.outdoor_number}}</th>
+        <th class="text-center">{{strings.interior_number}}</th>
+        <th class="text-center">{{strings.latitude}}</th>
+        <th class="text-center">{{strings.length}}</th>
       </tr>
     </thead>
     <tbody>

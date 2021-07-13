@@ -1,0 +1,20 @@
+.container {
+    margin: 8rem 3rem 1rem;
+}
+.tablas {
+    margin: 1.5rem 4rem 1.5rem;
+}
+.validation-error {
+    color: red;
+    margin: 2px;
+}
+p {
+    color: red;
+    display: inline-block;
+}
+#busqueda {
+    width: 260px;
+}
+#busqueda2 {
+    width: 260px;
+}

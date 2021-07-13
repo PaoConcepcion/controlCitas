@@ -27,11 +27,35 @@ export class EditServicesComponent implements OnInit {
 
   public newServicioForm = new FormGroup({
     id_servicio: new FormControl(''),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    descripcion: new FormControl('', Validators.required),
-    imagen: new FormControl('',  Validators.required),
-    costo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)])
+    nombre: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(50)])),
+    descripcion: new FormControl('', Validators.compose([Validators.required])),
+    imagen: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(200)])),
+    costo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.maxLength(10)])),
+    duracion: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(5)]))
   });
+
+  validation_messages = {
+    nombre: [
+      { type: "required", message: "Se requiere de un titulo"},
+      { type: "maxLenght", message: "Longitud maxima de 50"}
+    ],
+    descripcion: [
+      { type: "required", message: "Se requiere de una descripcion"},
+    ],
+    costo: [
+      { type: "required", message: "Se requiere de un costo"},
+      { type: "pattern", message: "Solo números decimales"},
+      { type: "maxLength", message: "Longitud maxima de 10"},
+    ],
+    duracion: [
+      { type: "required", message: "Se requiere de una duracion"},
+      { type: "pattern", message: "Solo núemeros son aceptados"},
+      { type: "maxLength", message: "Longitud maxima de 5"},
+    ],
+    imagen: [
+      { type: "required", message: "Imagen no insertada"},
+    ],
+  }
 
   public buscarForm = new FormGroup({
     busqueda: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -47,6 +71,7 @@ export class EditServicesComponent implements OnInit {
       descripcion: '',
       imagen: '',
       costo: '',
+      duracion: '',
     });
     this.buscarForm.setValue({
       busqueda: '',
@@ -86,26 +111,34 @@ export class EditServicesComponent implements OnInit {
   }
 
   public newServicio(form, tuplaId = this.tuplaId) {
-    console.log('form img-> ' + form.imagen);
+    if(form.imagen == '' && this.imagen.length > 0){
+      this.newServicioForm.get('imagen').setValue('a');
+    }
     if (this.newServicioForm.valid ) {
-      // Guardar imagen en assets
-      const formD = new FormData();
-      this.imagen.forEach(archivo => {
-        formD.append('imagen', archivo);
-      });
-      this.citasApiService.upload('/upload', formD).subscribe((res: any) => {
-        console.log(res);
-      });
+
+      if ( this.imagen.length > 0 ){
+        // Guardar imagen en assets
+        const formD = new FormData();
+        this.imagen.forEach(archivo => {
+          formD.append('imagen', archivo);
+        });
+        this.citasApiService.upload('/upload', formD).subscribe((res: any) => {
+          console.log(res);
+          this.imagen = [];
+        });
+      }
+      
 
       // Guardar el registro en la base de datos
       if (this.currentStatus == 1) {
         const data = {
-          id_servicio: 0,
+          id_servicio: '0',
           nombre: form.nombre,
           descripcion: form.descripcion,
           // imagen: form.imagen,
           imagen: this.imagen[0].name,
           costo: form.costo,
+          duracion: form.duracion,
         };
 
         this.citasApiService.alta(`/services`, data).then(() => {
@@ -118,6 +151,7 @@ export class EditServicesComponent implements OnInit {
             descripcion: '',
             imagen: '',
             costo: '',
+            duracion: '',
           });
           this.actualizar();
 
@@ -126,12 +160,16 @@ export class EditServicesComponent implements OnInit {
         });
 
       } else {
+        if (this.imagen.length > 0){
+          form.imagen = this.imagen[0].name;
+        }
         const data = {
           nombre: form.nombre,
           descripcion: form.descripcion,
           // imagen: form.imagen,
-          imagen: this.imagen[0].name,
+          imagen: form.imagen,
           costo: form.costo,
+          duracion: form.duracion,
         };
 
         this.citasApiService.cambio(`/services/${form.id_servicio}`, data).subscribe((res: any) => {
@@ -143,6 +181,7 @@ export class EditServicesComponent implements OnInit {
               descripcion: '',
               imagen: '',
               costo: '',
+              duracion: '',
             });
             this.actualizar();
 
@@ -167,8 +206,9 @@ export class EditServicesComponent implements OnInit {
         nombre: res.nombre,
         descripcion: res.descripcion,
         costo: res.costo,
-        // imagen: res.imagen
-        imagen: ''
+        duracion: res.duracion,
+        imagen: res.imagen
+        // imagen: ''
       });
     });
   }
@@ -233,5 +273,9 @@ export class EditServicesComponent implements OnInit {
   mostrarAlerta(alerta: string) {
     document.getElementById(alerta).style.display = 'block';
     setTimeout(() => document.getElementById(alerta).style.display = 'none', 5000);
+  }
+
+  onlyNumberKey(event) {
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46;
   }
 }

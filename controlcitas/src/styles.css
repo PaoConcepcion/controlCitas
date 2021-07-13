@@ -1,26 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* angular-cli file: src/styles.css */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 body {
     background-color: #F2F2F2;
-    font-family: 'Bellota';
+    font-family: 'Quicksand Regular';
 }
 
 
 /* --- Fuente ---*/
 
 @font-face {
-    font-family: 'Cream Cake';
-    src: url(./assets/CreamCake.ttf);
+    font-family: 'BalooThambi2';
+    src: url(./assets/BalooThambi2-Regular.ttf);
 }
 
 @font-face {
-    font-family: 'Lobster';
-    src: url(./assets/LobsterTwo-Regular.ttf);
+    font-family: 'Nunito Regular';
+    src: url(./assets/Nunito-Regular.ttf);
 }
 
 @font-face {
-    font-family: 'Bellota';
-    src: url(./assets/Bellota-Regular.ttf);
+    font-family: 'Quicksand Regular';
+    src: url(./assets/Quicksand-Regular.ttf);
 }
 
 .filtrar {
@@ -28,7 +31,7 @@ body {
 }
 
 .top {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     font-size: 40px;
     text-align: center;
 }
@@ -82,7 +85,7 @@ body {
 /* --- Toolbar ---*/
 
 .title {
-    font-family: 'Cream Cake';
+    font-family: 'BalooThambi2';
     font-size: 50px;
 }
 
@@ -137,7 +140,7 @@ body {
 }
 
 .p-carrusel {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     font-size: 30px;
 }
 
@@ -146,12 +149,12 @@ body {
 
 .joyeria {
     margin-top: 50px;
-    font-family: 'Cream Cake';
+    font-family: 'BalooThambi2';
     font-size: 60px;
 }
 
 .titulo-galeria {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     font-size: 45px;
 }
 
@@ -302,7 +305,7 @@ footer {
 /* --- Joyas --- */
 
 .titulo-joyas {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     font-size: 40px;
     text-align: center;
 }
@@ -315,7 +318,7 @@ footer {
 /* --- About --- */
 
 .about {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     font-size: 30px;
     text-align: center;
 }
@@ -350,7 +353,7 @@ footer {
 }
 
 .resumen {
-    font-family: 'Cream Cake';
+    font-family: 'BalooThambi2';
     text-align: center;
 }
 
@@ -365,6 +368,6 @@ footer {
 }
 
 .subtitulo {
-    font-family: 'Lobster';
+    font-family: 'Nunito Regular';
     text-align: left;
 }

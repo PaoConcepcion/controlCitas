@@ -1,247 +1,254 @@
-<div class="container pos">
+<div class="container">
+    <div>
+        <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert16}}</ngb-alert>
+        <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">{{strings.alert}}</ngb-alert>    
+        <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert17}}</ngb-alert>
+        <ngb-alert id="tres" type="warning" (close)="cerrar('tres')">{{strings.alert18}}</ngb-alert>
+    </div>
     <div class="form">
         <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)" 
-        class="col bg-light shadow-sm p-3 mb-5 rounded border">
-            <h4 class="text-center">{{strings.edit_employee}}</h4><br>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.sucursal}}</label>
-                        <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
-                            <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
-                                {{sucursal.nombre}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.id_sucursal">
-                  <div *ngIf="employeeForm.get('id_sucursal').hasError(validation.type) &&
-                  (employeeForm.get('id_sucursal').dirty || employeeForm.get('id_sucursal').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label class="col-2 col-form-label">{{strings.name}}</label>
-                    <input type="text" id="nombre" class="form-control" formControlName="nombre" 
-                    [(ngModel)]="employee.nombre" maxlength="30">
-                </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.nombre">
-                  <div *ngIf="employeeForm.get('nombre').hasError(validation.type) &&
-                  (employeeForm.get('nombre').dirty || employeeForm.get('nombre').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
+            class="col bg-light shadow-sm p-3 mb-5 rounded border">
+                <h5 class="text-center">{{strings.edit_employee}}</h5><br>
+                <div class="row">
+                    <div class="col">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.surname1}}</label>
-                            <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
-                            [(ngModel)]="employee.apellido_paterno" maxlength="30">
+                            <label class="col-2 col-form-label">{{strings.name}}<p>*</p></label>
+                            <input type="text" id="nombre" class="form-control" formControlName="nombre" 
+                            [(ngModel)]="employee.nombre" maxlength="30">
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.surname2}}</label>
-                        <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
-                        [(ngModel)]="employee.apellido_materno" maxlength="30">                    
-                    </div>
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.nombre">
+                      <div *ngIf="employeeForm.get('nombre').hasError(validation.type) &&
+                      (employeeForm.get('nombre').dirty || employeeForm.get('nombre').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
                 </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
-                  <div *ngIf="employeeForm.get('apellido_paterno').hasError(validation.type) &&
-                  (employeeForm.get('apellido_paterno').dirty || employeeForm.get('apellido_paterno').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.apellido_materno">
-                  <div *ngIf="employeeForm.get('apellido_materno').hasError(validation.type) &&
-                  (employeeForm.get('apellido_materno').dirty || employeeForm.get('apellido_materno').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
+                <div class="row">
+                    <div class="col">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.email}}</label>
-                            <input type="email" id="correo" class="form-control" formControlName="correo" 
-                            [(ngModel)]="employee.correo" maxlength="50">
+                            <div class="form-group">
+                                <label class="col col-form-label">{{strings.surname1}}<p>*</p></label>
+                                <input type="text" id="apellido_paterno" class="form-control" formControlName="apellido_paterno" 
+                                [(ngModel)]="employee.apellido_paterno" maxlength="30">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col col-form-label">{{strings.surname2}}<p>*</p></label>
+                            <input type="text" id="apellido_materno" class="form-control" formControlName="apellido_materno" 
+                            [(ngModel)]="employee.apellido_materno" maxlength="30">                    
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.phone}}</label>
-                        <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
-                        [(ngModel)]="employee.telefono" maxlength="12">
-                    </div>
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
+                      <div *ngIf="employeeForm.get('apellido_paterno').hasError(validation.type) &&
+                      (employeeForm.get('apellido_paterno').dirty || employeeForm.get('apellido_paterno').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
                 </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.correo">
-                  <div *ngIf="employeeForm.get('correo').hasError(validation.type) &&
-                  (employeeForm.get('correo').dirty || employeeForm.get('correo').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.telefono">
-                  <div *ngIf="employeeForm.get('telefono').hasError(validation.type) &&
-                  (employeeForm.get('telefono').dirty || employeeForm.get('telefono').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.apellido_materno">
+                      <div *ngIf="employeeForm.get('apellido_materno').hasError(validation.type) &&
+                      (employeeForm.get('apellido_materno').dirty || employeeForm.get('apellido_materno').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <div class="form-group">
-                            <label class="col-2 col-form-label">{{strings.new_password}}</label>
-                            <input type="password" id="contrasena" class="form-control" 
-                            formControlName="contrasena" minlength="8">                      
+                            <div class="form-group">
+                                <label class="col col-form-label">{{strings.email}}<p>*</p></label>
+                                <input type="email" id="correo" class="form-control" formControlName="correo" 
+                                [(ngModel)]="employee.correo" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col col-form-label">{{strings.phone}}<p>*</p></label>
+                            <input type="tel" id="telefono" class="form-control" formControlName="telefono" 
+                            [(ngModel)]="employee.telefono" maxlength="10" (keypress)="onlyNumberKey($event)">
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.verific_password}}</label>
-                        <input type="password" id="verificar_contrasena" class="form-control" 
-                        formControlName="verificar_contrasena" minlength="8">                  
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.correo">
+                      <div *ngIf="employeeForm.get('correo').hasError(validation.type) &&
+                      (employeeForm.get('correo').dirty || employeeForm.get('correo').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
+                </div>
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.telefono">
+                      <div *ngIf="employeeForm.get('telefono').hasError(validation.type) &&
+                      (employeeForm.get('telefono').dirty || employeeForm.get('telefono').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="col col-form-label">{{strings.new_password}}<p>*</p></label>
+                                <input type="password" id="contrasena" class="form-control" 
+                                formControlName="contrasena" minlength="6">                      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col col-form-label">{{strings.verific_password}}<p>*</p></label>
+                            <input type="password" id="verificar_contrasena" class="form-control" 
+                            formControlName="verificar_contrasena" minlength="6">                  
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.contrasena">
-                  <div *ngIf="employeeForm.get('contrasena').hasError(validation.type) &&
-                  (employeeForm.get('contrasena').dirty || employeeForm.get('contrasena').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.verificar_contrasena">
-                  <div *ngIf="employeeForm.get('verificar_contrasena').hasError(validation.type) &&
-                  (employeeForm.get('verificar_contrasena').dirty || employeeForm.get('verificar_contrasena').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="col-2 col-form-label">{{strings.role}}</label>
-                        <select id="rol" class="form-control" formControlName="rol">
-                            <option value="employee" selected>
-                                {{strings.employee}}
-                            </option>
-                            <option value="admin">
-                                {{strings.administrator}}
-                            </option>
-                        </select>
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.contrasena">
+                      <div *ngIf="employeeForm.get('contrasena').hasError(validation.type) &&
+                      (employeeForm.get('contrasena').dirty || employeeForm.get('contrasena').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
+                </div>
+                <div class="validation-error">
+                    <ng-container *ngFor="let validation of validation_messages.verificar_contrasena">
+                      <div *ngIf="employeeForm.get('verificar_contrasena').hasError(validation.type) &&
+                      (employeeForm.get('verificar_contrasena').dirty || employeeForm.get('verificar_contrasena').touched)">
+                      {{validation.message}}
+                      </div>
+                    </ng-container>
+                </div>
+                <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert2}}</ngb-alert>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col col-form-label">{{strings.sucursal}}<p>*</p></label>
+                            <select id="id_sucursal" class="form-control" formControlName="id_sucursal">
+                                <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                                    {{sucursal.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.id_sucursal">
+                          <div *ngIf="employeeForm.get('id_sucursal').hasError(validation.type) &&
+                          (employeeForm.get('id_sucursal').dirty || employeeForm.get('id_sucursal').touched)">
+                          {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col col-form-label">{{strings.role}}<p>*</p></label>
+                            <select id="rol" class="form-control" formControlName="rol">
+                                <option value="employee" selected>
+                                    {{strings.employee}}
+                                </option>
+                                <option value="admin">
+                                    {{strings.administrator}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.rol">
+                          <div *ngIf="employeeForm.get('rol').hasError(validation.type) &&
+                          (employeeForm.get('rol').dirty || employeeForm.get('rol').touched)">
+                          {{validation.message}}
+                          </div>
+                        </ng-container>
                     </div>
                 </div>
-            </div>
-            <div class="validation-error">
-                <ng-container *ngFor="let validation of validation_messages.rol">
-                  <div *ngIf="employeeForm.get('rol').hasError(validation.type) &&
-                  (employeeForm.get('rol').dirty || employeeForm.get('rol').touched)">
-                  {{validation.message}}
-                  </div>
-                </ng-container>
-            </div>
-            <br>
-            <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary">{{strings.send}}</button>
-            </div>
-        </form>
-        <!-- tabla de empleados -->
-        <div *ngIf="show === true;" class="botton">
-            <button id="mostrar" (click)="changeState(show)">
-                <i class="fas fa-low-vision" [ngClass]="show == true? 'show':'notShow' "></i>
-            </button>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">{{strings.id}}</th>
-                        <th class="text-center">{{strings.sucursal}}</th>
-                        <th class="text-center">{{strings.name}}</th>
-                        <th class="text-center">{{strings.surname}}</th>
-                        <th class="text-center">{{strings.phone}}</th>
-                        <th class="text-center">{{strings.role}}</th>
-                        <th class="text-center">{{strings.options}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-center" *ngFor="let e of activeEmployees">
-                        <td>{{e.id_empleado}}</td>
-                        <td>{{e.id_sucursal}}</td>
-                        <td>{{e.nombre}}</td>
-                        <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
-                        <td>{{e.telefono}}</td>
-                        <td>{{e.rol}}</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
-                            (click)="desactiveEmployees(e.id_empleado, estado = 0)">
-                                <i class="fas fa-trash" style="color: darkred;"></i>
-                            </button>
-                            <button class="btn btn-outline-success m-1" type="button"
-                            (click)="getEmployee(e.id_empleado)">
-                                <i class="fas fa-user-edit"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- tabla empleados desactivados -->
-        <div *ngIf="show === false" class="botton">
-            <button id="ocultar" (click)="changeState(show)">
-                <i class="fas fa-low-vision"></i>
-            </button>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">{{strings.id}}</th>
-                        <th class="text-center">{{strings.sucursal}}</th>
-                        <th class="text-center">{{strings.name}}</th>
-                        <th class="text-center">{{strings.surname}}</th>
-                        <th class="text-center">{{strings.phone}}</th>
-                        <th class="text-center">{{strings.role}}</th>
-                        <th class="text-center">{{strings.options}}</th>
-                        <th class="text-center">{{strings.recuve}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-center" *ngFor="let d of deleteEmployees">
-                        <td>{{d.id_empleado}}</td>
-                        <td>{{d.id_sucursal}}</td>
-                        <td>{{d.nombre}}</td>
-                        <td>{{d.apellido_paterno}} {{d.apellido_materno}}</td>
-                        <td>{{d.telefono}}</td>
-                        <td>{{d.rol}}</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success m-1" type="button"
-                            (click)="desactiveEmployees(d.id_empleado, estado = 1)">
+                <div class="boton">
+                    <button type="submit" id="editarEmpleado" class="btn btn-secondary">
+                        {{strings.send}}
+                    </button>
+                </div>
+            </form>
+    </div>
+    <!-- tabla de empleados -->
+    <div *ngIf="show === true;" class="tablas">
+        <button id="mostrar" (click)="changeState(show)">
+            <i class="fas fa-low-vision" [ngClass]="show == true ? 'show':'notShow' "></i>
+        </button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">{{strings.id}}</th>
+                    <th class="text-center">{{strings.sucursal}}</th>
+                    <th class="text-center">{{strings.name}}</th>
+                    <th class="text-center">{{strings.surname}}</th>
+                    <th class="text-center">{{strings.phone}}</th>
+                    <th class="text-center">{{strings.role}}</th>
+                    <th class="text-center">{{strings.options}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let e of activeEmployees">
+                    <td>{{e.id_empleado}}</td>
+                    <td>{{e.id_sucursal}}</td>
+                    <td>{{e.nombre}}</td>
+                    <td>{{e.apellido_paterno}} {{e.apellido_materno}}</td>
+                    <td>{{e.telefono}}</td>
+                    <td>{{e.rol}}</td>
+                    <td class="text-center">
+                        <button id="botonDesactivar" class="btn btn-outline-success m-1" type="button"
+                        (click)="desactiveEmployees(e.id_empleado, estado = 0)">
+                            <i class="fas fa-trash" style="color: darkred;"></i>
+                        </button>
+                        <button id="botonEditar" class="btn btn-outline-success m-1" type="button"
+                        (click)="getEmployee(e.id_empleado)">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- tabla empleados desactivados -->
+    <div *ngIf="show === false" class="tablas">
+        <button id="ocultar" (click)="changeState(show)">
+            <i class="fas fa-low-vision"></i>
+        </button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">{{strings.id}}</th>
+                    <th class="text-center">{{strings.sucursal}}</th>
+                    <th class="text-center">{{strings.name}}</th>
+                    <th class="text-center">{{strings.surname}}</th>
+                    <th class="text-center">{{strings.phone}}</th>
+                    <th class="text-center">{{strings.role}}</th>
+                    <th class="text-center">{{strings.recuve}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let d of deleteEmployees">
+                    <td>{{d.id_empleado}}</td>
+                    <td>{{d.id_sucursal}}</td>
+                    <td>{{d.nombre}}</td>
+                    <td>{{d.apellido_paterno}} {{d.apellido_materno}}</td>
+                    <td>{{d.telefono}}</td>
+                    <td>{{d.rol}}</td>
+                    <td class="text-center">
+                        <button id="botonReactivar" class="btn btn-outline-success m-1" type="button"
+                        (click)="desactiveEmployees(d.id_empleado, estado = 1)">
                             <i class="fas fa-redo"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

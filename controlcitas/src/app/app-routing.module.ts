@@ -10,16 +10,25 @@ import { RegisterComponent } from './components/register/register.component';
 import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { SucursalComponent } from './components/sucursales/sucursal.component';
+import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
+import { ServicesComponent } from './components/services-page/services.component';
+import { ServiceClientComponent } from './components/service-client/service-client.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'news', component: NewsComponent},
-  {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'news', component: NewsComponent, canActivate: [CanGuard]},
+  {path: 'services-page', component: ServicesComponent},
+  {path: 'buscador/:busqueda', component: BuscadorComponent},
+  {path: 'service-client/:id', component: ServiceClientComponent},
+  {path: 'employees', component: EmpleadosComponent, canActivate: [CanAdminGuard]},
+  {path: 'news', component: NewsComponent, canActivate: [CanAdminGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [CanAdminGuard]},
   {path: 'edit-services', component: EditServicesComponent, canActivate: [CanAdminGuard]},
   {path: 'sucursal', component: SucursalComponent, canActivate: [CanAdminGuard]},
+  {path: 'employee-sucursal', component: ServiceEmployeeComponent, canActivate: [CanAdminGuard]},
+  {path: 'schedules', component: ScheduleComponent, canActivate: [CanAdminGuard]},
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
 ];

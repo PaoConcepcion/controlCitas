@@ -1,11 +1,37 @@
-.form {
-    margin: 8rem 6rem;
+.container {
+    margin: 7.5rem auto 1rem;
+    width: 80%;
+}
+.table-news {
+    margin: 2rem;
+}
+table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 100%;
+}
+tr {
+    background-color: steelblue;
+}
+th{
+    height: 50px;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 2%;
 }
 .imagencita img{
     margin: 2px;
-    border: gray solid 3px;
+    border: #e4e4e4 2px;
+}
+.boton button{
+    margin: 5px;
 }
 .validation-error{
     padding: 4px;
     color: rgb(207, 23, 23);
+}
+p {
+    color: red;
+    display: inline-block;
 }

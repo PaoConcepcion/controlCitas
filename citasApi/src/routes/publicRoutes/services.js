@@ -15,9 +15,32 @@ router.get('/services', (req, res) => {
 
 router.get('/services/:id_servicio', (req, res) => {
     const { id_servicio } = req.params;
-    mysqlConnection.query('SELECT * FROM servicios WHERE id_servicio = ?', [id_servicio], (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM servicios WHERE id_servicio = ? and  estatus = 1', [id_servicio], (err, rows, fields) => {
         if(!err){
             res.json(rows[0]);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
+
+router.get('/service-name/:busqueda', (req, res) => {
+    const { busqueda } = req.params;
+    mysqlConnection.query(`SELECT id_servicio FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows[0]);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
+router.get('/services-name/:busqueda', (req, res) => {
+    const { busqueda } = req.params;
+    mysqlConnection.query(`SELECT * FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
         } else {
             console.log(err);
         }
