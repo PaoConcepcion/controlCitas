@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark posicion">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="#">
+        <img src="../../assets/tijeras.png" width="40" height="30" alt="" onError="this.src='assets/no-image.jpg'">
+    </a>
+
+    <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <ng-container *ngIf="user$ | async as user; else login">
+                <!--Opciones para administradores-->
+                <ng-container *ngIf="(user$ | async)?.rol == 'admin'">
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['register']">{{strings.register_employees}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['news']">{{strings.news}}</a>
+                    </li>  
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['sucursal']">{{strings.register_sucursales}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['employees']">{{strings.employees}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
+                    </li>
+                    
+                </ng-container>
+                <!--Opciones para emlpleados-->
+                <ng-container *ngIf="(user$ | async)?.rol == 'employee'">
+                    
+                </ng-container>
+                
+            </ng-container>
+        </ul>
+        <ng-container *ngIf="(user$ | async)?.length <= 0">
+            <div class="form-inline my-2 my-lg-0">
+                <input id="textobusquedaservicios" class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
+                <button id="botonbusquedaservicios" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
+            </div>
+        </ng-container>
+
+    </div>
+</nav>
+
+<ng-template #login>
+    <!--Opciones para clientes-->
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['home']">{{strings.home}}</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['services-page']">{{strings.services}}</a>
+    </li>
+</ng-template>

@@ -1,0 +1,14 @@
+<div *ngIf="servicios; else elseBlock">
+    <div *ngIf="servicios.length > 0; else elseBlock">
+        <div *ngFor="let servicio of servicios">
+            <app-service-client [id]=servicio.id_servicio></app-service-client>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #elseBlock>
+    <div class="mt-5 pt-5">
+        <div class="alert alert-info">No se encontró {{busqueda}} <br> Revisa tu búsqueda</div>
+    </div>
+</ng-template>
