@@ -60,14 +60,15 @@ export class CalendarComponent implements OnInit  {
           this.citasApiService.consulta('/datesEmployee')
             .subscribe((res: any) => {
               for (const o of res) {
-                this.events.push(
+                this.events = [
+                  ...this.events,
                   {
                     title: o.nombre,
                     start: new Date(o.fecha + ' ' + o.hora_entrada),
                     end: new Date(o.fecha + ' ' + o.hora_salida),
                     color: colors.blue,
                   }
-                );
+                ];
               }
               this.refresh.next();
           });
