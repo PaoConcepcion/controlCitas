@@ -55,6 +55,23 @@
         <div class="row mt-5 position-static">
             <div class="col-sm-12">
                 <div class="text-center">
+                    <p class="h2 joyeria">{{strings.location}}</p>
+                    <hr class="separator" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="card-columns">
+                        <div class="card text-center" style="width: 18rem;">
+                            <agm-map [latitude]="21.8791024" [longitude]="-102.300221" [zoom]="zoom">
+                                <agm-marker *ngFor="let item of news; let i of index" [latitude]="item.latitud" [longitude]="item.longitud"></agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="text-center">
                     <p class="h2 joyeria">{{strings.services}}</p>
                     <hr class="separator" />
                 </div>

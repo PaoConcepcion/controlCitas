@@ -30,6 +30,7 @@ export class NewsComponent implements OnInit {
     ],
     descripcion: [
       { type: "required", message: "se requiere de una descripcion"},
+      { type: "minlength", message: "falta texto we, ponele 8"}
     ],
     imagen: [
       { type: "required", message: "imagen no insertada"},
@@ -46,6 +47,7 @@ export class NewsComponent implements OnInit {
       ])),
       descripcion: new FormControl("", Validators.compose([
         Validators.required,
+        Validators.minLength(8)
       ])),
       imagen: new FormControl("", Validators.compose([
         Validators.required,

@@ -8,6 +8,7 @@
                 [view]="view"
                 [(viewDate)]="viewDate"
                 (viewDateChange)="viewDateChange.next(viewDate)"
+                [excludeDays]="excludeDays"
             >
                 {{strings.previous}}
             </div>
@@ -27,6 +28,7 @@
                 [view]="view"
                 [(viewDate)]="viewDate"
                 (viewDateChange)="viewDateChange.next(viewDate)"
+                [excludeDays]="excludeDays"
             >
                 {{strings.next}}
             </div>
