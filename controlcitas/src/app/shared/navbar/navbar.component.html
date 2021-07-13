@@ -23,10 +23,10 @@
                         <a class="nav-link" [routerLink]="['news']">{{strings.news}}</a>
                     </li>  
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['sucursal']">{{strings.register_sucursales}}</a>
+                        <a class="nav-link" [routerLink]="['sucursal']">{{strings.new_sucursal}}</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['employees']">{{strings.employees}}</a>
+                        <a class="nav-link" [routerLink]="['employees']">{{strings.edit_employee}}</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
@@ -34,6 +34,37 @@
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
                     </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                            {{strings.employee}}
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['register']">{{strings.register_employees}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['employees']">{{strings.edit_employee}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                            {{strings.services}}
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
+                            </li>
+                        </ul>
+                    </li> -->
                     
                 </ng-container>
                 <!--Opciones para emlpleados-->
