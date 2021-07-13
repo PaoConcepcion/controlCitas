@@ -15,7 +15,7 @@ router.get('/schedules_employee', (req, res) => {
 });
     
 router.get('/employeesSchedule', (req, res) => {
-    mysqlConnection.query(`SELECT id_empleado, nombre, apellido_paterno FROM empleados WHERE id_empleado 
+    mysqlConnection.query(`SELECT id_empleado, nombre, apellido_paterno, correo FROM empleados WHERE id_empleado 
     NOT IN (SELECT id_empleado FROM horarios) AND estatus = 1;`, (err, rows, fields) => {
         if(!err){
             res.json(rows);

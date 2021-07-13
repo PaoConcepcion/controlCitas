@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { AgmCoreModule } from '@agm/core';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,7 +50,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     CalendarHeaderComponent,
     CalendarComponent,
     BuscadorComponent,
-    ScheduleComponent
+    ScheduleComponent,
   ],
   imports: [
     RouterModule,
