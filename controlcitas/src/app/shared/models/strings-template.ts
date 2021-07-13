@@ -7,6 +7,7 @@ export const strings = {
   followus: 'Siguenos en',
   contact: 'Contacto',
   about: 'Acerca de',
+  location: 'Ubicación',
   register_of_employees: 'Registro de empleados',
   register_of_sucursal: 'Registro de sucursales',
   register_employee: 'Registrar empleado',

@@ -64,6 +64,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     FormsModule,
     CommonModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyD_U9guwLSKdvWs5XdGdr0esGBoLO5Sikw'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

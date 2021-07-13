@@ -15,6 +15,22 @@ export class HomeComponent implements OnInit {
 
   public user$: Observable<UserResponse> = this.authSvc.user$;
 
+  news: any [] = [];
+  new = {
+    id_sucursal: null,
+    nombre: null,
+    telefono: null,
+    cp: null,
+    colonia: null,
+    calle: null,
+    numero_exterior: null,
+    numero_interior: null,
+    latitud: null,
+    longitud: null
+  };
+  id: number;
+  zoom = 12;
+
   public imgCarrusel = [];
   public strings = strings;
   public servicios = [];
@@ -27,6 +43,27 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.actualizar();
+    this.consultaSucursalN();
+  }
+
+  busSucursal(id_sucursal){
+    this.citasApiService.busqueda(`/sucursales/${id_sucursal}`).subscribe((res: any) => {
+      this.new = res;
+      console.log(this.new)
+      err =>{
+        console.log(err);
+      }
+    });
+    this.id = id_sucursal
+  }
+
+  consultaSucursalN(){
+    this.citasApiService.consulta('/sucursales').subscribe((res: any) => {
+      this.news = res;
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   private actualizar() {
