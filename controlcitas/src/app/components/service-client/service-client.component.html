@@ -1,3 +1,192 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Agenda tu cita</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="usuarioForm">
+            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')" class="alert">{{strings.alert1}}</ngb-alert>
+            <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alert">{{strings.alert3}}</ngb-alert>
+            <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')" class="alert">{{strings.alert29}}</ngb-alert>
+            <div class="row">
+                <div class="col-sm">
+                    <label>{{strings.email_address}}</label>
+                    <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.correo">
+                          <div *ngIf="usuarioForm.get('correo').hasError(validation.type) &&
+                          (usuarioForm.get('correo').dirty || usuarioForm.get('correo').touched)">
+                          {{validation.message}}
+                          </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <br>
+                    <div class="form-group" *ngIf="!usuario">
+                        <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">Continuar</button>
+                    </div>
+                    <div class="form-group" *ngIf="usuario">
+                        <button id="editarCorreo" type="button" class="btn btn-info" (click)="editarCorreo(usuarioForm.getRawValue().correo)">Editar correo</button>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+            <div class="row" *ngIf="usuario">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{strings.name}}</label>
+                        <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.nombre">
+                              <div *ngIf="usuarioForm.get('nombre').hasError(validation.type) &&
+                              (usuarioForm.get('nombre').dirty || usuarioForm.get('nombre').touched)">
+                                {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{strings.surname1}}</label>
+                        <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
+                              <div *ngIf="usuarioForm.get('apellido_paterno').hasError(validation.type) &&
+                              (usuarioForm.get('apellido_paterno').dirty || usuarioForm.get('apellido_paterno').touched)">
+                                {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                        <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.apellido_materno">
+                              <div *ngIf="usuarioForm.get('apellido_materno').hasError(validation.type) &&
+                              (usuarioForm.get('apellido_materno').dirty || usuarioForm.get('apellido_materno').touched)">
+                                {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{strings.phone}}</label>
+                        <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" (keypress)="onlyNumberKey($event)" minlength="10" maxlength="10" required>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.telefono">
+                              <div *ngIf="usuarioForm.get('telefono').hasError(validation.type) &&
+                              (usuarioForm.get('telefono').dirty || usuarioForm.get('telefono').touched)">
+                                {{validation.message}}
+                              </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </form>
+        <div  *ngIf="usuario">
+            <form (ngSubmit)="newCita(citaForm.value, usuarioForm.getRawValue())" [formGroup]="citaForm">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="exampleInputemaill">{{strings.company}}</label>
+                        <select  id="sucursal" class="form-control" formControlName="sucursal" (change)='getEmpleados(citaForm.value)'>
+                            <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
+                                {{sucursal.nombre}}
+                            </option>
+                        </select>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.sucursal">
+                            <div *ngIf="citaForm.get('sucursal').hasError(validation.type) &&
+                            (citaForm.get('sucursal').dirty || citaForm.get('sucursal').touched)">
+                            {{validation.message}}
+                            </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <label for="exampleInputemaill">{{strings.day}}</label>
+                        <input class="form-control" type="date" id="dia" name="trip-start" formControlName="dia" (change)='getEmpleados(citaForm.value)' min="{{fechaMinima}}" max="{{fechaMaxima}}">
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.dia">
+                            <div *ngIf="citaForm.get('dia').hasError(validation.type) &&
+                            (citaForm.get('dia').dirty || citaForm.get('dia').touched)">
+                            {{validation.message}}
+                            </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <label for="exampleInputemaill">{{strings.employee}}</label>
+                        <select  id="empleado" class="form-control" formControlName="empleado"  (change)='actualizaCalendario(citaForm.value.empleado, citaForm.value.dia)'>
+                            <option *ngFor="let empleado of empleados" value="{{empleado.id_empleado}}">
+                                {{empleado.nombre}}
+                            </option>
+                        </select>
+                        <div class="validation-error">
+                            <ng-container *ngFor="let validation of validation_messages.empleado">
+                            <div *ngIf="citaForm.get('empleado').hasError(validation.type) &&
+                            (citaForm.get('empleado').dirty || citaForm.get('empleado').touched)">
+                            {{validation.message}}
+                            </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div  *ngIf="citaForm.value.empleado">
+                            <label>{{strings.hour}}</label>
+                            <input 
+                                type="time" 
+                                class="form-control" 
+                                formControlName="hora" 
+                                id="hora"  
+                                (change)='setCita(citaForm.value.hora, citaForm.value.dia, citaForm.value.empleado)'
+                                >
+                            <div class="validation-error">
+                                <ng-container *ngFor="let validation of validation_messages.hora">
+                                <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
+                                (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
+                                {{validation.message}}
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="citaForm.value.empleado">
+                    <label>Horarios disponibles</label>
+                    <ngb-alert id="dos" type="warning" (close)="cerrar('dos')" class="alert">La hora de la cita no es válida</ngb-alert>
+                    <mwl-calendar-day-view
+                    [viewDate]="viewDate"
+                    [events]="events"
+                    [dayStartHour]="startHour"
+                    [dayEndHour]="endHour"
+                    [dayStartMinute]="startMinute"
+                    [dayEndMinute]="endMinute"
+                    >
+                    </mwl-calendar-day-view>
+                </div>
+                <br><br>
+                <div class="form-group text-right">
+                    <button id="registrarCita" type="submit" class="btn btn-success">Registra tu cita</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</ng-template>
+
 <div class="container" *ngIf="this.service; else loading">
     <div class="row filtrar">
         <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -11,9 +200,6 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                         <p class="top">{{this.service.nombre}}</p>
-                        <!-- <div class="col text-center">
-                            <small>{{item.nombre}}</small>
-                        </div> -->
                         <hr>
                         <div class="row">
                             <div class="col ml-2">
@@ -44,8 +230,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse mt-4">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <a class="btn btn-outline-primary btn-block"
-                                    [routerLink]="['/service-client',service.idservicio]">Agendar</a>
+                                <button class="btn btn-outline-primary btn-block" (click)="openXl(content)">Agendar</button>
                             </div>
                         </div>
                     </div>
@@ -54,9 +239,11 @@
         </div>
     </div>
 </div>
+
 <ng-template #loading>
     <div class="row text-center mt-5 pt-5 ">
         <div class="col ">
             <i class="fas fa-sync-alt fa-5x fa-spin "></i>
         </div>
     </div>
+</ng-template>

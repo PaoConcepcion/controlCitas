@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -46,7 +46,12 @@ export class AuthService extends RoleValidator {
   }
 
   register(data){
-    return this.httpClient.post(`${environment.API_URL}/register`, data).toPromise();
+    return this.httpClient.post(`${environment.API_URL}/register`, data, {
+      headers: new HttpHeaders().set(
+       'user_token',
+        this.userValue.token
+      ),
+    }).toPromise();
   }
 
   logout(): void {

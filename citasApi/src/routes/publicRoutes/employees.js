@@ -24,4 +24,22 @@ router.get('/employees/:id_empleado', (req, res) => {
     })
 });
 
+router.get('/employees_available/:dia/:servicio/:sucursal', (req, res) => {
+    const { dia, servicio, sucursal } = req.params;
+    mysqlConnection.query(`select em.id_empleado as id_empleado, concat(em.nombre, ' ', em.apellido_paterno) as nombre
+        from empleados em, empleados_servicios es, horarios ho
+        where em.id_sucursal = ${sucursal}
+            and em.id_empleado = es.id_empleado
+            and es.id_servicio = ${servicio}
+            and ho.id_empleado = em.id_empleado
+            and ho.${dia} = 1
+            and em.estatus = 1;`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;

@@ -144,7 +144,7 @@ export class EditServicesComponent implements OnInit {
         this.citasApiService.alta(`/services`, data).then(() => {
 
           this.mostrarAlerta('dos');
-
+          this.newServicioForm.reset();
           this.newServicioForm.setValue({
             id_servicio: '',
             nombre: '',
@@ -174,7 +174,7 @@ export class EditServicesComponent implements OnInit {
 
         this.citasApiService.cambio(`/services/${form.id_servicio}`, data).subscribe((res: any) => {
             this.currentStatus = 1;
-
+            this.newServicioForm.reset();
             this.newServicioForm.setValue({
               id_servicio: '',
               nombre: '',
