@@ -98,25 +98,21 @@ export class ScheduleComponent implements OnInit {
   }
 
   searchEmployee(){
-    if (!this.busqueda){
-      this.getEmployees();
-    }else {
-      this.employees = [];
-      this.citasApi.consulta(`/employeesSchedule`).subscribe((res: any) => {
-        for (const employee of res){
-          if (employee.nombre == this.busqueda || employee.id_empleado == this.busqueda){
-            this.employees.push(employee);
-          }
+    this.employees = [];
+    this.citasApi.consulta(`/employeesSchedule`).subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.nombre == this.busqueda || employee.id_empleado == this.busqueda){
+          this.employees.push(employee);
         }
-        if (this.employees.length <= 0){
-          document.getElementById('dos').style.display = 'block';
-          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
-        };
-        err =>{
-          console.log(err);
-        }
-      });
-    }
+      }
+      if (this.employees.length <= 0){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   getAll(){
@@ -129,24 +125,20 @@ export class ScheduleComponent implements OnInit {
   }
 
   search(){
-    if (!this.busqueda){
-      this.getAll();
-    }else {
-      this.schedules = [];
-      this.citasApi.busqueda(`/schedules/${this.busqueda}`)
-      .subscribe((res: any) => {
-        const value = res;
-        if (!value){
-          document.getElementById('alertas').style.display = 'block';
-          setTimeout(() => document.getElementById('alertas').style.display = 'none', 3000);
-        }else {
-          this.schedules.push(res);
-          err =>{
-            console.log(err);
-          }
+    this.schedules = [];
+    this.citasApi.busqueda(`/schedules/${this.busqueda}`)
+    .subscribe((res: any) => {
+      const value = res;
+      if (!value){
+        document.getElementById('alertas').style.display = 'block';
+        setTimeout(() => document.getElementById('alertas').style.display = 'none', 3000);
+      }else {
+        this.schedules.push(res);
+        err =>{
+          console.log(err);
         }
-      });
-    }
+      }
+    });
   }
 
   signSchedule(values){

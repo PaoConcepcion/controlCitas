@@ -162,53 +162,45 @@ export class EmpleadosComponent implements OnInit {
   }
 
   searchActive(){
-    if (!this.busqueda){
-      this.getEmployees();
-    }else {
-      this.activeEmployees = [];
-      this.citasApiS.consulta('/employees').subscribe((res: any) => {
-        for (const employee of res){
-          if (employee.estatus == 1 && employee.nombre == this.busqueda ||
-            employee.estatus == 1 && employee.apellido_materno == this.busqueda
-            || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
-            || employee.estatus == 1 && employee.id_empleado == this.busqueda){
-            this.activeEmployees.push(employee)
-          }
-        };
-        if (this.activeEmployees.length <= 0){
-          document.getElementById('seis').style.display = 'block';
-          setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
-        };
-        err =>{
-          console.log(err);
+    this.activeEmployees = [];
+    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 1 && employee.nombre == this.busqueda ||
+          employee.estatus == 1 && employee.apellido_materno == this.busqueda
+          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
+          || employee.estatus == 1 && employee.id_empleado == this.busqueda){
+          this.activeEmployees.push(employee)
         }
-      });
-    }
+      };
+      if (this.activeEmployees.length <= 0){
+        document.getElementById('seis').style.display = 'block';
+        setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   searchDesactive(){
-    if (!this.busqueda){
-      this.getEmployees();
-    }else {
-      this.deleteEmployees = [];
-      this.citasApiS.consulta('/employees').subscribe((res: any) => {
-        for (const employee of res){
-          if (employee.estatus == 0 && employee.nombre == this.busqueda ||
-            employee.estatus == 0 && employee.id_empleado == this.busqueda ||
-            employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
-            employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
-              this.deleteEmployees.push(employee);
-          }
-        };
-        if (this.deleteEmployees.length <= 0){
-          document.getElementById('ceis').style.display = 'block';
-          setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
-        };
-        err =>{
-          console.log(err);
+    this.deleteEmployees = [];
+    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 0 && employee.nombre == this.busqueda ||
+          employee.estatus == 0 && employee.id_empleado == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
+            this.deleteEmployees.push(employee);
         }
-      });
-    }
+      };
+      if (this.deleteEmployees.length <= 0){
+        document.getElementById('ceis').style.display = 'block';
+        setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   editEmployee(values){

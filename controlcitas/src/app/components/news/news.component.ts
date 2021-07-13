@@ -84,25 +84,21 @@ export class NewsComponent implements OnInit {
   }
 
   search(){
-    if (!this.busqueda){
-      this.getNews();
-    }else {
-      this.news = [];
-      this.citasApiS.consulta('/news').subscribe((res: any) => {
-        for (const news of res){
-          if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
-            this.news.push(news);
-          }
-        };
-        if (this.news.length <= 0){
-          document.getElementById('dos').style.display = 'block';
-          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
-        };
-        err =>{
-          console.log(err);
+    this.news = [];
+    this.citasApiS.consulta('/news').subscribe((res: any) => {
+      for (const news of res){
+        if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
+          this.news.push(news);
         }
-      });
-    }
+      };
+      if (this.news.length <= 0){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   newRegister(values){

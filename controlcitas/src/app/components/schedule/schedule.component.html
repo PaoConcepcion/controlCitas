@@ -52,10 +52,11 @@
             </div>
         </div>
         <br>
-        <h5 class="alerts" *ngIf="employees.length == 0 && sche === false">
+        <!-- <h5 class="alerts" *ngIf="employees.length == 0 && sche === false">
             {{strings.alert27}}
-        </h5>
-        <div class="table-employees" *ngIf="employees.length != 0 && sche === false">
+        </h5> -->
+        <!-- <div class="table-employees" *ngIf="employees.length != 0 && sche === false"> -->
+        <div class="table-employees" *ngIf="sche === false">
             <table>
                 <thead>
                     <tr>
@@ -84,8 +85,9 @@
                 </tbody>
             </table>
         </div>
-        <h5 class="alerts" *ngIf="schedules.length == 0 && sche === true">{{strings.alert28}}</h5>
-        <div class="table-employees" *ngIf="schedules.length != 0 && sche === true">
+        <!-- <h5 class="alerts" *ngIf="schedules.length == 0 && sche === true">{{strings.alert28}}</h5> -->
+        <!-- <div class="table-employees" *ngIf="schedules.length != 0 && sche === true"> -->
+        <div class="table-employees" *ngIf="sche === true">    
             <table>
                 <thead>
                     <tr>
