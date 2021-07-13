@@ -27,7 +27,6 @@ export class NewsComponent implements OnInit {
   validation_messages = {
     titulo: [
       { type: "required", message: "se requiere de un titulo"},
-      { type: "minlength", message: "echale mas, deben ser 6 weon"}
     ],
     descripcion: [
       { type: "required", message: "se requiere de una descripcion"},
@@ -45,7 +44,6 @@ export class NewsComponent implements OnInit {
       id_noticia: new FormControl(),
       titulo: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.minLength(6)
       ])),
       descripcion: new FormControl("", Validators.compose([
         Validators.required,
@@ -88,25 +86,21 @@ export class NewsComponent implements OnInit {
   }
 
   search(){
-    if (!this.busqueda){
-      this.getNews();
-    }else {
-      this.news = [];
-      this.citasApiS.consulta('/news').subscribe((res: any) => {
-        for (const news of res){
-          if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
-            this.news.push(news);
-          }
-        };
-        if (this.news.length <= 0){
-          document.getElementById('dos').style.display = 'block';
-          setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
-        };
-        err =>{
-          console.log(err);
+    this.news = [];
+    this.citasApiS.consulta('/news').subscribe((res: any) => {
+      for (const news of res){
+        if (news.id_noticia == this.busqueda || news.titulo == this.busqueda){
+          this.news.push(news);
         }
-      });
-    }
+      };
+      if (this.news.length <= 0){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   newRegister(values){

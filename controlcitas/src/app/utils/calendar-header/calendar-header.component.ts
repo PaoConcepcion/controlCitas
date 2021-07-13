@@ -17,6 +17,8 @@ export class CalendarHeaderComponent {
 
   @Input() locale: string = 'en';
 
+  @Input() excludeDays: number[] = [];
+
   @Output() viewChange = new EventEmitter<CalendarView>();
 
   @Output() viewDateChange = new EventEmitter<Date>();
