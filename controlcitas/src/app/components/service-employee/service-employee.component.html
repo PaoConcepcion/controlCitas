@@ -1,31 +1,55 @@
-<div class="container">´
-    <h4>{{strings.search_employee}}</h4>
-    <div class="row mb-4">
-        <ngb-alert id="dos" type="success" (close)="cerrar('dos')">{{strings.alert13}}</ngb-alert>
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-            <button id="search_all" class="btn btn-outline-info btn-block" (click)="getAll()">
-                {{strings.show_all}}
-            </button>        
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
-            <h5>{{strings.look_by_name}}</h5>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <input type="text" [(ngModel)]="busqueda" id="busqueda">
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <button id="search_employee" (click)="employeeSearch()" 
-                    class="btn btn-outline-warning btn-block">
-                        {{strings.look}}
-                    </button>                
-                </div>
+<div class="container">
+    <h4>{{strings.employee_signed}}</h4>
+    <div>
+        <ngb-alert id="dos" type="success" (close)="cerrar('dos')">{{strings.alert31}}</ngb-alert>
+        <ngb-alert id="tres" type="success" (close)="cerrar('tres')">{{strings.alert14}}</ngb-alert>
+        <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert15}}</ngb-alert>
+        <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">{{strings.alert12}}</ngb-alert>
+        <ngb-alert id="unos" type="warning" (close)="cerrar('unos')">{{strings.alert12}}</ngb-alert>
+    </div>
+    <div class="search_bar">
+        <div class="row mb-4">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
+                <button id="search_all" class="btn btn-outline-info btn-block" (click)="getAll()"
+                *ngIf="status === false">
+                    {{strings.show_all}}
+                </button>    
+                <button id="search_all_signed" class="btn btn-outline-info btn-block" 
+                *ngIf="status === true" (click)="employeeSigned()">
+                    {{strings.show_all}}
+                </button>     
             </div>
-            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')">{{strings.alert12}}</ngb-alert>
-            <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">{{strings.alert}}</ngb-alert>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 mt-3">
+                <h5>{{strings.search}}</h5>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+                        <input type="text" [(ngModel)]="busqueda" id="busqueda"
+                        placeholder="Inserte ID o nombre">
+                        <button id="search_employees" (click)="employeeSearch()"
+                        *ngIf="status === false" class="sear">
+                            <i class="fas fa-search"></i>
+                        </button>         
+                        <button (click)="employeeSignSearch()" id="servicio_empleado"
+                        *ngIf="status === true" class="sear">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
+                        <button id="services_off" (click)="status = true" *ngIf="status === false"
+                        class="btn btn-outline-warning btn-block">
+                            {{strings.employee_sign}}
+                        </button>       
+                        <button id="services_on" (click)="status = false" *ngIf="status === true"
+                        class="btn btn-outline-warning btn-block">
+                            {{strings.employee}}
+                        </button>        
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
-    <div class="tablas">
-        <table class="table table-striped">
+    <div class="tablas" *ngIf="status === false">
+        <table>
             <thead>
                 <tr>
                     <th class="text-center">{{strings.id}}</th>
@@ -45,8 +69,7 @@
                         <button class="btn btn-outline-success m-1" type="button"
                         data-bs-toggle="modal" data-bs-target="#modalService"
                         (click)="employee.id_empleado = e.id_empleado; nombre = e.nombre; 
-                        apellidos = e.apellido_paterno + e.apellido_materno; 
-                        phone = e.telefono" id="agregar">
+                        apellidos = e.apellido_paterno; phone = e.telefono" id="agregar">
                             {{strings.employee_sucursal}}
                         </button>
                     </td>
@@ -54,34 +77,8 @@
             </tbody>
         </table>
     </div>
-    <br>
-    <h4>{{strings.employee_signed}}</h4>
-    <div class="row mb-4">
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-            <button id="search_all_signed" class="btn btn-outline-info btn-block" (click)="employeeSigned()">
-                {{strings.show_all}}
-            </button>        
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
-            <h5>{{strings.look_by_id}}</h5>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <input type="text" [(ngModel)]="busqueda2" id="busqueda2">
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <button (click)="employeeSignSearch()" id="servicio_empleado" 
-                    class="btn btn-outline-warning btn-block">
-                        {{strings.look}}
-                    </button>                
-                </div>
-            </div>
-            <ngb-alert id="unos" type="warning" (close)="cerrar('unos')">{{strings.alert21}}</ngb-alert>
-        </div>
-    </div>
-    <ngb-alert id="tres" type="success" (close)="cerrar('tres')">{{strings.alert14}}</ngb-alert>
-    <ngb-alert id="cuatro" type="danger" (close)="cerrar('cuatro')">{{strings.alert15}}</ngb-alert>
-    <div class="tablas">
-        <table class="table table-striped">
+    <div class="tablas" *ngIf="status === true">
+        <table>
             <thead>
                 <tr>
                     <th class="text-center">{{strings.no_employee}}</th>
@@ -111,7 +108,8 @@
         </table>
     </div>
     <!-- Tabla asignar servicios -->
-    <div class="modal fade" id="modalService" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modalService" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -119,6 +117,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <ngb-alert id="kinto" type="danger" (close)="cerrar('kinto')">
+                        {{strings.alert}}
+                    </ngb-alert>
                     <div class="row">
                         <div class="col">
                             <label>{{strings.name}}</label>
@@ -159,7 +160,7 @@
                         {{strings.cancel}}
                     </button>
                     <button type="submit" class="btn btn-primary" (click)="signServices()"
-                    id="signService" data-bs-dismiss="modal">
+                    id="signService">
                         {{strings.send}}
                     </button>
                 </div>
@@ -167,7 +168,8 @@
         </div>
     </div>
     <!-- Tabla edita/eliminar Servicios-empleados -->
-    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -175,6 +177,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <ngb-alert id="cuatros" type="danger" (close)="cerrar('cuatros')">
+                        {{strings.alert}}
+                    </ngb-alert>
                     <div class="row">
                         <div class="col">
                             <label>{{strings.no_employee}}</label>
@@ -203,8 +208,7 @@
                     data-bs-dismiss="modal">
                         {{strings.delete}}
                     </button>
-                    <button type="submit" (click)="edit()" class="btn btn-success" id="editar"
-                    data-bs-dismiss="modal">
+                    <button type="submit" (click)="edit()" class="btn btn-success" id="editar">
                         {{strings.edit}}
                     </button>
                 </div>
