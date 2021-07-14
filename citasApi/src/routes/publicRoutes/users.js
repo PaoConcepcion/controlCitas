@@ -54,7 +54,7 @@ router.post('/users', (req, res) => {
     `;
     mysqlConnection.query(query, [id_usuario, nombre, apellido_paterno, apellido_materno, correo, telefono], (err, rows, fields) => {
         if(!err) {
-            res.json({rows});
+            res.json(rows);
         } else {
             console.log(err);
         }

@@ -5,11 +5,10 @@
                 <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="!this.citaAgendada; else finalizar">
         <form [formGroup]="usuarioForm">
-            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')" class="alert">{{strings.alert1}}</ngb-alert>
-            <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alert">{{strings.alert3}}</ngb-alert>
-            <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')" class="alert">{{strings.alert29}}</ngb-alert>
+            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')" class="alerta">{{strings.alert1}}</ngb-alert>
+            <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alerta">{{strings.alert3}}</ngb-alert>
             <div class="row">
                 <div class="col-sm">
                     <label>{{strings.email_address}}</label>
@@ -154,10 +153,15 @@
                                 >
                             <div class="validation-error">
                                 <ng-container *ngFor="let validation of validation_messages.hora">
-                                <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
-                                (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
-                                {{validation.message}}
-                                </div>
+                                    <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
+                                    (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
+                                        {{validation.message}}
+                                    </div>
+                                </ng-container>
+                                <ng-container>
+                                    <div *ngIf="citaForm.get('hora').touched && !evento">
+                                        La hora de la cita no es válida
+                                    </div>
                                 </ng-container>
                             </div>
                         </div>
@@ -166,7 +170,6 @@
                 <br>
                 <div *ngIf="citaForm.value.empleado">
                     <label>Horarios disponibles</label>
-                    <ngb-alert id="dos" type="warning" (close)="cerrar('dos')" class="alert">La hora de la cita no es válida</ngb-alert>
                     <mwl-calendar-day-view
                     [viewDate]="viewDate"
                     [events]="events"
@@ -239,10 +242,20 @@
         </div>
     </div>
 </div>
+
 <ng-template #loading>
     <div class="row text-center mt-5 pt-5 ">
         <div class="col ">
             <i class="fas fa-sync-alt fa-5x fa-spin "></i>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #finalizar>
+    <div class="modal-body">
+        <ngb-alert id="cuatro" type="success">
+            <strong>Gracias por tu elección</strong><br>
+            Tu cita ha sido agendada correctamente, todos los datos fueron enviado al correo proporcionado
+        </ngb-alert>
     </div>
 </ng-template>
