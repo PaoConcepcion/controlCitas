@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from './../../shared/models/strings-template';
@@ -12,6 +13,24 @@ import { Subject } from 'rxjs';
   styles: []
 })
 export class CalendarEmployeeComponent implements OnInit  {
+  activeEmployees = [];
+  deleteEmployees = [];
+
+  show: Boolean = true;
+  busqueda: any;
+  employeeForm: FormGroup;
+  employee = {
+    id_empleado: null,
+    id_sucursal: null,
+    nombre: null,
+    apellido_paterno: null,
+    apellido_materno: null,
+    correo: null,
+    contrasena: null,
+    telefono: null,
+    rol: null
+  }
+  id: number;
 
   refresh: Subject<any> = new Subject();
   view: CalendarView = CalendarView.Day;
@@ -24,11 +43,23 @@ export class CalendarEmployeeComponent implements OnInit  {
   excludeDays: number[] = [];
   lista: string[] = [];
   strings = strings;
-  
+
   constructor(private citasApiService: CitasApiService) { }
 
   ngOnInit(): void {
     this.actualizar();
+  }
+
+  getEmployee(id_empleado) {
+    this.citasApiService.busqueda(`/employees/${id_empleado}`).subscribe((res: any) => {
+      this.employee = res;
+      console.log(this.employee);
+      this.id = id_empleado;
+      this.employeeForm.enable();
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   mostrarEmpleado(){
@@ -80,6 +111,48 @@ export class CalendarEmployeeComponent implements OnInit  {
               this.refresh.next();
           });
         }
+    });
+  }
+
+  searchActive(){
+    this.activeEmployees = [];
+    this.citasApiService.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 1 && employee.nombre == this.busqueda ||
+          employee.estatus == 1 && employee.apellido_materno == this.busqueda
+          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
+          || employee.estatus == 1 && employee.id_empleado == this.busqueda){
+          this.activeEmployees.push(employee)
+        }
+      };
+      if (this.activeEmployees.length <= 0){
+        document.getElementById('seis').style.display = 'block';
+        setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
+  }
+
+  searchDesactive(){
+    this.deleteEmployees = [];
+    this.citasApiService.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 0 && employee.nombre == this.busqueda ||
+          employee.estatus == 0 && employee.id_empleado == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
+            this.deleteEmployees.push(employee);
+        }
+      };
+      if (this.deleteEmployees.length <= 0){
+        document.getElementById('ceis').style.display = 'block';
+        setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
     });
   }
 
