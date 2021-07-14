@@ -13,21 +13,20 @@
     </div>
 
     <div class="row" id="botones">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 mt-3">
-                <div class="row">
-                    <h5>{{strings.search}}</h5>
-                    <input id="buscador" type="text" [(ngModel)]="busqueda"
-                    placeholder="Nombre o sucursal">
-                    <button class="sear" id="search_employees" (click)="searchActive()"
-                    *ngIf="show === true">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="sear" id="search" (click)="searchDesactive()"
-                    *ngIf="show === false">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
+        <h5>{{strings.look_by_name}}</h5>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <input id="buscador" type="text" [(ngModel)]="busqueda" placeholder="Inserte el nombre">
+            <button class="sear" id="search_employees" (click)="searchActive()" *ngIf="show === true">
+              <i class="fas fa-search"></i>
+            </button>
+            <button class="sear" id="search" (click)="searchDesactive()" *ngIf="show === false">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <br>
 
