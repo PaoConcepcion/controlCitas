@@ -1,0 +1,37 @@
+<!-- <div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
+    <select id="mostrarHorario" [(ngModel)]="seleccionado">{{strings.employee}}</select>
+    <option value="item" *ngFor="let item of lista">{{item}}</option>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 mt-3">
+    <div class="row">
+      <h5>{{strings.search}}</h5>
+      <input id="buscador" type="text" [(ngModel)]="busqueda" placeholder="Inserte el nombre">
+      <button class="sear" id="search_employees" (click)="searchActive()" *ngIf="show === true">
+        <i class="fas fa-search"></i>
+      </button>
+      <button class="sear" id="search" (click)="searchDesactive()" *ngIf="show === false">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+
+<div *ngIf="show === true;">
+  <app-calendar-header [(view)]="view" [(viewDate)]="viewDate" [(excludeDays)]="excludeDays">
+  </app-calendar-header>
+
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      [excludeDays]="excludeDays">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour" [refresh]="refresh" [excludeDays]="excludeDays">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour" [refresh]="refresh">
+    </mwl-calendar-day-view>
+  </div>
+</div> -->

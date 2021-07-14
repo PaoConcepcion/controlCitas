@@ -150,4 +150,5 @@ export const strings = {
   emplo_unsign: 'Empleados sin horario',
   edit_schedule: 'Cambiar horario',
   react_employee: 'Reactivar',
+  calendar_employee: 'Horario empleados',
 };

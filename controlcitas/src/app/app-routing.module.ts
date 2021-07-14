@@ -15,6 +15,7 @@ import { ServicesComponent } from './components/services-page/services.component
 import { ServiceClientComponent } from './components/service-client/service-client.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { CalendarEmployeeComponent } from './components/calendar-employee/calendar-employee.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'sucursal', component: SucursalComponent, canActivate: [CanAdminGuard]},
   {path: 'employee-sucursal', component: ServiceEmployeeComponent, canActivate: [CanAdminGuard]},
   {path: 'schedules', component: ScheduleComponent, canActivate: [CanAdminGuard]},
+  {path: 'calendar-employee', component: CalendarEmployeeComponent, canActivate: [CanAdminGuard]},
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
 ];
