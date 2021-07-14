@@ -31,7 +31,7 @@ router.post('/dates_users', (req, res) => {
     `;
     mysqlConnection.query(query, [id_cita_usuario, id_cita, id_usuario, costo], (err, rows, fields) => {
         if(!err) {
-            res.json({Status: 'Date-user saved', rows});
+            res.json(rows);
         } else {
             console.log(err);
         }
