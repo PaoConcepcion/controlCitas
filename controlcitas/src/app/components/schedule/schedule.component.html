@@ -11,47 +11,48 @@
                 {{strings.alert12}}
             </ngb-alert>
         </div>
-        <div class="row mb-4">
-            <h4>{{strings.sign_schedule}}</h4>
-            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-                <button id="search_all_employees" class="btn btn-outline-info btn-block" 
-                (click)="getEmployees()" *ngIf="sche === false">
-                    {{strings.show_all}}
-                </button>
-                <button id="search_schedule" class="btn btn-outline-info btn-block" 
-                (click)="getAll()" *ngIf="sche === true">
-                    {{strings.show_all}}
-                </button>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
-                <h5>{{strings.search}}</h5>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <input id="buscador" type="text" [(ngModel)]="busqueda"
-                        placeholder="Inserte el nombre o ID">
-                        <button id="search_employees" (click)="searchEmployee()"
-                        *ngIf="sche === false">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <button id="searching" (click)="search()"
-                        *ngIf="sche === true">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <button id="add_notice" class="btn btn-outline-info btn-block"
-                        (click)="sche = true" *ngIf="sche === false">
-                            {{strings.get_schedule}}
-                        </button>
-                        <button id="add_notice" class="btn btn-outline-info btn-block"
-                        (click)="sche = false" *ngIf="sche ===true">
-                            {{strings.emplo_unsign}}
-                        </button>
+        <div class="search-bar">
+            <h4>{{strings.sign_schedule}}</h4><br>
+            <div class="row mb-4">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
+                    <button id="search_all_employees" class="btn btn-outline-info btn-block" 
+                    (click)="getEmployees()" *ngIf="sche === false">
+                        {{strings.show_all}}
+                    </button>
+                    <button id="search_schedule" class="btn btn-outline-info btn-block" 
+                    (click)="getAll()" *ngIf="sche === true">
+                        {{strings.show_all}}
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-3">
+                    <h5>{{strings.search}}</h5>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <input id="buscador" type="text" [(ngModel)]="busqueda"
+                            placeholder="Inserte el nombre o ID">
+                            <button id="search_employees" (click)="searchEmployee()"
+                            *ngIf="sche === false">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button id="searching" (click)="search()"
+                            *ngIf="sche === true">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <button id="add_notice" class="btn btn-outline-warning btn-block"
+                            (click)="sche = true" *ngIf="sche === false">
+                                {{strings.get_schedule}}
+                            </button>
+                            <button id="add_notice" class="btn btn-outline-warning btn-block"
+                            (click)="sche = false" *ngIf="sche ===true">
+                                {{strings.emplo_unsign}}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
         <!-- <h5 class="alerts" *ngIf="employees.length == 0 && sche === false">
             {{strings.alert27}}
         </h5> -->
@@ -77,7 +78,7 @@
                             <button class="btn btn-outline-success m-1" type="button"
                             data-bs-toggle="modal" data-bs-target="#modalSign"
                             (click)="new.id_empleado = e.id_empleado; 
-                            nombre = e.nombre">
+                            nombre = e.nombre" id="sign">
                                 {{strings.schedules}}
                             </button>
                         </td>
@@ -124,7 +125,7 @@
                             (click)="new.id_empleado = sch.id_empleado;
                             new.entrada = sch.entrada; new.salida = sch.salida;
                             new.id_horario = sch.id_horario; new.descanso_fin = sch.descanso_fin;
-                            new.descanso_inicio = sch.descanso_inicio" id="boton1">
+                            new.descanso_inicio = sch.descanso_inicio" id="edit">
                                 <i class="far fa-edit"></i>
                             </button>
                         </td>

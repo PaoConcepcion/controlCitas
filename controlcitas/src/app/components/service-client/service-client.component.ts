@@ -229,7 +229,7 @@ export class ServiceClientComponent implements OnInit {
       this.events = this.events.filter((event) => event !== this.evento);
     }
 
-    if ( this.isAvailable(hora) ){
+    if ( this.isAvailable(hora) ) {
       this.evento = {
         title: this.service.nombre,
         start: new Date(dia + ' ' + hora),
@@ -313,7 +313,6 @@ export class ServiceClientComponent implements OnInit {
         hora_salida: this.horaCitaSalida,
       };
       this.citasApiService.alta(`/users`, dataUser).then((resUser) => {
-        console.log();
         this.citasApiService.alta(`/dates`, dataDate).then((resDate) => {
           const dataCitaEmpleado = {
             id_cita_usuario: 0,
@@ -322,7 +321,6 @@ export class ServiceClientComponent implements OnInit {
             costo: this.service.costo
           };
           this.citasApiService.alta(`/dates_users`, dataCitaEmpleado).then((res) => {
-            console.log(res);
             this.citaAgendada = true;
           });
         });

@@ -5,6 +5,10 @@
 .table-news {
     margin: 2rem;
 }
+.tabla {
+    height: 400px;
+    overflow: scroll;
+}
 table {
     border: #e4e4e4 solid;
     border-radius: 20px;

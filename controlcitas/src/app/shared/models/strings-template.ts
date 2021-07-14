@@ -33,6 +33,7 @@ export const strings = {
   alert12: 'Empleado no encontrado',
   alert26: 'El empleado no ha sido encontrado o ya cuenta con un horario',
   alert13: 'Servicio registrado correctamente',
+  alert31: 'Servicios asignado correctamente',
   alert14: 'Servicio cambiado correctamente',
   alert15: 'Servicio eliminado',
   alert16: 'Cambio realizado correctamente',
@@ -102,6 +103,7 @@ export const strings = {
   employee_sucursal: 'Asignar Servicios',
   employee_unsigned: 'Empleados sin servicios',
   employee_signed: 'Servicios asignados a los empleados',
+  employee_sign: 'Servicios asignados',
   newS: 'Seleccione nuevo servicio',
   no_service: 'Numero de servicio',
   no_employee: 'Numero de empleado',
@@ -150,4 +152,5 @@ export const strings = {
   emplo_unsign: 'Empleados sin horario',
   edit_schedule: 'Cambiar horario',
   react_employee: 'Reactivar',
+  new_sucursal: 'Sucursales',
 };
