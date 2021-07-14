@@ -12,7 +12,7 @@ export class ServiceEmployeeComponent implements OnInit {
   employees = [];
   serviceSigned = [];
   busqueda: any;
-  busqueda2: any;
+  status: boolean = false;
   strings = strings;
   nombre: string;
   apellidos: string;
@@ -28,11 +28,13 @@ export class ServiceEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.getService();
     this.employeeSigned();
+    this.getAll();
     document.getElementById('uno').style.display = 'none';
     document.getElementById('unos').style.display = 'none';
     document.getElementById('dos').style.display = 'none';
     document.getElementById('tres').style.display = 'none';
     document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('cuatros').style.display = 'none';
     document.getElementById('kinto').style.display = 'none';
   }
 
@@ -52,9 +54,9 @@ export class ServiceEmployeeComponent implements OnInit {
     this.employees = [];
     this.citasApiS.consulta('/employees').subscribe((res: any) => {
       for (const employee of res){
-        if (employee.nombre === this.busqueda || employee.id_empleado === this.busqueda || 
-          employee.id_sucursal === this.busqueda || employee.apellido_paterno === this.busqueda || 
-          employee.apellido_materno === this.busqueda){
+        if (employee.nombre == this.busqueda || employee.id_empleado == this.busqueda || 
+          employee.id_sucursal == this.busqueda || employee.apellido_paterno == this.busqueda || 
+          employee.apellido_materno == this.busqueda){
           this.employees.push(employee);
         }
       };
@@ -92,8 +94,8 @@ export class ServiceEmployeeComponent implements OnInit {
     this.serviceSigned = [];
     this.citasApiS.consulta('/employee_service').subscribe((res: any) => {
       for (const employee of res[0]){
-        if (employee.id_empleado == this.busqueda2 || employee.id_empleado_servicio == this.busqueda2
-          || employee.nombre_empleado == this.busqueda2){
+        if (employee.id_empleado == this.busqueda || employee.id_empleado_servicio == this.busqueda
+          || employee.nombre_empleado == this.busqueda){
           this.serviceSigned.push(employee);
         }
       };
@@ -140,16 +142,21 @@ export class ServiceEmployeeComponent implements OnInit {
 
   // peticion editar servicio asignado al empleado
   edit(){
-    this.citasApiS.cambio(`/employee_service/${this.employee.id_empleado_servicio}`, this.employee)
-    .subscribe((res: any) => {
-      document.getElementById('tres').style.display = 'block';
-      setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
-      console.log(this.employee, res)
-      this.employeeSigned();
-      err =>{
-        console.log(err);
-      }
-    })
+    if (this.employee.id_servicio === null){
+      document.getElementById('cuatros').style.display = 'block';
+      setTimeout(() => document.getElementById('cuatros').style.display = 'none', 3000);
+    }else {
+      this.citasApiS.cambio(`/employee_service/${this.employee.id_empleado_servicio}`, this.employee)
+      .subscribe((res: any) => {
+        document.getElementById('tres').style.display = 'block';
+        setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
+        console.log(this.employee, res)
+        this.employeeSigned();
+        err =>{
+          console.log(err);
+        }
+      })
+    }
   }
 
   // alerta: no se encontro el empleado
