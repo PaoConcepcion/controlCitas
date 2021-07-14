@@ -27,7 +27,7 @@ router.get('/services/:id_servicio', (req, res) => {
 
 router.get('/service-name/:busqueda', (req, res) => {
     const { busqueda } = req.params;
-    mysqlConnection.query(`SELECT id_servicio FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
+    mysqlConnection.query(`SELECT id_servicio, nombre FROM servicios WHERE nombre like '%${busqueda}%' and  estatus = 1`, (err, rows, fields) => {
         if(!err){
             res.json(rows[0]);
         } else {
