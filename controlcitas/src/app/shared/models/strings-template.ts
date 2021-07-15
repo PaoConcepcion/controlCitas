@@ -154,4 +154,5 @@ export const strings = {
   react_employee: 'Reactivar',
   calendar_employee: 'Horario empleados',
   new_sucursal: 'Sucursales',
+  select_calendar: '-- Elige una opción --',
 };

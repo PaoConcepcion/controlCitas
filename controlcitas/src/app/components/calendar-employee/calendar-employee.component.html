@@ -4,19 +4,13 @@
       <h3 class="text-center">{{strings.calendar_employee}}</h3>
     </div>
   </div>
+  <br>
   <div class="froms">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 mt-5">
-        <select id="mostrarHorario">{{strings.employee}}</select>
-        <option value="item" *ngFor="let item of lista">{{item}}</option>
-      </div>
-    </div>
-
     <div class="row" id="botones">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4">
+      <div class="col-md-6">
         <h5>{{strings.look_by_name}}</h5>
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="col-md-6">
             <input id="buscador" type="text" [(ngModel)]="busqueda" placeholder="Inserte el nombre">
             <button class="sear" id="search_employees" (click)="searchActive()" *ngIf="show === true">
               <i class="fas fa-search"></i>
@@ -27,11 +21,20 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="show === true;" class="col-md-6">
+        <select id="mostrarHorario">
+          <option value="">{{strings.select_calendar}}</option>
+          <option value="item.id_empleado" *ngFor="let item of news; let i of index">{{item.nombre}}</option>
+        </select>
+      </div>
     </div>
     <br>
 
-    <div *ngIf="show === true;">
-
+    <div>
+      <div *ngIf="show === true;" class="container filtrar">
+        <app-calendar></app-calendar>
+      </div>
     </div>
   </div>
 </div>

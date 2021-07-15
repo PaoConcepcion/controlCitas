@@ -15,7 +15,7 @@ import { Subject } from 'rxjs';
 export class CalendarEmployeeComponent implements OnInit  {
   activeEmployees = [];
   deleteEmployees = [];
-
+  news: any [] = [];
   show: Boolean = true;
   busqueda: any;
   employeeForm: FormGroup;
@@ -31,7 +31,8 @@ export class CalendarEmployeeComponent implements OnInit  {
     rol: null
   }
   id: number;
-
+  empleados = [];
+  
   refresh: Subject<any> = new Subject();
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
@@ -41,13 +42,14 @@ export class CalendarEmployeeComponent implements OnInit  {
   dayEndHour = Math.min(20);
 
   excludeDays: number[] = [];
-  lista: string[] = [];
   strings = strings;
 
   constructor(private citasApiService: CitasApiService) { }
 
   ngOnInit(): void {
     this.actualizar();
+    this.getEmpleado();
+    console.log(this.news);
   }
 
   getEmployee(id_empleado) {
@@ -62,8 +64,13 @@ export class CalendarEmployeeComponent implements OnInit  {
     });
   }
 
-  mostrarEmpleado(){
-
+  getEmpleado(){
+    this.citasApiService.consulta('/employees').subscribe((res: any) => {
+      this.news = res;
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   private actualizar() {
@@ -120,8 +127,7 @@ export class CalendarEmployeeComponent implements OnInit  {
       for (const employee of res){
         if (employee.estatus == 1 && employee.nombre == this.busqueda ||
           employee.estatus == 1 && employee.apellido_materno == this.busqueda
-          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
-          || employee.estatus == 1 && employee.id_empleado == this.busqueda){
+          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda){
           this.activeEmployees.push(employee)
         }
       };
@@ -140,7 +146,6 @@ export class CalendarEmployeeComponent implements OnInit  {
     this.citasApiService.consulta('/employees').subscribe((res: any) => {
       for (const employee of res){
         if (employee.estatus == 0 && employee.nombre == this.busqueda ||
-          employee.estatus == 0 && employee.id_empleado == this.busqueda ||
           employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
           employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
             this.deleteEmployees.push(employee);
