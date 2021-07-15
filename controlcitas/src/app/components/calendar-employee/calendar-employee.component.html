@@ -5,32 +5,50 @@
     </div>
   </div>
   <br>
+  <div class="row mt-5 mx-5" *ngIf="reactivar == 1; else reactivarServicios">
   <div class="froms">
     <div class="row" id="botones">
       <div class="col-md-6">
-        <h5>{{strings.look_by_name}}</h5>
-        <div class="row">
-          <div class="col-md-6">
-            <input id="buscador" type="text" [(ngModel)]="busqueda" placeholder="Inserte el nombre">
-            <button class="sear" id="search_employees" (click)="searchActive()" *ngIf="show === true">
-              <i class="fas fa-search"></i>
-            </button>
-            <button class="sear" id="search" (click)="searchDesactive()" *ngIf="show === false">
-              <i class="fas fa-search"></i>
-            </button>
+          <h5>{{strings.look_by_name}}</h5>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+              <input id="busqueda" type="text" class="form-control" formControlName="busqueda"
+                placeholder="{{strings.look}}...">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <input id="buscar" type="submit" class="btn btn-primary btn-block" value="{{strings.look}}">
+            </div>
           </div>
         </div>
+
+        
+      </div>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped text-center">
+          <thead>
+            <tr>
+              <th scope="col">{{strings.name}}</th>
+              <th scope="col">{{strings.description}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of empleados">
+              <td>{{employee.nombre}}</td>
+              <td>{{employee.apellido_paterno}}</td>
+            </tr>
+
+          </tbody>
+        </table>
       </div>
 
-      <div *ngIf="show === true;" class="col-md-6">
-        <select id="mostrarHorario">
-          <option value="">{{strings.select_calendar}}</option>
-          <option value="item.id_empleado" *ngFor="let item of news; let i of index">{{item.nombre}}</option>
-        </select>
-      </div>
+      <div class="col-md-4">
+          <select id="mostrarHorario">
+            <option value="">{{strings.select_calendar}}</option>
+            <option value="item.id_empleado" *ngFor="let item of news; let i of index">{{item.nombre}}</option>
+          </select>
+        </div>
     </div>
-    <br>
-
     <div>
       <div *ngIf="show === true;" class="container filtrar">
         <app-calendar></app-calendar>

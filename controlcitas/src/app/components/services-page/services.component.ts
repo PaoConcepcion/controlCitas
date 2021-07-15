@@ -14,11 +14,10 @@ export class ServicesComponent implements OnInit {
   constructor( private citasApiS: CitasApiService) {
 
   }
-  
+
   ngOnInit(): void {
     this.citasApiS.consulta('/active-services').subscribe((res: any) => {
       this.services = res;
-      console.log(res);
     });
   }
 

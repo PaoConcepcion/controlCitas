@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { CitasApiService } from '../../services/citas-api/citas-api.service';
 import { strings } from './../../shared/models/strings-template';
@@ -13,8 +13,6 @@ import { Subject } from 'rxjs';
   styles: []
 })
 export class CalendarEmployeeComponent implements OnInit  {
-  activeEmployees = [];
-  deleteEmployees = [];
   news: any [] = [];
   show: Boolean = true;
   busqueda: any;
@@ -31,7 +29,10 @@ export class CalendarEmployeeComponent implements OnInit  {
     rol: null
   }
   id: number;
-  empleados = [];
+  public empleados = [];
+  public inactivos = [];
+
+  public reactivar = 1;
   
   refresh: Subject<any> = new Subject();
   view: CalendarView = CalendarView.Day;
@@ -44,11 +45,20 @@ export class CalendarEmployeeComponent implements OnInit  {
   excludeDays: number[] = [];
   strings = strings;
 
-  constructor(private citasApiService: CitasApiService) { }
+  public buscarForm = new FormGroup({
+    busqueda: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+  });
+
+  constructor(private citasApiService: CitasApiService) {
+    this.buscarForm.setValue({
+      busqueda: '',
+    });
+   }
 
   ngOnInit(): void {
     this.actualizar();
     this.getEmpleado();
+    this.actualizarEmployee();
     console.log(this.news);
   }
 
@@ -71,6 +81,41 @@ export class CalendarEmployeeComponent implements OnInit  {
         console.log(err);
       }
     });
+  }
+
+  public actualizarEmployee() {
+    this.citasApiService
+      .consulta('/employees')
+      .subscribe((res: any) => {
+        console.log(res);
+        this.empleados = [];
+        this.inactivos = [];
+        for (const o of res) {
+          if (o.estatus == 1) {
+            this.empleados.push(o);
+          } else {
+            this.inactivos.push(o);
+          }
+        }
+      });
+  }
+
+  reactivarServicios() {
+    if (this.reactivar === 1) {
+      this.reactivar = 0;
+    } else {
+      this.reactivar = 1;
+    }
+  }
+
+  buscar(form) {
+    if (this.buscarForm.valid) {
+      this.citasApiService.consulta(`/employee-name/${form.busqueda}`).subscribe((res: any) => {
+        this.empleados = res;
+      });
+    } else {
+      console.log("Alert");
+    }
   }
 
   private actualizar() {
@@ -121,47 +166,8 @@ export class CalendarEmployeeComponent implements OnInit  {
     });
   }
 
-  searchActive(){
-    this.activeEmployees = [];
-    this.citasApiService.consulta('/employees').subscribe((res: any) => {
-      for (const employee of res){
-        if (employee.estatus == 1 && employee.nombre == this.busqueda ||
-          employee.estatus == 1 && employee.apellido_materno == this.busqueda
-          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda){
-          this.activeEmployees.push(employee)
-        }
-      };
-      if (this.activeEmployees.length <= 0){
-        document.getElementById('seis').style.display = 'block';
-        setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
-      };
-      err =>{
-        console.log(err);
-      }
-    });
-  }
-
-  searchDesactive(){
-    this.deleteEmployees = [];
-    this.citasApiService.consulta('/employees').subscribe((res: any) => {
-      for (const employee of res){
-        if (employee.estatus == 0 && employee.nombre == this.busqueda ||
-          employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
-          employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
-            this.deleteEmployees.push(employee);
-        }
-      };
-      if (this.deleteEmployees.length <= 0){
-        document.getElementById('ceis').style.display = 'block';
-        setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
-      };
-      err =>{
-        console.log(err);
-      }
-    });
-  }
-
 }
+
 
 const colors: any = {
   blue: {

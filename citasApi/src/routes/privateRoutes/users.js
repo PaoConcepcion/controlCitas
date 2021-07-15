@@ -14,4 +14,15 @@ router.get('/usersName', (req, res) => {
     });
 });
 
+router.get('/employee-name/:nombre', (req, res) => {
+    const { nombre } = req.params;
+    mysqlConnection.query(`SELECT * FROM empleados WHERE nombre LIKE '%${nombre}%' and estatus = 1`, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
 module.exports = router;

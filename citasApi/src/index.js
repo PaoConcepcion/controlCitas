@@ -37,8 +37,8 @@ app.use(require('./routes/publicRoutes/employee_service'));
 app.use(require('./routes/publicRoutes/dates'));
 app.use(require('./routes/publicRoutes/schedules'));
 app.use(require('./routes/publicRoutes/dates'));
-app.use(require('./routes/publicRoutes/dates_users'));
 app.use(require('./routes/publicRoutes/webhook'));
+app.use(require('./routes/publicRoutes/correo'));
 
 // Private Routes with token
 app.use(require('./routes/privateRoutes/branchOffices'));
