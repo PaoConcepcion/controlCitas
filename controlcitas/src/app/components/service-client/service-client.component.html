@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Agenda tu cita</h4>
+        <h4 class="modal-title">{{strings.schedule_your_appointment}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
         </button>
@@ -25,10 +25,10 @@
                 <div class="col-sm">
                     <br>
                     <div class="form-group" *ngIf="!usuario">
-                        <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">Continuar</button>
+                        <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">{{strings.continue}}</button>
                     </div>
                     <div class="form-group" *ngIf="usuario">
-                        <button id="editarCorreo" type="button" class="btn btn-info" (click)="editarCorreo(usuarioForm.getRawValue().correo)">Editar correo</button>
+                        <button id="editarCorreo" type="button" class="btn btn-info" (click)="editarCorreo(usuarioForm.getRawValue().correo)">{{strings.edit_email}}</button>
                     </div>
                 </div>
                 <div class="col"></div>
@@ -160,7 +160,7 @@
                                 </ng-container>
                                 <ng-container>
                                     <div *ngIf="citaForm.get('hora').touched && !evento">
-                                        La hora de la cita no es válida
+                                        {{strings.validation1}}
                                     </div>
                                 </ng-container>
                             </div>
@@ -169,7 +169,7 @@
                 </div>
                 <br>
                 <div *ngIf="citaForm.value.empleado">
-                    <label>Horarios disponibles</label>
+                    <label>{{strings.available_times}}</label>
                     <mwl-calendar-day-view
                     [viewDate]="viewDate"
                     [events]="events"
@@ -182,7 +182,7 @@
                 </div>
                 <br><br>
                 <div class="form-group text-right">
-                    <button id="registrarCita" type="submit" class="btn btn-success">Registra tu cita</button>
+                    <button id="registrarCita" type="submit" class="btn btn-success">{{strings.register_your_date}}</button>
                 </div>
                 
             </form>
@@ -208,7 +208,7 @@
                             <div class="col ml-2">
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Costo: </strong> 
+                                        <strong> {{strings.cost}}: </strong> 
                                         ${{this.service.costo}} 
                                     </p>
                                 </div>
@@ -216,15 +216,15 @@
                                 <hr>
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Duracion: </strong> 
-                                        {{this.service.duracion}} minutos
+                                        <strong> {{strings.duration}}: </strong> 
+                                        {{this.service.duracion}} {{strings.minutes}}
                                     </p>
                                 </div>
     
                                 <hr>
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Descripcion: </strong> <br>
+                                        <strong> {{strings.description}}: </strong> <br>
                                         {{this.service.descripcion}}
                                     </p>
                                 </div>
@@ -233,7 +233,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse mt-4">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <button class="btn btn-outline-primary btn-block" (click)="openXl(content)">Agendar</button>
+                                <button class="btn btn-outline-primary btn-block" (click)="openXl(content)">{{strings.schedule}}</button>
                             </div>
                         </div>
                     </div>
@@ -254,8 +254,8 @@
 <ng-template #finalizar>
     <div class="modal-body">
         <ngb-alert id="cuatro" type="success">
-            <strong>Gracias por tu elección</strong><br>
-            Tu cita ha sido agendada correctamente, todos los datos fueron enviado al correo proporcionado
+            <strong>{{strings.thank_you}}</strong><br>
+            {{strings.message1}}
         </ngb-alert>
     </div>
 </ng-template>

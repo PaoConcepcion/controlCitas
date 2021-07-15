@@ -305,38 +305,32 @@ export class ServiceClientComponent implements OnInit {
         correo: userForm.correo,
         telefono: userForm.telefono
       };
-      const dataDate = {
-        id_cita: 0,
-        id_empleado_servicio: this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).id_empleado_servicio,
-        fecha: dateform.dia,
-        hora_entrada: dateform.hora,
-        hora_salida: this.horaCitaSalida,
-      };
       this.citasApiService.alta(`/users`, dataUser).then((resUser) => {
+        const dataDate = {
+          id_cita: 0,
+          id_empleado_servicio: this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).id_empleado_servicio,
+          fecha: dateform.dia,
+          hora_entrada: dateform.hora,
+          hora_salida: this.horaCitaSalida,
+          id_usuario: resUser[0][0].id_usuario,
+          costo: this.service.costo
+        };
         this.citasApiService.alta(`/dates`, dataDate).then((resDate) => {
-          const dataCitaEmpleado = {
-            id_cita_usuario: 0,
+          this.citaAgendada = true;
+          const correo = {
+            nombre: dataUser.nombre + ' ' + dataUser.apellido_paterno + ' ' + dataUser.apellido_materno,
+            correo: dataUser.correo,
+            telefono: dataUser.telefono,
             id_cita: resDate[0][0].id_cita,
-            id_usuario: resUser[0][0].id_usuario,
-            costo: this.service.costo
+            fecha: dataDate.fecha,
+            hora: dataDate.fecha,
+            servicio: this.service.nombre,
+            costo: dataDate.costo,
+            empleado:  this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).nombre,
+            sucursal:  this.sucursales.find(laSucursal => laSucursal.id_sucursal ==  dateform.sucursal).nombre
           };
-          this.citasApiService.alta(`/dates_users`, dataCitaEmpleado).then(() => {
-            this.citaAgendada = true;
-            const correo = {
-              nombre: dataUser.nombre + ' ' + dataUser.apellido_paterno + ' ' + dataUser.apellido_materno,
-              correo: dataUser.correo,
-              telefono: dataUser.telefono,
-              id_cita: dataCitaEmpleado.id_cita,
-              fecha: dataDate.fecha,
-              hora: dataDate.fecha,
-              servicio: this.service.nombre,
-              costo: dataCitaEmpleado.costo,
-              empleado:  this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).nombre,
-              sucursal:  this.sucursales.find(laSucursal => laSucursal.id_sucursal ==  dateform.sucursal).nombre
-            };
-            this.citasApiService.alta(`/send-email`, correo).then((res) => {
-              console.log(res);
-            });
+          this.citasApiService.alta(`/send-email`, correo).then((res) => {
+            console.log(res);
           });
         });
       });
