@@ -1,18 +1,17 @@
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Agenda tu cita</h4>
+        <h4 class="modal-title">{{strings.schedule_your_appointment}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="!this.citaAgendada; else finalizar">
         <form [formGroup]="usuarioForm">
-            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')" class="alert">{{strings.alert1}}</ngb-alert>
-            <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alert">{{strings.alert3}}</ngb-alert>
-            <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')" class="alert">{{strings.alert29}}</ngb-alert>
+            <ngb-alert id="uno" type="warning" (close)="cerrar('uno')" class="alerta">{{strings.alert1}}</ngb-alert>
+            <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alerta">{{strings.alert3}}</ngb-alert>
             <div class="row">
                 <div class="col-sm">
-                    <label>{{strings.email_address}}</label>
+                    <label>{{strings.email_address}}<p class="required">*</p></label>
                     <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
                     <div class="validation-error">
                         <ng-container *ngFor="let validation of validation_messages.correo">
@@ -25,11 +24,12 @@
                 </div>
                 <div class="col-sm">
                     <br>
+                    <br>
                     <div class="form-group" *ngIf="!usuario">
-                        <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">Continuar</button>
+                        <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">{{strings.continue}}</button>
                     </div>
                     <div class="form-group" *ngIf="usuario">
-                        <button id="editarCorreo" type="button" class="btn btn-info" (click)="editarCorreo(usuarioForm.getRawValue().correo)">Editar correo</button>
+                        <button id="editarCorreo" type="button" class="btn btn-info" (click)="editarCorreo(usuarioForm.getRawValue().correo)">{{strings.edit_email}}</button>
                     </div>
                 </div>
                 <div class="col"></div>
@@ -38,7 +38,7 @@
             <div class="row" *ngIf="usuario">
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.name}}</label>
+                        <label for="exampleInputEmail1">{{strings.name}}<p class="required">*</p></label>
                         <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.nombre">
@@ -53,7 +53,7 @@
                 
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.surname1}}</label>
+                        <label for="exampleInputEmail1">{{strings.surname1}}<p class="required">*</p></label>
                         <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                        <label for="exampleInputEmail1">{{strings.surname2}}<p class="required">*</p></label>
                         <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.apellido_materno">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.phone}}</label>
+                        <label for="exampleInputEmail1">{{strings.phone}}<p class="required">*</p></label>
                         <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" (keypress)="onlyNumberKey($event)" minlength="10" maxlength="10" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.telefono">
@@ -99,8 +99,8 @@
             <form (ngSubmit)="newCita(citaForm.value, usuarioForm.getRawValue())" [formGroup]="citaForm">
                 <div class="row">
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.company}}</label>
-                        <select  id="sucursal" class="form-control" formControlName="sucursal" (change)='getEmpleados(citaForm.value)'>
+                        <label for="exampleInputemaill">{{strings.company}}<p class="required">*</p></label>
+                        <select  id="sucursal" class="form-control custom-select" formControlName="sucursal" (change)='getEmpleados(citaForm.value)'>
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
                             </option>
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.day}}</label>
+                        <label for="exampleInputemaill">{{strings.day}}<p class="required">*</p></label>
                         <input class="form-control" type="date" id="dia" name="trip-start" formControlName="dia" (change)='getEmpleados(citaForm.value)' min="{{fechaMinima}}" max="{{fechaMaxima}}">
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.dia">
@@ -127,8 +127,8 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.employee}}</label>
-                        <select  id="empleado" class="form-control" formControlName="empleado"  (change)='actualizaCalendario(citaForm.value.empleado, citaForm.value.dia)'>
+                        <label for="exampleInputemaill">{{strings.employee}}<p class="required">*</p></label>
+                        <select  id="empleado" class="form-control custom-select" formControlName="empleado"  (change)='actualizaCalendario(citaForm.value.empleado, citaForm.value.dia)'>
                             <option *ngFor="let empleado of empleados" value="{{empleado.id_empleado}}">
                                 {{empleado.nombre}}
                             </option>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col-sm">
                         <div  *ngIf="citaForm.value.empleado">
-                            <label>{{strings.hour}}</label>
+                            <label>{{strings.hour}}<p class="required">*</p></label>
                             <input 
                                 type="time" 
                                 class="form-control" 
@@ -154,10 +154,15 @@
                                 >
                             <div class="validation-error">
                                 <ng-container *ngFor="let validation of validation_messages.hora">
-                                <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
-                                (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
-                                {{validation.message}}
-                                </div>
+                                    <div *ngIf="citaForm.get('hora').hasError(validation.type) &&
+                                    (citaForm.get('hora').dirty || citaForm.get('hora').touched)">
+                                        {{validation.message}}
+                                    </div>
+                                </ng-container>
+                                <ng-container>
+                                    <div *ngIf="citaForm.get('hora').touched && !evento">
+                                        {{strings.validation1}}
+                                    </div>
                                 </ng-container>
                             </div>
                         </div>
@@ -165,8 +170,7 @@
                 </div>
                 <br>
                 <div *ngIf="citaForm.value.empleado">
-                    <label>Horarios disponibles</label>
-                    <ngb-alert id="dos" type="warning" (close)="cerrar('dos')" class="alert">La hora de la cita no es válida</ngb-alert>
+                    <label>{{strings.available_times}}<p class="required">*</p></label>
                     <mwl-calendar-day-view
                     [viewDate]="viewDate"
                     [events]="events"
@@ -179,7 +183,7 @@
                 </div>
                 <br><br>
                 <div class="form-group text-right">
-                    <button id="registrarCita" type="submit" class="btn btn-success">Registra tu cita</button>
+                    <button id="registrarCita" type="submit" class="btn btn-success">{{strings.register_your_date}}</button>
                 </div>
                 
             </form>
@@ -205,7 +209,7 @@
                             <div class="col ml-2">
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Costo: </strong> 
+                                        <strong> {{strings.cost}}: </strong> 
                                         ${{this.service.costo}} 
                                     </p>
                                 </div>
@@ -213,15 +217,15 @@
                                 <hr>
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Duracion: </strong> 
-                                        {{this.service.duracion}} minutos
+                                        <strong> {{strings.duration}}: </strong> 
+                                        {{this.service.duracion}} {{strings.minutes}}
                                     </p>
                                 </div>
     
                                 <hr>
                                 <div class="container p-3 my-3 border">
                                     <p class="h5 text-left"> 
-                                        <strong> Descripcion: </strong> <br>
+                                        <strong> {{strings.description}}: </strong> <br>
                                         {{this.service.descripcion}}
                                     </p>
                                 </div>
@@ -230,7 +234,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse mt-4">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <button class="btn btn-outline-primary btn-block" (click)="openXl(content)">Agendar</button>
+                                <button class="btn btn-outline-primary btn-block" (click)="openXl(content)">{{strings.schedule}}</button>
                             </div>
                         </div>
                     </div>
@@ -239,10 +243,20 @@
         </div>
     </div>
 </div>
+
 <ng-template #loading>
     <div class="row text-center mt-5 pt-5 ">
         <div class="col ">
             <i class="fas fa-sync-alt fa-5x fa-spin "></i>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #finalizar>
+    <div class="modal-body">
+        <ngb-alert id="cuatro" type="success">
+            <strong>{{strings.thank_you}}</strong><br>
+            {{strings.message1}}
+        </ngb-alert>
     </div>
 </ng-template>

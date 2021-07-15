@@ -23,6 +23,8 @@ export class ServiceClientComponent implements OnInit {
   endHour = 20;
   startMinute = 0;
   endMinute = 0;
+  descanso_inicio;
+  descanso_fin;
 
   public strings = strings;
 
@@ -32,12 +34,16 @@ export class ServiceClientComponent implements OnInit {
   public empleados;
   public sucursales;
   public usuario;
+  public citas = [];
 
   public dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
   public fechaMinima;
   public fechaMaxima;
 
   public evento;
+  public horaCitaSalida;
+
+  public citaAgendada = false;
 
   public citaForm = new FormGroup({
     dia: new FormControl('', Validators.compose([Validators.required])),
@@ -45,7 +51,7 @@ export class ServiceClientComponent implements OnInit {
     empleado: new FormControl('', Validators.compose([Validators.required])),
     hora: new FormControl('', Validators.compose([Validators.required])),
   });
-  
+
   public usuarioForm = new FormGroup({
     nombre: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
     apellido_paterno: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
@@ -102,10 +108,12 @@ export class ServiceClientComponent implements OnInit {
     });
   }
 
+  // Consultas iniciales
   ngOnInit() {
     this.fechaMinima = format(addDays(new Date(), 1), 'yyyy-MM-dd');
     this.fechaMaxima = format(addYears(new Date(), 1), 'yyyy-MM-dd');
     this.usuario = null;
+    this.citaAgendada = false;
 
     this.citasApiService.consulta(`/services/${this.id}`)
       .subscribe((res: any) => {
@@ -117,10 +125,12 @@ export class ServiceClientComponent implements OnInit {
       });
   }
 
+  // Abre el modal
   openXl(content) {
     this.modalService.open(content, { windowClass: 'my-class'});
   }
 
+  // Busca los empleados que pueden dar el servicio segun la sucursal y el dia elegido
   getEmpleados(form) {
     if (form.sucursal && form.dia) {
       this.citaForm.controls['hora'].setValue('');
@@ -137,6 +147,7 @@ export class ServiceClientComponent implements OnInit {
     }
   }
 
+  // Valida que no se pueda registrar un usuario dos veces con el mismo correo
   editarCorreo(correo) {
     this.usuario = null;
     this.usuarioForm.controls['correo'].enable();
@@ -144,6 +155,7 @@ export class ServiceClientComponent implements OnInit {
     this.usuarioForm.controls['correo'].setValue(correo);
   }
   
+  // Busca si el usuario ya esta registrado en la base de datos para llenar en automatico los campos
   getUser(correo) {
     if (correo) {
       this.usuario = [];
@@ -166,6 +178,7 @@ export class ServiceClientComponent implements OnInit {
     }
   }
 
+  // saca el calendario del empleado elegido ese día, actualiza todas las variables que corresponden
   actualizaCalendario(empleado: string, dia: string) {
     if (empleado && dia) {
       this.citaForm.controls['hora'].setValue('');
@@ -178,8 +191,10 @@ export class ServiceClientComponent implements OnInit {
         this.endHour = salida[0];
         this.startMinute = entrada[1];
         this.endMinute = salida[1];
+        this.descanso_inicio = res.descanso_inicio;
+        this.descanso_fin = res.descanso_fin;
 
-        this.events =[{
+        this.events = [{
           title: 'Ocupado',
           start: new Date(dia + ' ' + res.descanso_inicio),
           end: new Date(dia + ' ' + res.descanso_fin),
@@ -188,6 +203,7 @@ export class ServiceClientComponent implements OnInit {
 
         this.citasApiService.consulta(`/datesEmployeeDay/${empleado}/${dia}`)
         .subscribe((res: any) => {
+          this.citas = res;
           for (const o of res) {
             this.events = [
               ...this.events,
@@ -205,13 +221,15 @@ export class ServiceClientComponent implements OnInit {
     }
   }
 
-  setCita(hora, dia, empleado){
+  // Agrega la cita visualmente al horario para que el cliente la vea
+  // valida tambien en el caso de que no se pueda acomodar en ese horario 
+  setCita(hora, dia, empleado) {
 
     if (this.evento) {
       this.events = this.events.filter((event) => event !== this.evento);
     }
 
-    if (1){
+    if ( this.isAvailable(hora) ) {
       this.evento = {
         title: this.service.nombre,
         start: new Date(dia + ' ' + hora),
@@ -225,18 +243,61 @@ export class ServiceClientComponent implements OnInit {
         ];
       }
     } else {
-      this.mostrarAlerta('dos');
+      // uso esta variable como bandera
+      this.evento = null;
     }
 
   }
 
+  // comprueba que la hora que esta ingresando el cliente sea válida y no se cruce con otras citas
+  isAvailable(hora) {
+    let horaSalida = hora.split(':', 2);
+    hora = hora  + ':00';
+    horaSalida[1] = Number(horaSalida[1]);
+
+    let band = true;
+    let duracion = Number(this.service.duracion);
+
+    // saca la hora de salida sumando los minutos de la duración de la cita
+    while (band) {
+      horaSalida[1] += duracion;
+      if (horaSalida[1] >= 60) {
+        duracion = horaSalida[1] - 60;
+        horaSalida[0] = Number(horaSalida[0]) + 1;
+        horaSalida[1] = 0;
+      } else {
+        band = false;
+      }
+    }
+
+    // hago string las cadenas de regreso para poderlas comparar, agrego '0' para evitar problemas al comparar
+    if (horaSalida[1] < 10) horaSalida[1] = '0' + horaSalida[1];
+    if (horaSalida[0] < 10) horaSalida[0] = '0' + horaSalida[0];
+    horaSalida = (horaSalida[0] + ':' + horaSalida[1] + ':00');
+    this.horaCitaSalida = horaSalida;
+
+    for (const o of this.citas) {
+      if ( (hora >= o.hora_entrada && hora < o.hora_salida) || (horaSalida > o.hora_entrada && horaSalida <= o.hora_salida)  || (hora <= o.hora_entrada && horaSalida >= o.hora_salida)) 
+        return false;
+    }
+
+    if ( hora >= (this.startHour + ':' + this.startMinute) && horaSalida <= this.descanso_inicio) {
+      return true;
+    } else if ( hora >= this.descanso_fin &&  horaSalida <= (this.endHour + ':' + this.endMinute)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // crea la cita en la base de datos y guarda el usuario
   newCita(dateform, userForm) {
 
-    if(this.citaForm.valid && this.usuarioForm) {
+    if (this.citaForm.valid && this.usuarioForm && this.evento) {
       if ( !this.usuario.id_usuario ) {
         this.usuario.id_usuario = 0;
       }
-      const data = {
+      const dataUser = {
         id_usuario: this.usuario.id_usuario,
         nombre: userForm.nombre,
         apellido_paterno: userForm.apellido_paterno,
@@ -244,16 +305,41 @@ export class ServiceClientComponent implements OnInit {
         correo: userForm.correo,
         telefono: userForm.telefono
       };
-      this.citasApiService.alta(`/users`, data).then((res) => {
-        console.log(res);
+      this.citasApiService.alta(`/users`, dataUser).then((resUser) => {
+        const dataDate = {
+          id_cita: 0,
+          id_empleado_servicio: this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).id_empleado_servicio,
+          fecha: dateform.dia,
+          hora_entrada: dateform.hora,
+          hora_salida: this.horaCitaSalida,
+          id_usuario: resUser[0][0].id_usuario,
+          costo: this.service.costo
+        };
+        this.citasApiService.alta(`/dates`, dataDate).then((resDate) => {
+          this.citaAgendada = true;
+          const correo = {
+            nombre: dataUser.nombre + ' ' + dataUser.apellido_paterno + ' ' + dataUser.apellido_materno,
+            correo: dataUser.correo,
+            telefono: dataUser.telefono,
+            id_cita: resDate[0][0].id_cita,
+            fecha: dataDate.fecha,
+            hora: dataDate.hora_entrada + '-' + dataDate.hora_salida,
+            servicio: this.service.nombre,
+            costo: dataDate.costo,
+            empleado:  this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).nombre,
+            sucursal:  this.sucursales.find(laSucursal => laSucursal.id_sucursal ==  dateform.sucursal).nombre
+          };
+          this.citasApiService.alta(`/send-email`, correo).then((res) => {
+            console.log(res);
+          });
+        });
       });
-
-      this.mostrarAlerta('cuatro');
     } else {
       this.mostrarAlerta('uno');
     }
   }
 
+  // Validacion de numeros para el telefono
   onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }
@@ -273,10 +359,6 @@ const colors: any = {
   blue: {
     primary: '#1e90ff',
     secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#FFFC4C',
-    secondary: '#FFFEC6',
   },
   purple: {
     primary: '#862BFF',

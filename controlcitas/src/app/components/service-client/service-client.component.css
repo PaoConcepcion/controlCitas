@@ -8,6 +8,11 @@
     color: rgb(207, 23, 23);
 }
 
-.alert{
+.alerta{
     display: none;
+}
+
+.required {
+    color: red;
+    display: inline-block;
 }

@@ -11,8 +11,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">{{strings.name}}</label>
-                                <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
+                                <label for="exampleInputEmail1">{{strings.name}}<p>*</p></label>
+                                <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required maxlength="30">
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.nombre">
                                       <div *ngIf="newUserForm.get('nombre').hasError(validation.type) &&
@@ -29,8 +29,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">{{strings.surname2}}</label>
-                                <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
+                                <label for="exampleInputEmail1">{{strings.surname1}}<p>*</p></label>
+                                <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" maxlength="30" required>
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
                                       <div *ngIf="newUserForm.get('apellido_paterno').hasError(validation.type) &&
@@ -43,8 +43,8 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">{{strings.surname2}}</label>
-                                <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
+                                <label for="exampleInputEmail1">{{strings.surname2}}<p>*</p></label>
+                                <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" maxlength="30" required>
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.apellido_materno">
                                       <div *ngIf="newUserForm.get('apellido_materno').hasError(validation.type) &&
@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">{{strings.phone}}</label>
+                                <label for="exampleInputEmail1">{{strings.phone}}<p>*</p></label>
                                 <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" (keypress)="onlyNumberKey($event)" minlength="10" maxlength="10" required>
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.telefono">
@@ -73,8 +73,8 @@
                         </div> 
                         <div class="col">
                             <div class="form-group">
-                                <label for="exampleInputemaill">{{strings.role}}</label>
-                                <select id="rol" class="form-control" formControlName="rol">
+                                <label for="exampleInputemaill">{{strings.role}}<p>*</p></label>
+                                <select id="rol" class="form-control custom-select" formControlName="rol">
                                     <option value="employee" selected>
                                         {{strings.employee}}
                                     </option>
@@ -94,8 +94,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputemaill">{{strings.company}}</label>
-                        <select  id="id_sucursal" class="form-control" formControlName="id_sucursal">
+                        <label for="exampleInputemaill">{{strings.company}}<p>*</p></label>
+                        <select  id="id_sucursal" class="form-control custom-select" formControlName="id_sucursal">
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
                             </option>
@@ -113,8 +113,8 @@
                     
                     
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.email_address}}</label>
-                        <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
+                        <label for="exampleInputEmail1">{{strings.email_address}}<p>*</p></label>
+                        <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" maxlength="50" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.correo">
                               <div *ngIf="newUserForm.get('correo').hasError(validation.type) &&
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">{{strings.password}}</label>
+                        <label for="exampleInputPassword1">{{strings.password}}<p>*</p></label>
                         <ngb-alert id="dos" type="info" (close)="cerrar('dos')">{{strings.alert2}}</ngb-alert>
                         <input id="contrasena" type="password" class="form-control" formControlName="contrasena" placeholder="{{strings.min_password}}" minlength="6" required>
                         <div class="validation-error">

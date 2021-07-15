@@ -1,0 +1,48 @@
+const functions = require('firebase-functions');
+const {WebhookClient} = require('dialogflow-fulfillment');
+
+const TextResponse = require('dialogflow-fulfillment/src/rich-responses/text-response');
+const CardResponse = require('dialogflow-fulfillment/src/rich-responses/card-response');
+const SuggestionsResponse = require('dialogflow-fulfillment/src/rich-responses/suggestions-response');
+const PayloadResponse = require('dialogflow-fulfillment/src/rich-responses/payload-response');
+const PLATFORMS = require('dialogflow-fulfillment/src/rich-responses/rich-response');
+
+process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
+
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+  const agent = new WebhookClient({ request, response });
+  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+ 
+  function welcome(agent) {
+    agent.add(`Welcome to my agent!`);
+    agent.add(new TextResponse('Hey there! Looking out for the best courses for your educational qualification? I can help! '));
+
+    //card
+    agent.add(new Card({
+             title: `Title: this is a card title`,
+             imageUrl: 'https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png',
+             text: `This is the body text of a card.  You can even use line\n  breaks and emoji!`,
+             buttonText: 'This is a button',
+             buttonUrl: 'https://assistant.google.com/'
+           })
+         );
+
+    //suggestion
+    let suggestion = new Suggestion('you want assistances?');
+    suggestion.setReply('I need assistance');
+    agent.add(suggestion);
+    agent.add(new SuggestionsResponse(`No, Thanks!`));
+  }
+  
+  function fallback(agent) {
+      const siqpayload = {"platform": "ZOHOSALESIQ","action": "forward","replies": ["Thanks for contacting us today, You will be connected to our operator shortly"]};
+      //new PayloadResponse(PLATFORMS.PLATFORMS.UNSPECIFIED, siqpayload);
+      agent.add(new PayloadResponse('PLATFORM_UNSPECIFIED', siqpayload));
+  }
+  
+  let intentMap = new Map();
+  intentMap.set('Default Welcome Intent', welcome);
+  intentMap.set('Default Fallback Intent', fallback);
+  agent.handleRequest(intentMap);
+});
