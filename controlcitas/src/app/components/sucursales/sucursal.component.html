@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.name}}</label>
-          <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="new.nombre" id="nombreSucrsal" required>
+          <label class="col-2 col-form-label">{{strings.name}}*</label>
+          <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="new.nombre" id="nombreSucrsal" maxlength="40" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.nombre">
               <div *ngIf="newsForm.get('nombre').hasError(validation.type) &&
@@ -24,9 +24,9 @@
       <div class="col">
         <div class="form-group">
           <div class="form-group">
-            <label class="col-2 col-form-label">{{strings.phone}}</label>
+            <label class="col-2 col-form-label">{{strings.phone}}*</label>
             <input type="tel" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
-              id="telefonoSucursal" maxlength="10" minlength="9" (keypress)="onlyNumberKey($event)" required>
+              id="telefonoSucursal" maxlength="10" minlength="10" (keypress)="onlyNumberKey($event)" required>
               <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert10}}</ngb-alert>
             <div class="validation-error">
               <ng-container *ngFor="let validation of validation_messages.telefono">
@@ -41,9 +41,9 @@
       </div>
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.cp}}</label>
+          <label class="col-2 col-form-label">{{strings.cp}}*</label>
           <input type="text" class="form-control" formControlName="cp" [(ngModel)]="new.cp" id="cpSucursal" (keypress)="onlyNumberKey($event)"
-          required maxlength="5" minlength="4">
+          required maxlength="5" minlength="5">
           <ngb-alert id="uno" type="danger" (close)="cerrar('uno')">{{strings.alert11}}</ngb-alert>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.cp">
@@ -60,9 +60,9 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.suburb}}</label>
+          <label class="col-2 col-form-label">{{strings.suburb}}*</label>
           <input type="text" class="form-control" formControlName="colonia" [(ngModel)]="new.colonia"
-            id="coloniaSucursal" required>
+            id="coloniaSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.colonia">
               <div *ngIf="newsForm.get('colonia').hasError(validation.type) &&
@@ -75,8 +75,8 @@
       </div>
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.street}}</label>
-          <input type="text" class="form-control" formControlName="calle" [(ngModel)]="new.calle" id="calleSucursal" required>
+          <label class="col-2 col-form-label">{{strings.street}}*</label>
+          <input type="text" class="form-control" formControlName="calle" [(ngModel)]="new.calle" id="calleSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.calle">
               <div *ngIf="newsForm.get('calle').hasError(validation.type) &&
@@ -92,9 +92,9 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label class="col col-form-label">{{strings.outdoor_number}}</label>
+          <label class="col col-form-label">{{strings.outdoor_number}}*</label>
           <input type="text" class="form-control" formControlName="numero_exterior" [(ngModel)]="new.numero_exterior"
-            id="numExtSucursal" required>
+            id="numExtSucursal" required maxlength="5">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.numero_exterior">
               <div *ngIf="newsForm.get('numero_exterior').hasError(validation.type) &&
@@ -108,7 +108,7 @@
       <div class="col">
         <div class="form-group">
           <label class="col col-form-label">{{strings.interior_number}}</label>
-          <input type="text" class="form-control" formControlName="numero_interior" [(ngModel)]="new.numero_interior"
+          <input type="text" class="form-control" formControlName="numero_interior" [(ngModel)]="new.numero_interior" maxlength="5"
             id="numIntSucursal">
         </div>
       </div>
@@ -117,9 +117,9 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.latitude}}</label>
+          <label class="col-2 col-form-label">{{strings.latitude}}*</label>
           <input type="text" class="form-control" formControlName="latitud" [(ngModel)]="new.latitud"
-            id="latitudSucursal" required>
+            id="latitudSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.latitud">
               <div *ngIf="newsForm.get('latitud').hasError(validation.type) &&
@@ -132,9 +132,9 @@
       </div>
       <div class="col">
         <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.length}}</label>
+          <label class="col-2 col-form-label">{{strings.length}}*</label>
           <input type="text" class="form-control" formControlName="longitud" [(ngModel)]="new.longitud"
-            id="longitudSucursal" required>
+            id="longitudSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.longitud">
               <div *ngIf="newsForm.get('longitud').hasError(validation.type) &&
