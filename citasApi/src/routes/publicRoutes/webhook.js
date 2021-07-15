@@ -18,14 +18,16 @@ const {
   Table,
   List,
   Carousel,
-} = require('actions-on-google');
-const app = dialogflow({debug: true});
+} = require("actions-on-google");
+const app = dialogflow({ debug: true });
 
 const axios = require("axios");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(
   "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"
 );
+
+process.env.DEBUG = "dialogflow:debug"; // enables lib debugging statements
 
 router.post("/webhook", express.json(), function (req, res) {
   const agent = new WebhookClient({ request: req, response: res });
@@ -87,15 +89,11 @@ router.post("/webhook", express.json(), function (req, res) {
       "https://controlcitas-bc.herokuapp.com/api/users_email/" + correo
     );
     if (respuesta.data !== "") {
-      agent.add(
-        "Tu nombre es: " +
-          respuesta.data.nombre +
-          " " +
-          respuesta.data.apellido_paterno
-      );
+      agent.add("Tu nombre es: " + respuesta.data.nombre +  " " + respuesta.data.apellido_paterno);
       agent.add("Tu teléfono es: " + respuesta.data.telefono);
     } else {
-      agent.add("El correo que colocaste no está registrado con nosotros");
+
+      // agent.add("El correo que colocaste no está registrado con nosotros");
 
       // agent.add(new Card({
       //   title: 'Prueba',
@@ -105,31 +103,7 @@ router.post("/webhook", express.json(), function (req, res) {
       //   buttonUrl: 'https://XXX/'
       //   })
       // );
-
-      // app.intent('Basic Card', (conv) => {
       
-      //   conv.ask(`Here's an example of a basic card.`);
-      //   conv.ask(new BasicCard({
-      //     text: `This is a basic card.  Text in a basic card can include "quotes" and
-      //     most other unicode characters including emojis.  Basic cards also support
-      //     some markdown formatting like *emphasis* or _italics_, **strong** or
-      //     __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other
-      //     things like line  \nbreaks`, // Note the two spaces before '\n' required for
-      //                                  // a line break to be rendered in the card.
-      //     subtitle: 'This is a subtitle',
-      //     title: 'Title: this is a title',
-      //     buttons: new Button({
-      //       title: 'This is a button',
-      //       url: 'https://assistant.google.com/',
-      //     }),
-      //     image: new Image({
-      //       url: 'https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png',
-      //       alt: 'Image alternate text',
-      //     })
-      //   }));
-      //   conv.ask('Which response would you like to see next?');
-      // });
-
     }
   }
 
