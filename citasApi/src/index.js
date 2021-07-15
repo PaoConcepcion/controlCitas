@@ -35,7 +35,6 @@ app.use(require('./routes/publicRoutes/users'));
 app.use(require('./routes/publicRoutes/employee_service'));
 app.use(require('./routes/publicRoutes/schedules'));
 app.use(require('./routes/publicRoutes/dates'));
-app.use(require('./routes/publicRoutes/dates_users'));
 app.use(require('./routes/publicRoutes/webhook'));
 
 // Private Routes with token
