@@ -147,7 +147,7 @@
                     <div class="row">
                         <div class="col">
                             <label>{{strings.services}}<p>*</p></label>
-                            <select id="no_servicio" [(ngModel)]="employee.id_servicio" class="form-control">
+                            <select id="no_servicio" [(ngModel)]="employee.id_servicio" class="form-control custom-select">
                                 <option *ngFor="let s of services" value="{{s.id_servicio}}">
                                     {{s.nombre}}
                                 </option>
@@ -195,7 +195,7 @@
                     <div class="row">
                         <div class="col">
                             <label>{{strings.newS}}<p>*</p></label>
-                            <select id="idServicio" [(ngModel)]="employee.id_servicio" class="form-control">
+                            <select id="idServicio" [(ngModel)]="employee.id_servicio" class="form-control custom-select">
                                 <option *ngFor="let s of services" value="{{s.id_servicio}}">
                                     {{s.nombre}}
                                 </option>

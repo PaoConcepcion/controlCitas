@@ -323,7 +323,7 @@ export class ServiceClientComponent implements OnInit {
             telefono: dataUser.telefono,
             id_cita: resDate[0][0].id_cita,
             fecha: dataDate.fecha,
-            hora: dataDate.fecha,
+            hora: dataDate.hora_entrada + '-' + dataDate.hora_salida,
             servicio: this.service.nombre,
             costo: dataDate.costo,
             empleado:  this.empleados.find(employee => employee.id_empleado ==  dateform.empleado).nombre,

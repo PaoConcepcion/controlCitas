@@ -11,7 +11,7 @@
             <ngb-alert id="tres" type="danger" (close)="cerrar('tres')" class="alerta">{{strings.alert3}}</ngb-alert>
             <div class="row">
                 <div class="col-sm">
-                    <label>{{strings.email_address}}</label>
+                    <label>{{strings.email_address}}<p class="required">*</p></label>
                     <input id="correoRegistro" type="email" class="form-control" formControlName="correo" placeholder="{{strings.email_example}}" required>
                     <div class="validation-error">
                         <ng-container *ngFor="let validation of validation_messages.correo">
@@ -23,6 +23,7 @@
                     </div>
                 </div>
                 <div class="col-sm">
+                    <br>
                     <br>
                     <div class="form-group" *ngIf="!usuario">
                         <button id="buscarCorreo" type="button" class="btn btn-info" (click)="getUser(usuarioForm.value.correo)">{{strings.continue}}</button>
@@ -37,7 +38,7 @@
             <div class="row" *ngIf="usuario">
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.name}}</label>
+                        <label for="exampleInputEmail1">{{strings.name}}<p class="required">*</p></label>
                         <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="{{strings.name_example}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.nombre">
@@ -52,7 +53,7 @@
                 
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.surname1}}</label>
+                        <label for="exampleInputEmail1">{{strings.surname1}}<p class="required">*</p></label>
                         <input id="apellido_paterno" type="text" class="form-control" formControlName="apellido_paterno" placeholder="{{strings.surname_example1}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.apellido_paterno">
@@ -66,7 +67,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.surname2}}</label>
+                        <label for="exampleInputEmail1">{{strings.surname2}}<p class="required">*</p></label>
                         <input id="apellido_materno" type="text" class="form-control" formControlName="apellido_materno" placeholder="{{strings.surname_example2}}" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.apellido_materno">
@@ -80,7 +81,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">{{strings.phone}}</label>
+                        <label for="exampleInputEmail1">{{strings.phone}}<p class="required">*</p></label>
                         <input id="telefono" type="tel" class="form-control" formControlName="telefono" placeholder="{{strings.length_password}}" (keypress)="onlyNumberKey($event)" minlength="10" maxlength="10" required>
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.telefono">
@@ -98,8 +99,8 @@
             <form (ngSubmit)="newCita(citaForm.value, usuarioForm.getRawValue())" [formGroup]="citaForm">
                 <div class="row">
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.company}}</label>
-                        <select  id="sucursal" class="form-control" formControlName="sucursal" (change)='getEmpleados(citaForm.value)'>
+                        <label for="exampleInputemaill">{{strings.company}}<p class="required">*</p></label>
+                        <select  id="sucursal" class="form-control custom-select" formControlName="sucursal" (change)='getEmpleados(citaForm.value)'>
                             <option *ngFor="let sucursal of sucursales" value="{{sucursal.id_sucursal}}">
                                 {{sucursal.nombre}}
                             </option>
@@ -114,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.day}}</label>
+                        <label for="exampleInputemaill">{{strings.day}}<p class="required">*</p></label>
                         <input class="form-control" type="date" id="dia" name="trip-start" formControlName="dia" (change)='getEmpleados(citaForm.value)' min="{{fechaMinima}}" max="{{fechaMaxima}}">
                         <div class="validation-error">
                             <ng-container *ngFor="let validation of validation_messages.dia">
@@ -126,8 +127,8 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <label for="exampleInputemaill">{{strings.employee}}</label>
-                        <select  id="empleado" class="form-control" formControlName="empleado"  (change)='actualizaCalendario(citaForm.value.empleado, citaForm.value.dia)'>
+                        <label for="exampleInputemaill">{{strings.employee}}<p class="required">*</p></label>
+                        <select  id="empleado" class="form-control custom-select" formControlName="empleado"  (change)='actualizaCalendario(citaForm.value.empleado, citaForm.value.dia)'>
                             <option *ngFor="let empleado of empleados" value="{{empleado.id_empleado}}">
                                 {{empleado.nombre}}
                             </option>
@@ -143,7 +144,7 @@
                     </div>
                     <div class="col-sm">
                         <div  *ngIf="citaForm.value.empleado">
-                            <label>{{strings.hour}}</label>
+                            <label>{{strings.hour}}<p class="required">*</p></label>
                             <input 
                                 type="time" 
                                 class="form-control" 
@@ -169,7 +170,7 @@
                 </div>
                 <br>
                 <div *ngIf="citaForm.value.empleado">
-                    <label>{{strings.available_times}}</label>
+                    <label>{{strings.available_times}}<p class="required">*</p></label>
                     <mwl-calendar-day-view
                     [viewDate]="viewDate"
                     [events]="events"
