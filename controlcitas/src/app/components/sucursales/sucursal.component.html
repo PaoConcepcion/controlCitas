@@ -166,10 +166,6 @@
             <th class="text-center">{{strings.suburb}}</th>
             <th class="text-center">{{strings.street}}</th>
             <th class="text-center">{{strings.options}}</th>
-            <!-- <th class="text-center">{{strings.outdoor_number}}</th>
-            <th class="text-center">{{strings.interior_number}}</th>
-            <th class="text-center">{{strings.latitude}}</th>
-            <th class="text-center">{{strings.length}}</th> -->
           </tr>
         </thead>
         <tbody>
@@ -180,19 +176,11 @@
             <td>{{item.cp}}</td>
             <td>{{item.colonia}}</td>
             <td>{{item.calle}}</td>
-            <!-- <td>{{item.numero_exterior}}</td>
-            <td>{{item.numero_interior}}</td>
-            <td>{{item.latitud}}</td>
-            <td>{{item.longitud}}</td> -->
             <td class="text-center">
               <button class="btn btn-outline-success m-1" type="button" (click)="getSucursal(item.id_sucursal)"
                 id="editarSucursal">
                 <i class="fas fa-user-edit"></i>
               </button>
-              <!-- <button class="btn btn-outline-danger m-1" type="button"
-                        (click)="deleteSucursal(item.id_sucursal)">
-                            <i class="fas fa-trash"></i>
-                        </button> -->
             </td>
           </tr>
         </tbody>

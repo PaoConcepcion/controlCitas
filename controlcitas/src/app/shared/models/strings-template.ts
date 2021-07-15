@@ -153,4 +153,9 @@ export const strings = {
   edit_schedule: 'Cambiar horario',
   react_employee: 'Reactivar',
   new_sucursal: 'Sucursales',
+  edit_config: 'Cambiar configuracion',
+  icon: 'Icon',
+  log: 'Logotipo',
+  web_site: 'Nombre del sitio',
+  accept: 'Aceptar',
 };
