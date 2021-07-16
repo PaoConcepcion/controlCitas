@@ -29,7 +29,7 @@ export class SucursalComponent implements OnInit {
   colonia: string;
   imagen: any = [];
   preview: string;
-  imagenUpload: null; 
+  imagenUpload: null;
 
   validation_messages = {
     nombre: [
@@ -100,7 +100,6 @@ export class SucursalComponent implements OnInit {
         Validators.maxLength(5),
       ])),
       numero_interior: new FormControl("", Validators.compose([
-        // Validators.required,
         Validators.maxLength(5),
       ])),
       latitud: new FormControl("", Validators.compose([
@@ -111,7 +110,7 @@ export class SucursalComponent implements OnInit {
         Validators.required,
         Validators.maxLength(40),
       ])),
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -211,7 +210,8 @@ export class SucursalComponent implements OnInit {
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
   }
+  
   onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-}
+  }
 }

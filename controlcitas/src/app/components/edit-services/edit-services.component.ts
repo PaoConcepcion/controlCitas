@@ -127,7 +127,6 @@ export class EditServicesComponent implements OnInit {
           this.imagen = [];
         });
       }
-      
 
       // Guardar el registro en la base de datos
       if (this.currentStatus == 1) {
@@ -231,6 +230,7 @@ export class EditServicesComponent implements OnInit {
         this.servicios = res;
       });
     } else {
+      this.servicios = [];
       this.mostrarAlerta('cuatro');
     }
   }

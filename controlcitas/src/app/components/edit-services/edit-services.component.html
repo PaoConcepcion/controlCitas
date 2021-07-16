@@ -11,8 +11,8 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">{{strings.name}}</label>
-                            <input id="nombre" type="text" class="form-control" formControlName="nombre">
+                            <label for="exampleInputEmail1">{{strings.name}}<p>*</p></label>
+                            <input id="nombre" type="text" class="form-control" formControlName="nombre" maxlength="50">
                             <div class="validation-error">
                                 <ng-container *ngFor="let validation of validation_messages.nombre">
                                   <div *ngIf="newServicioForm.get('nombre').hasError(validation.type) &&
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">{{strings.description}}</label>
+                            <label for="exampleInputPassword1">{{strings.description}}<p>*</p></label>
                             <textarea id="descripcion" class="form-control" rows="5" formControlName="descripcion"></textarea>
                             <div class="validation-error">
                                 <ng-container *ngFor="let validation of validation_messages.descripcion">
@@ -39,8 +39,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="row">
                             <div class="col">
-                                <label for="exampleInputPassword1">{{strings.cost}}</label>
-                                <input id="number" type="text" class="form-control" formControlName="costo" placeholder="{{strings.cost_of_the_service}}" (keypress)="onlyNumberKey($event)">
+                                <label for="exampleInputPassword1">{{strings.cost}}<p>*</p></label>
+                                <input id="number" type="text" class="form-control" formControlName="costo" placeholder="{{strings.cost_of_the_service}}" (keypress)="onlyNumberKey($event)" maxlength="10">
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.costo">
                                       <div *ngIf="newServicioForm.get('costo').hasError(validation.type) &&
@@ -51,8 +51,8 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label for="exampleInputPassword1">{{strings.duration}}</label>
-                                <input id="duracion" type="text" class="form-control" formControlName="duracion" placeholder="{{strings.duration_of_the_service}}" (keypress)="onlyNumberKey($event)">
+                                <label for="exampleInputPassword1">{{strings.duration}}<p>*</p></label>
+                                <input id="duracion" type="text" class="form-control" formControlName="duracion" placeholder="{{strings.duration_of_the_service}}" (keypress)="onlyNumberKey($event)" maxlength="5">
                                 <div class="validation-error">
                                     <ng-container *ngFor="let validation of validation_messages.duracion">
                                       <div *ngIf="newServicioForm.get('duracion').hasError(validation.type) &&
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">{{strings.image}}</label>
+                            <label for="exampleInputPassword1">{{strings.image}}<p>*</p></label>
                             <input id="imagen" type="file" class="form-control" (change)="upload($event)">
                             <div class="validation-error">
                                 <ng-container *ngFor="let validation of validation_messages.imagen">

@@ -5,7 +5,10 @@
     </button>
 
     <a class="navbar-brand" href="#" id="home">
-        <img src="../../assets/tijeras.png" width="40" height="30" alt="" onError="this.src='assets/no-image.jpg'">
+        <img src="../../assets/{{datos.icono}}" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono != null">
+        <img src="../../assets/tijeras.png" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono == null">
     </a>
 
     <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
@@ -36,6 +39,11 @@
                     </li>
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['calendar-employee']">{{strings.calendar_employee}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['options']">
+                            <i class="fas fa-cog" id="options"></i>
+                        </a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 

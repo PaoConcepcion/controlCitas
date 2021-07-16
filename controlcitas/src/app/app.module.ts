@@ -31,6 +31,7 @@ import { CalendarHeaderComponent } from './utils/calendar-header/calendar-header
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { OptionsComponent } from './components/options/options.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     CalendarComponent,
     BuscadorComponent,
     ScheduleComponent,
+    OptionsComponent,
     CalendarEmployeeComponent,
   ],
   imports: [

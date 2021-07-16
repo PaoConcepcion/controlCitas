@@ -1,0 +1,67 @@
+<div class="contain">
+    <div>
+        <ngb-alert id="uno" type="success" (close)="cerrar('uno')">{{strings.alert16}}</ngb-alert>
+        <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert}}</ngb-alert>
+    </div>
+    <div class="forms">
+        <form [formGroup]="optionForm" (ngSubmit)="editOptions(optionForm.value)"
+        class="col bg-light shadow-sm p-3 mb-5 rounded border">
+            <h4 class="text-center">{{strings.edit_config}}</h4>
+            <div class="row">
+                <div class="col">
+                    <label>{{strings.web_site}}</label>
+                    <input type="text" class="form-control" formControlName="nombre_sitio" 
+                    [(ngModel)]="option.nombre_sitio" maxlength="30">
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.nombre_sitio">
+                            <div *ngIf="optionForm.get('nombre_sitio').hasError(validation.type) &&
+                            (optionForm.get('nombre_sitio').dirty || optionForm.get('nombre_sitio').touched)">
+                                {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>{{strings.icon}}</label>
+                    <input type="file" class="form-control" formControlName="icono" 
+                    [(ngModel)]="option.icono" (change)="uploadIcon($event)">
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.icono">
+                            <div *ngIf="optionForm.get('icono').hasError(validation.type) &&
+                            (optionForm.get('icono').dirty || optionForm.get('icono').touched)">
+                                {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>{{strings.log}}</label>
+                    <input type="file" class="form-control" formControlName="logotipo" 
+                    [(ngModel)]="option.logotipo" (change)="upload($event)">
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.logotipo">
+                            <div *ngIf="optionForm.get('logotipo').hasError(validation.type) &&
+                            (optionForm.get('logotipo').dirty || optionForm.get('logotipo').touched)">
+                                {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="imagen">
+                        <img *ngIf="preview" [src]="preview" id="visualizacion">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="imagen">
+                        <img *ngIf="preview2" [src]="preview2" id="visualizacion2">
+                    </div>
+                </div>
+            </div>
+          <br>
+          <div class="boton">
+            <button type="submit" class="btn btn-secondary">{{strings.accept}}</button>
+          </div>
+        </form>
+      </div>
+</div>
