@@ -1,58 +1,62 @@
 <div class="container">
   <div class="row filtrar">
-    <div class="col-lg-4 d-flex align-items-stretch">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-3">
       <h3 class="text-center">{{strings.calendar_employee}}</h3>
     </div>
-  </div>
-  <br>
-  <div class="row mt-5 mx-5" *ngIf="reactivar == 1; else reactivarServicios">
-  <div class="froms">
-    <div class="row" id="botones">
-      <div class="col-md-6">
-          <h5>{{strings.look_by_name}}</h5>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-              <input id="busqueda" type="text" class="form-control" formControlName="busqueda"
-                placeholder="{{strings.look}}...">
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <input id="buscar" type="submit" class="btn btn-primary btn-block" value="{{strings.look}}">
+    <br>
+    <div class="row mt-5 mx-5">
+
+      <div class="container">
+        <form (ngSubmit)="buscar(buscarForm.value)" [formGroup]="buscarForm" class="row mb-4">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-3">
+            <h5>{{strings.look_by_name}}</h5>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+                <input id="busqueda" type="text" class="form-control" formControlName="busqueda"
+                  placeholder="{{strings.look}}...">
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <input id="buscarEmployee" type="submit" class="btn btn-primary btn-block" value="{{strings.look}}">
+              </div>
             </div>
           </div>
-        </div>
-
-        
-      </div>
-      <br>
-      <div class="table-responsive">
-        <table class="table table-hover table-striped text-center">
-          <thead>
-            <tr>
-              <th scope="col">{{strings.name}}</th>
-              <th scope="col">{{strings.description}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let employee of empleados">
-              <td>{{employee.nombre}}</td>
-              <td>{{employee.apellido_paterno}}</td>
-            </tr>
-
-          </tbody>
-        </table>
+        </form>
       </div>
 
-      <div class="col-md-4">
-          <select id="mostrarHorario">
-            <option value="">{{strings.select_calendar}}</option>
-            <option value="item.id_empleado" *ngFor="let item of news; let i of index">{{item.nombre}}</option>
-          </select>
+      <div class="container">
+        <div class="col-md-8">
+            <select [(ngModel)]="idSelectEmpleado" id="mostrarHorario" class="form-select" size="3" aria-label="size 3 select example">
+              <option selected>{{strings.select_calendar}}</option>
+              <option *ngFor="let c of news2" [ngValue]="c.id_empleado">{{c.nombre}}</option>
+            </select>
         </div>
+        <br>
+        <div class="col-md-4">
+          <button (click)="actualizar2()" class="btn btn-success btn-block"
+            id="mostrarHorario">{{strings.view}}</button>
+        </div>
+      </div>
+
     </div>
+
     <div>
-      <div *ngIf="show === true;" class="container filtrar">
-        <app-calendar></app-calendar>
+
+      <div class="container filtrar">
+        <app-calendar-header [(view)]="view" [(viewDate)]="viewDate" [(excludeDays)]="excludeDays">
+        </app-calendar-header>
+
+        <div [ngSwitch]="view">
+          <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+            [excludeDays]="excludeDays">
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events"
+            [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour" [refresh]="refresh" [excludeDays]="excludeDays">
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events"
+            [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour" [refresh]="refresh">
+          </mwl-calendar-day-view>
+        </div>
       </div>
+
     </div>
   </div>
-</div>
