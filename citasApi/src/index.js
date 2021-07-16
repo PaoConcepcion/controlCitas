@@ -39,6 +39,7 @@ app.use(require('./routes/publicRoutes/schedules'));
 app.use(require('./routes/publicRoutes/dates'));
 app.use(require('./routes/publicRoutes/webhook'));
 app.use(require('./routes/publicRoutes/correo'));
+app.use(require('./routes/publicRoutes/options'));
 
 // Private Routes with token
 app.use(require('./routes/privateRoutes/branchOffices'));
@@ -51,6 +52,7 @@ app.use(require('./routes/privateRoutes/employee_service'));
 app.use(require('./routes/privateRoutes/dates'));
 app.use(require('./routes/privateRoutes/schedules'));
 app.use(require('./routes/privateRoutes/users'));
+app.use(require('./routes/privateRoutes/options'));
 
 // Private route to send email
 

@@ -162,4 +162,12 @@ export const strings = {
   available_times: 'Horarios disponibles',
   message1: 'Tu cita ha sido agendada correctamente, todos los datos fueron enviado al correo proporcionado',
   validation1: 'La hora de la cita no es válida',
+  edit_config: 'Cambiar configuracion',
+  icon: 'Icon',
+  log: 'Logotipo',
+  web_site: 'Nombre del sitio',
+  accept: 'Aceptar',
+  was_not_found: 'No se encontró',
+  was_not_found2: 'Revisa tu búsqueda',
+
 };
