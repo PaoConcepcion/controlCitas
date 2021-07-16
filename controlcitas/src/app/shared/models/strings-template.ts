@@ -162,9 +162,12 @@ export const strings = {
   log: 'Logotipo',
   web_site: 'Nombre del sitio',
   accept: 'Aceptar',
+  calendar_employee: 'Horario empleados',
+  select_calendar: '-- Elige una opción --',
   register_your_date: 'Registra tu cita',
   thank_you: 'Gracias por tu elección',
   available_times: 'Horarios disponibles',
   message1: 'Tu cita ha sido agendada correctamente, todos los datos fueron enviado al correo proporcionado',
   validation1: 'La hora de la cita no es válida',
+  acept: 'Aceptar',
 };
