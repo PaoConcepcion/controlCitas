@@ -95,7 +95,7 @@ body {
     top: 20px;
     left: 0;
     right: 0;
-    height: 94px;
+    height: 73px;
     display: flex;
     align-items: center;
     background-color: #04B4AE;
@@ -121,7 +121,7 @@ body {
 /* --- Navbar ---*/
 
 .posicion {
-    top: 114px;
+    top: 92px;
     left: 0;
 }
 

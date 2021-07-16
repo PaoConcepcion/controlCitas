@@ -210,6 +210,7 @@ export class SucursalComponent implements OnInit {
   cerrar(alerta: string) {
     document.getElementById(alerta).style.display = 'none';
   }
+  
   onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }

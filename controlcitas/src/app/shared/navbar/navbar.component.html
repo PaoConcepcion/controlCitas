@@ -5,7 +5,10 @@
     </button>
 
     <a class="navbar-brand" href="#" id="home">
-        <img src="../../assets/{{datos.icono}}" width="60" height="40" onError="this.src='assets/no-image.jpg'">
+        <img src="../../assets/{{datos.icono}}" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono != null">
+        <img src="../../assets/tijeras.png" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono == null">
     </a>
 
     <div class="collapse navbar-collapse menu" id="navbarSupportedContent">

@@ -42,3 +42,10 @@ td {
     padding: 4px;
     color: rgb(207, 23, 23);
 }
+p {
+    color: red;
+    display: inline-block;
+}
+label {
+    padding: 0;
+}
