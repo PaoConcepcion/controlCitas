@@ -22,7 +22,8 @@ import { NewsComponent } from './components/news/news.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { ServiceEmployeeComponent } from './components/service-employee/service-employee.component';
 import { ServiceClientComponent } from './components/service-client/service-client.component';
-import { ServicesComponent } from './components/services-page/services.component'
+import { ServicesComponent } from './components/services-page/services.component';
+import { CalendarEmployeeComponent } from './components/calendar-employee/calendar-employee.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -53,6 +54,7 @@ import { OptionsComponent } from './components/options/options.component';
     BuscadorComponent,
     ScheduleComponent,
     OptionsComponent,
+    CalendarEmployeeComponent,
   ],
   imports: [
     RouterModule,

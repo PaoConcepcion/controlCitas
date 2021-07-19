@@ -2,67 +2,56 @@
   <div class="formulario">
     <form [formGroup]="newsForm" (ngSubmit)="sucursalRegister(newsForm.value)"
     class="col bg-light shadow-sm p-3 mb-5 rounded border">
-    <h5 class="text-center">{{strings.register_sucursales}}</h5><br>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.name}}*</label>
+      <h5 class="text-center">{{strings.register_sucursales}}</h5><br>
+      <div class="row">
+        <div class="col">
+          <label>{{strings.name}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="new.nombre" id="nombreSucrsal" maxlength="40" required>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.nombre">
               <div *ngIf="newsForm.get('nombre').hasError(validation.type) &&
-                  (newsForm.get('nombre').dirty || newsForm.get('nombre').touched)">
+              (newsForm.get('nombre').dirty || newsForm.get('nombre').touched)">
                 {{validation.message}}
               </div>
             </ng-container>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <div class="form-group">
-            <label class="col-2 col-form-label">{{strings.phone}}*</label>
-            <input type="tel" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
-              id="telefonoSucursal" maxlength="10" minlength="10" (keypress)="onlyNumberKey($event)" required>
-              <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert10}}</ngb-alert>
-            <div class="validation-error">
-              <ng-container *ngFor="let validation of validation_messages.telefono">
-                <div *ngIf="newsForm.get('telefono').hasError(validation.type) &&
+      <div class="row">
+        <div class="col">
+          <label>{{strings.phone}}<p>*</p></label>
+          <input type="tel" class="form-control" formControlName="telefono" [(ngModel)]="new.telefono"
+          id="telefonoSucursal" maxlength="10" minlength="10" (keypress)="onlyNumberKey($event)" required>
+          <ngb-alert id="tres" type="danger" (close)="cerrar('tres')">{{strings.alert10}}</ngb-alert>
+          <div class="validation-error">
+            <ng-container *ngFor="let validation of validation_messages.telefono">
+              <div *ngIf="newsForm.get('telefono').hasError(validation.type) &&
               (newsForm.get('telefono').dirty || newsForm.get('telefono').touched)">
-                  {{validation.message}}
-                </div>
-              </ng-container>
-            </div>
+                {{validation.message}}
+              </div>
+            </ng-container>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.cp}}*</label>
+        <div class="col">
+          <label>{{strings.cp}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="cp" [(ngModel)]="new.cp" id="cpSucursal" (keypress)="onlyNumberKey($event)"
           required maxlength="5" minlength="5">
           <ngb-alert id="uno" type="danger" (close)="cerrar('uno')">{{strings.alert11}}</ngb-alert>
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.cp">
               <div *ngIf="newsForm.get('cp').hasError(validation.type) &&
-                (newsForm.get('cp').dirty || newsForm.get('cp').touched)">
+              (newsForm.get('cp').dirty || newsForm.get('cp').touched)">
                 {{validation.message}}
               </div>
             </ng-container>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.suburb}}*</label>
+      <div class="row">
+        <div class="col">
+          <label>{{strings.suburb}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="colonia" [(ngModel)]="new.colonia"
-            id="coloniaSucursal" required maxlength="40">
+          id="coloniaSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.colonia">
               <div *ngIf="newsForm.get('colonia').hasError(validation.type) &&
@@ -72,10 +61,8 @@
             </ng-container>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.street}}*</label>
+        <div class="col">
+          <label>{{strings.street}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="calle" [(ngModel)]="new.calle" id="calleSucursal" required maxlength="40">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.calle">
@@ -87,14 +74,11 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label class="col col-form-label">{{strings.outdoor_number}}*</label>
+      <div class="row">
+        <div class="col">
+          <label>{{strings.outdoor_number}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="numero_exterior" [(ngModel)]="new.numero_exterior"
-            id="numExtSucursal" required maxlength="5">
+          id="numExtSucursal" required maxlength="5" (keypress)="onlyNumberKey($event)">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.numero_exterior">
               <div *ngIf="newsForm.get('numero_exterior').hasError(validation.type) &&
@@ -104,22 +88,17 @@
             </ng-container>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label class="col col-form-label">{{strings.interior_number}}</label>
+        <div class="col">
+          <label>{{strings.interior_number}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="numero_interior" [(ngModel)]="new.numero_interior" maxlength="5"
-            id="numIntSucursal">
+            id="numIntSucursal" (keypress)="onlyNumberKey($event)">
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.latitude}}*</label>
+      <div class="row">
+        <div class="col">
+          <label>{{strings.latitude}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="latitud" [(ngModel)]="new.latitud"
-            id="latitudSucursal" required maxlength="40">
+          id="latitudSucursal" required maxlength="40" (keypress)="onlyNumberKey($event)">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.latitud">
               <div *ngIf="newsForm.get('latitud').hasError(validation.type) &&
@@ -129,12 +108,10 @@
             </ng-container>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label class="col-2 col-form-label">{{strings.length}}*</label>
+        <div class="col">
+          <label>{{strings.length}}<p>*</p></label>
           <input type="text" class="form-control" formControlName="longitud" [(ngModel)]="new.longitud"
-            id="longitudSucursal" required maxlength="40">
+          id="longitudSucursal" required maxlength="40" (keypress)="onlyNumberKey($event)">
           <div class="validation-error">
             <ng-container *ngFor="let validation of validation_messages.longitud">
               <div *ngIf="newsForm.get('longitud').hasError(validation.type) &&
@@ -145,13 +122,12 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="boton">
-      <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')">{{strings.alert6}}</ngb-alert>
-      <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert21}}</ngb-alert>
-      <button type="submit" class="btn btn-secondary" id="registroSucursal">{{strings.register_sucursales}}</button>
-    </div>
-  </form>
+      <div class="boton">
+        <ngb-alert id="cuatro" type="success" (close)="cerrar('cuatro')">{{strings.alert6}}</ngb-alert>
+        <ngb-alert id="dos" type="danger" (close)="cerrar('dos')">{{strings.alert21}}</ngb-alert>
+        <button type="submit" class="btn btn-secondary" id="registroSucursal">{{strings.register_sucursales}}</button>
+      </div>
+    </form>
   </div>
   <div class="registros">
     <h5 class="text-center">{{strings.new_sucursal}}</h5>

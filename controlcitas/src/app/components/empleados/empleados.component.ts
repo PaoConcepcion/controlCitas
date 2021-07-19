@@ -145,7 +145,7 @@ export class EmpleadosComponent implements OnInit {
   getEmployees(){
     this.activeEmployees = [];
     this.deleteEmployees = [];
-    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+    this.citasApiS.consulta('/employees2').subscribe((res: any) => {
       for (const employee of res){
         if (employee.estatus == 1){
           this.activeEmployees.push(employee);
@@ -210,6 +210,7 @@ export class EmpleadosComponent implements OnInit {
     }else {
       this.employee = values;
       this.employee.id_empleado = this.id;
+      console.log(this.employee.rol);
       if (values.contrasena === values.verificar_contrasena){
         this.citasApiS.cambio(`/employees/${this.id}`, this.employee).subscribe((res: any) => {
           this.getEmployees();
