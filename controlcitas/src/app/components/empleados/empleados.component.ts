@@ -208,9 +208,22 @@ export class EmpleadosComponent implements OnInit {
         document.getElementById('kinto').style.display = 'block';
         setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
     }else {
-      this.employee = values;
-      this.employee.id_empleado = this.id;
-      console.log(this.employee.rol);
+      if(this.employee.rol == 1) {
+        this.employee.rol = "employee"
+      }else {
+        this.employee.rol = "admin"
+      }
+      const emp = {
+        id_empleado: this.id,
+        id_sucursal: values.id_sucursal,
+        nombre: values.nombre,
+        apellido_paterno: values.apellido_paterno,
+        apellido_materno: values.apellido_materno,
+        correo: values.correo,
+        contrasena: values.contrasena,
+        telefono: values.telefono,
+        rol: this.employee.rol
+      }
       if (values.contrasena === values.verificar_contrasena){
         this.citasApiS.cambio(`/employees/${this.id}`, this.employee).subscribe((res: any) => {
           this.getEmployees();
@@ -231,7 +244,7 @@ export class EmpleadosComponent implements OnInit {
     }
   }
 
-  desactiveEmployees(id, estado){
+  desactiveEmployees(id, estado) {
     const body = {
       estatus: estado
     }
