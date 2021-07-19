@@ -3,7 +3,7 @@
   }
   html,
   body {
-    background: #ecf0f3;
+    background: #586e80;
   }
   h1 {
     margin: 0;
@@ -41,7 +41,7 @@
     font-size: 0.875rem;
     color: #ffffff;
     font-weight: bold;
-    background-color: #bcd8c1;
+    background-color: #2f8d75;
     width: 100%;
     display: block;
     padding: 0.875rem 1rem;

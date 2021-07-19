@@ -1,25 +1,61 @@
-.form {
-    margin: 8rem 6rem;
+.container {
+    margin: 9rem auto 1rem;
+    min-height: 630px;
+    max-height: max-content;
+    padding: 0;
+    width: 100%;
 }
-.botton button {
-    margin: 0 1rem 1.5rem;
-    border: none;
+.forms {
+    width: 42%;
+    height: 600px;
+    float: left;
+    padding-top: 20px;
+}
+.forms label {
+    margin: 10px;
+}
+.forms button {
+    margin-top: 15px;
+}
+.table {
+    width: 56.5%;
+    height: 100%;
     float: right;
-    font-size: 28px;
 }
-.show {
-    color: lightgray;
+#buscador {
+    display: inline-block; 
+    width: max-content;
 }
-.notShow {
-    color: none;
+.sear {
+    width: max-content;
 }
-#id_sucursal {
-    width: 48%;
+.tablas {
+    height: 530px;
+    overflow: scroll;
+    padding: 0;
 }
-#rol {
-    width: 48%;
+.tablas table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 100%;
+    margin: 1rem auto;
+}
+th{
+    height: 50px;
+    padding: 10px;
+    background-color: steelblue;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 1.6%;
+    border: none;
 }
 .validation-error {
     color: red;
     margin: 2px;
+}
+p {
+    color: red;
+    display: inline-block;
+    margin: 0;
 }

@@ -1,0 +1,53 @@
+.container {
+    margin: 9rem auto 0;
+    width: 86%;
+    min-height: 300px;
+    max-height: max-content;
+}
+.search-bar {
+    width: 90%;
+    margin: 2rem auto 2.5rem;
+}
+.box{
+    width: 100%;
+}
+.validation-error {
+    color: red;
+    margin: 2px;
+}
+.alerts {
+    color: #4dc962
+}
+.alerta {
+    padding: 2px;
+}
+.table-employees {
+    height: 380px;
+    overflow: scroll;
+    width: 90%;
+    margin: 0 auto 0;
+}
+.table-employees table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    /* margin: 0 auto; */
+    width: 100%;
+}
+tr {
+    background-color: steelblue;
+}
+th{
+    height: 50px;
+    padding: 10px;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 1.5%;
+}
+.modal-body label{
+    padding: 7px 0 0;
+}
+p {
+    color: red;
+    display: inline-block;
+}

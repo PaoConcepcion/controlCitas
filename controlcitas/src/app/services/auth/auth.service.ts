@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -36,6 +36,7 @@ export class AuthService extends RoleValidator {
       .post<UserResponse>(`${environment.API_URL}/login`, authData)
       .pipe(
         map((user: UserResponse) => {
+          document.getElementById('chatbot').style.display = 'none';
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
@@ -45,10 +46,16 @@ export class AuthService extends RoleValidator {
   }
 
   register(data){
-    return this.httpClient.post(`${environment.API_URL}/register`, data).toPromise();
+    return this.httpClient.post(`${environment.API_URL}/register`, data, {
+      headers: new HttpHeaders().set(
+       'user_token',
+        this.userValue.token
+      ),
+    }).toPromise();
   }
 
   logout(): void {
+    document.getElementById('chatbot').style.display = 'block';
     localStorage.removeItem('user');
     this.user.next(null);
     this.router.navigate(['/login']);
@@ -56,8 +63,12 @@ export class AuthService extends RoleValidator {
 
   private checkToken(): void {
     const user = JSON.parse(localStorage.getItem('user')) || null;
-
+    
+    document.getElementById('chatbot').style.display = 'block';
+    
     if (user) {
+      document.getElementById('chatbot').style.display = 'none';
+      
       const isExpired = helper.isTokenExpired(user.token);
 
       if (isExpired) {

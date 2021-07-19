@@ -1,0 +1,13 @@
+.ubication {
+    margin: 3.5rem 0 2rem;
+    width: 100%;
+    display: flex;
+}
+.ubication div {
+    margin: 0 auto;
+}
+agm-map {
+    width: 1000px;
+    height: 550px;
+    justify-content: space-between;
+ }

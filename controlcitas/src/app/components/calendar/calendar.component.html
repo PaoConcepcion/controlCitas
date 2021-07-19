@@ -1,0 +1,32 @@
+<app-calendar-header [(view)]="view" [(viewDate)]="viewDate" [(excludeDays)]="excludeDays" >
+</app-calendar-header>
+
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [excludeDays]="excludeDays"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [dayStartHour]="dayStartHour"
+    [dayEndHour]="dayEndHour"
+    [refresh]="refresh"
+    [excludeDays]="excludeDays"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [dayStartHour]="dayStartHour"
+    [dayEndHour]="dayEndHour"
+    [refresh]="refresh"
+  >
+  </mwl-calendar-day-view>
+</div>

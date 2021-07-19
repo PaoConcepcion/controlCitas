@@ -1,0 +1,30 @@
+.contain {
+    margin: 9rem auto 1.5rem;
+    width: 80%;
+    height: 550px;
+}
+.forms {
+    width: 80%;
+    margin: 0 auto;
+}
+.forms label {
+    margin: 12px 0 12px;
+}
+.imagen {
+    width: 67%;
+    height: 210px;
+    border: rgb(76, 117, 158) solid 2px;
+    border-radius: 10px;
+    margin: 20px auto 8px;
+    text-align: center;
+}
+img {
+    margin-top: 5%;
+    border-radius: 10px;
+    width: 220px;
+    height: 185px;
+}
+.validation-error{
+    padding: 4px;
+    color: rgb(207, 23, 23);
+}

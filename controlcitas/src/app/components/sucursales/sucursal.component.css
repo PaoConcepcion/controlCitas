@@ -1,11 +1,51 @@
 .form {
-    margin: 8rem 6rem;
+    margin: 9rem auto 1rem;
+    min-height: 660px;
+    max-height: max-content;
+    padding: 0;
+    width: 100%;
 }
-.imagencita img{
-    margin: 2px;
-    border: gray solid 3px;
+.formulario {
+    width: 40%;
+    height: 600px;
+    float: left;
+    margin-left: 2rem;
+}
+.registros {
+    width: 55%;
+    height: 100%;
+    float: right;
+    margin-right: 1rem;
+}
+.tablas {
+    height: 530px;
+    overflow: scroll;
+    padding: 0;
+}
+.tablas table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 100%;
+    margin: 1rem auto;
+}
+th{
+    height: 50px;
+    padding: 10px;
+    background-color: steelblue;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 1.6%;
+    border: none;
 }
 .validation-error{
     padding: 4px;
     color: rgb(207, 23, 23);
+}
+p {
+    color: red;
+    display: inline-block;
+}
+label {
+    padding: 0;
 }

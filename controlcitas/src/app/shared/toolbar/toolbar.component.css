@@ -1,0 +1,11 @@
+.toolbar img {
+    margin: 0 4px 0;
+    border-radius: 10px;
+    max-width: 100px;
+    min-width: 85px;
+    min-height: 55px;
+    max-height: 70px;
+}
+.toolbar p {
+    text-align: center;
+}

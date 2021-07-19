@@ -4,8 +4,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a class="navbar-brand" href="#">
-        <img src="../../assets/tijeras.png" width="40" height="30" alt="">
+    <a class="navbar-brand" href="#" id="home">
+        <img src="../../assets/{{datos.icono}}" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono != null">
+        <img src="../../assets/tijeras.png" onError="this.src='assets/no-image.jpg'"
+        *ngIf="datos.icono == null">
     </a>
 
     <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
@@ -20,28 +23,70 @@
                         <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['news']">Noticias</a>
+                        <a class="nav-link" [routerLink]="['news']">{{strings.news}}</a>
                     </li>  
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['sucursal']">{{strings.register_sucursales}}</a>
+                        <a class="nav-link" [routerLink]="['sucursal']">{{strings.new_sucursal}}</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['employees']">{{strings.employees}}</a>
+                        <a class="nav-link" [routerLink]="['employees']">{{strings.edit_employee}}</a>
                     </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
+                    </li>
+                    
+                    <!-- <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['calendar-employee']">{{strings.calendar_employee}}</a>
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                            {{strings.employee}}
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['register']">{{strings.register_employees}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['employees']">{{strings.edit_employee}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                            {{strings.services}}
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['edit-services']">{{strings.register_services}}</a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" [routerLink]="['employee-sucursal']">{{strings.employee_sucursal}}</a>
+                            </li>
+                        </ul>
+                    </li> -->
                     
                 </ng-container>
                 <!--Opciones para emlpleados-->
                 <ng-container *ngIf="(user$ | async)?.rol == 'employee'">
                     
                 </ng-container>
-
                 
             </ng-container>
         </ul>
-        <div class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
-        </div>
+        <ng-container *ngIf="(user$ | async)?.length <= 0; else options">
+            <div class="form-inline my-2 my-lg-0">
+                <input id="textobusquedaservicios" class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
+                <button id="botonbusquedaservicios" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
+            </div>
+        </ng-container>
 
     </div>
 </nav>
@@ -52,6 +97,18 @@
         <a class="nav-link" [routerLink]="['home']">{{strings.home}}</a>
     </li>
     <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['recetas']">{{strings.services}}</a>
+        <a class="nav-link" [routerLink]="['services-page']">{{strings.services}}</a>
     </li>
+</ng-template>
+
+<ng-template #options>
+    <div class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['options']">
+                    <i class="fas fa-cog" id="options"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 </ng-template>

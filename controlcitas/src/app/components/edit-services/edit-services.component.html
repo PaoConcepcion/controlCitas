@@ -11,28 +11,69 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">{{strings.name}}</label>
-                            <input id="nombre" type="text" class="form-control" formControlName="nombre">
+                            <label for="exampleInputEmail1">{{strings.name}}<p>*</p></label>
+                            <input id="nombre" type="text" class="form-control" formControlName="nombre" maxlength="50">
+                            <div class="validation-error">
+                                <ng-container *ngFor="let validation of validation_messages.nombre">
+                                  <div *ngIf="newServicioForm.get('nombre').hasError(validation.type) &&
+                                  (newServicioForm.get('nombre').dirty || newServicioForm.get('nombre').touched)">
+                                  {{validation.message}}
+                                  </div>
+                                </ng-container>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">{{strings.description}}</label>
+                            <label for="exampleInputPassword1">{{strings.description}}<p>*</p></label>
                             <textarea id="descripcion" class="form-control" rows="5" formControlName="descripcion"></textarea>
+                            <div class="validation-error">
+                                <ng-container *ngFor="let validation of validation_messages.descripcion">
+                                  <div *ngIf="newServicioForm.get('descripcion').hasError(validation.type) &&
+                                  (newServicioForm.get('descripcion').dirty || newServicioForm.get('descripcion').touched)">
+                                  {{validation.message}}
+                                  </div>
+                                </ng-container>
+                            </div>
                         </div>
             
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="row">
                             <div class="col">
-                                <label for="exampleInputPassword1">{{strings.cost}}</label>
-                                <input id="number" type="number" class="form-control" formControlName="costo" placeholder="{{strings.cost_of_the_service}}">
+                                <label for="exampleInputPassword1">{{strings.cost}}<p>*</p></label>
+                                <input id="number" type="text" class="form-control" formControlName="costo" placeholder="{{strings.cost_of_the_service}}" (keypress)="onlyNumberKey($event)" maxlength="10">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.costo">
+                                      <div *ngIf="newServicioForm.get('costo').hasError(validation.type) &&
+                                      (newServicioForm.get('costo').dirty || newServicioForm.get('costo').touched)">
+                                      {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                             <div class="col">
-                                
+                                <label for="exampleInputPassword1">{{strings.duration}}<p>*</p></label>
+                                <input id="duracion" type="text" class="form-control" formControlName="duracion" placeholder="{{strings.duration_of_the_service}}" (keypress)="onlyNumberKey($event)" maxlength="5">
+                                <div class="validation-error">
+                                    <ng-container *ngFor="let validation of validation_messages.duracion">
+                                      <div *ngIf="newServicioForm.get('duracion').hasError(validation.type) &&
+                                      (newServicioForm.get('duracion').dirty || newServicioForm.get('duracion').touched)">
+                                      {{validation.message}}
+                                      </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">{{strings.image}}</label>
-                            <input id="imagen" type="file" class="form-control" formControlName="imagen" (change)="upload($event)">
+                            <label for="exampleInputPassword1">{{strings.image}}<p>*</p></label>
+                            <input id="imagen" type="file" class="form-control" (change)="upload($event)">
+                            <div class="validation-error">
+                                <ng-container *ngFor="let validation of validation_messages.imagen">
+                                  <div *ngIf="newServicioForm.get('imagen').hasError(validation.type) &&
+                                  (newServicioForm.get('imagen').dirty || newServicioForm.get('imagen').touched)">
+                                  {{validation.message}}
+                                  </div>
+                                </ng-container>
+                            </div>
                         </div>
                         <div *ngIf="preview" class="imagencita">
                             <img [src]="preview" width="300px" alt="">
@@ -78,6 +119,7 @@
                                         <th scope="col">{{strings.description}}</th>
                                         <th scope="col">{{strings.image}}</th>
                                         <th scope="col">{{strings.cost}}</th>
+                                        <th scope="col">{{strings.duration}}</th>
                                         
                                         <th scope="col">{{strings.edit}}/{{strings.deactivate}}</th>
                                     </tr>
@@ -86,8 +128,9 @@
                                     <tr *ngFor="let servicio of servicios">
                                         <td>{{servicio.nombre}}</td>
                                         <td>{{servicio.descripcion}}</td>
-                                        <td><img style="width: 8rem;" src="../../assets/{{servicio.imagen}}"></td>
+                                        <td><img style="width: 8rem;" src="../../assets/{{servicio.imagen}}" onError="this.src='assets/no-image.jpg'"></td>
                                         <td>$ {{servicio.costo}}</td>
+                                        <td> {{servicio.duracion}} </td>
                                         <td>
                                             <div class="btn-group mr-2" role="group" aria-label="Second group">
                                                 <button id="editar" type="button" class="btn btn-secondary" (click)="editServicio(servicio.id_servicio)"><i class="far fa-edit"></i></button>
@@ -135,10 +178,10 @@
                     <tbody>
                         <tr *ngFor="let inactivo of inactivos">
                             <td>{{inactivo.nombre}}</td>
-                            <td><img style="width: 8rem;" src="../../assets/{{inactivo.imagen}}"></td>
+                            <td><img style="width: 8rem;" src="../../assets/{{inactivo.imagen}}" onError="this.src='assets/no-image.jpg'"></td>
                             <td>
                                 <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                    <button type="button" class="btn btn-secondary" (click)="deleteServicio(inactivo.id_servicio,1)"><i class="fas fa-trash-restore"></i></button>
+                                    <button id="reactivar" type="button" class="btn btn-secondary" (click)="deleteServicio(inactivo.id_servicio,1)"><i class="fas fa-trash-restore"></i></button>
                                 </div>
                             </td>
                         </tr>

@@ -13,6 +13,8 @@ export class EmpleadosComponent implements OnInit {
   deleteEmployees = [];
   show: Boolean = true;
   estado: number;
+  busqueda: any;
+  search = [];
   employeeForm: FormGroup;
   employee = {
     id_empleado: null,
@@ -35,15 +37,15 @@ export class EmpleadosComponent implements OnInit {
     ],
     nombre: [
       { type: "required", message: "se requiere del nombre"},
-      { type: "minLenght", message: "longitud minima de 3"}
+      { type: "minLength", message: "longitud minima de 3"}
     ],
     apellido_materno: [
       { type: "required", message: "se requiere del apellido materno"},
-      { type: "minLenght", message: "longitud minima de 4"}
+      { type: "minLength", message: "longitud minima de 4"}
     ],
     apellido_paterno: [
       { type: "required", message: "se requiere del apellido paterno"},
-      { type: "minLenght", message: "longitud minima de 4"}
+      { type: "minLength", message: "longitud minima de 4"}
     ],
     correo: [
       { type: "required", message: "se requiere del correo"},
@@ -51,15 +53,16 @@ export class EmpleadosComponent implements OnInit {
     ],
     telefono: [
       { type: "required", message: "se requiere del telefono"},
-      { type: "maxLenght", message: "longitud minima de 8"},
+      { type: "minlength", message: "longitud minima de 8"},
+      { type: "maxlength", message: "longitud maxima de 12"},
     ],
     contrasena: [
       { type: "required", message: "se requiere de una contraseña"},
-      { type: "minLenght", message: "longitud minima de 8"},
+      { type: "minLength", message: "longitud minima de 8"},
     ],
     verificar_contrasena: [
       { type: "required", message: "verifique su contraseña"},
-      { type: "minLenght", message: "longitud minima de 8"},
+      { type: "minLength", message: "longitud minima de 8"},
     ],
     rol: [
       { type: "required", message: "no se ha seleccido el tipo de usuario"},
@@ -68,43 +71,41 @@ export class EmpleadosComponent implements OnInit {
 
   constructor(private citasApiS: CitasApiService, private formB: FormBuilder) {
     this.employeeForm = this.formB.group({
-      id_empleado: new FormControl("", Validators.compose([
+      id_empleado: new FormControl(null),
+      id_sucursal: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(1)
       ])),
-      id_sucursal: new FormControl("", Validators.compose([
-        Validators.required,
-        Validators.minLength(1)
-      ])),
-      nombre: new FormControl("", Validators.compose([
+      nombre: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(3)
       ])),
-      apellido_paterno: new FormControl("", Validators.compose([
+      apellido_paterno: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])),
-      apellido_materno: new FormControl("", Validators.compose([
+      apellido_materno: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])),
-      correo: new FormControl("", Validators.compose([
+      correo: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
       ])),
-      contrasena: new FormControl("", Validators.compose([
+      contrasena: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+      ])),
+      verificar_contrasena: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+      ])),
+      telefono: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(8),
+        Validators.maxLength(12)
       ])),
-      verificar_contrasena: new FormControl("", Validators.compose([
-        Validators.required,
-        Validators.minLength(8),
-      ])),
-      telefono: new FormControl("", Validators.compose([
-        Validators.required,
-        Validators.minLength(8),
-      ])),
-      rol: new FormControl("", Validators.compose([
+      rol: new FormControl(null, Validators.compose([
         Validators.required,
       ]))
     })
@@ -113,14 +114,14 @@ export class EmpleadosComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployees();
     this.getSucursales();
-  }
-
-  changeState(value){
-    if(value == true){
-      this.show = false;
-    }else {
-      this.show = true;
-    };
+    document.getElementById('uno').style.display = 'none';
+    document.getElementById('dos').style.display = 'none';
+    document.getElementById('tres').style.display = 'none';
+    document.getElementById('cuatro').style.display = 'none';
+    document.getElementById('seis').style.display = 'none';
+    document.getElementById('ceis').style.display = 'none';
+    document.getElementById('kinto').style.display = 'none';
+    this.employeeForm.disable();
   }
 
   getSucursales() {
@@ -134,6 +135,7 @@ export class EmpleadosComponent implements OnInit {
       this.employee = res;
       console.log(this.employee);
       this.id = id_empleado;
+      this.employeeForm.enable();
       err =>{
         console.log(err);
       }
@@ -143,7 +145,7 @@ export class EmpleadosComponent implements OnInit {
   getEmployees(){
     this.activeEmployees = [];
     this.deleteEmployees = [];
-    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+    this.citasApiS.consulta('/employees2').subscribe((res: any) => {
       for (const employee of res){
         if (employee.estatus == 1){
           this.activeEmployees.push(employee);
@@ -157,32 +159,104 @@ export class EmpleadosComponent implements OnInit {
         console.log(err);
       }
     });
-    console.log(this.activeEmployees)
+  }
+
+  searchActive(){
+    this.activeEmployees = [];
+    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 1 && employee.nombre == this.busqueda ||
+          employee.estatus == 1 && employee.apellido_materno == this.busqueda
+          || employee.estatus == 1 && employee.apellido_paterno == this.busqueda
+          || employee.estatus == 1 && employee.id_empleado == this.busqueda){
+          this.activeEmployees.push(employee)
+        }
+      };
+      if (this.activeEmployees.length <= 0){
+        document.getElementById('seis').style.display = 'block';
+        setTimeout(() => document.getElementById('seis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
+  }
+
+  searchDesactive(){
+    this.deleteEmployees = [];
+    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+      for (const employee of res){
+        if (employee.estatus == 0 && employee.nombre == this.busqueda ||
+          employee.estatus == 0 && employee.id_empleado == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_materno == this.busqueda ||
+          employee.estatus == 0 && employee.apellido_paterno == this.busqueda){
+            this.deleteEmployees.push(employee);
+        }
+      };
+      if (this.deleteEmployees.length <= 0){
+        document.getElementById('ceis').style.display = 'block';
+        setTimeout(() => document.getElementById('ceis').style.display = 'none', 3000);
+      };
+      err =>{
+        console.log(err);
+      }
+    });
   }
 
   editEmployee(values){
-    this.employee = values;
-    this.employee.id_empleado = this.id;
-    console.log(this.employee)
-    if (values.contrasena === values.verificar_contrasena){
-      this.citasApiS.cambio(`/employees/${this.employee.id_empleado}`, this.employee).subscribe((res: any) => {
-        this.getEmployees();
-        console.log(values, res);
-      })
-      err => {
-        console.log(err)
-      }
+    if (!this.employeeForm.valid){
+        document.getElementById('kinto').style.display = 'block';
+        setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
     }else {
-      alert("las contraseñas no coinciden")
+      if(this.employee.rol == 1) {
+        this.employee.rol = "employee"
+      }else {
+        this.employee.rol = "admin"
+      }
+      const emp = {
+        id_empleado: this.id,
+        id_sucursal: values.id_sucursal,
+        nombre: values.nombre,
+        apellido_paterno: values.apellido_paterno,
+        apellido_materno: values.apellido_materno,
+        correo: values.correo,
+        contrasena: values.contrasena,
+        telefono: values.telefono,
+        rol: this.employee.rol
+      }
+      if (values.contrasena === values.verificar_contrasena){
+        this.citasApiS.cambio(`/employees/${this.id}`, this.employee).subscribe((res: any) => {
+          this.getEmployees();
+          this.employeeForm.reset(); 
+          document.getElementById('uno').style.display = 'block';
+          setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
+          this.id = null;
+          this.employeeForm.disable();
+          console.log(res);
+        })
+        err => {
+          console.log(err)
+        }
+      }else {
+        document.getElementById('cuatro').style.display = 'block';
+        setTimeout(() => document.getElementById('cuatro').style.display = 'none', 3000);
+      }
     }
   }
 
-  desactiveEmployees(id, estado){
+  desactiveEmployees(id, estado) {
     const body = {
       estatus: estado
     }
     this.citasApiS.cambio(`/deleteEmployee/${id}`, body).subscribe((data: any) => {
       console.log(data);
+      if (body.estatus == 0){
+        document.getElementById('dos').style.display = 'block';
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+      }else {
+        document.getElementById('tres').style.display = 'block';
+        setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
+      }
       this.getEmployees();
       err => {
         console.log(err)
@@ -190,5 +264,12 @@ export class EmpleadosComponent implements OnInit {
     });
   }
 
+  cerrar(alerta: string) {
+    document.getElementById(alerta).style.display = 'none';
+  }
 
+  onlyNumberKey(event) {
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  }
+  
 }

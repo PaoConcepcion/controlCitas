@@ -1,0 +1,70 @@
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div
+                id="anterior"
+                class="btn btn-primary"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)"
+                [excludeDays]="excludeDays"
+            >
+                {{strings.previous}}
+            </div>
+            <div
+                id="hoy"
+                class="btn btn-outline-secondary"
+                mwlCalendarToday
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)"
+            >
+                {{strings.today}}
+            </div>
+            <div
+                id="mañana"
+                class="btn btn-primary"
+                mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)"
+                [excludeDays]="excludeDays"
+            >
+                {{strings.next}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div
+                id="mensual"
+                class="btn btn-primary"
+                (click)="viewChange.emit(CalendarView.Month)"
+                [class.active]="view === CalendarView.Month"
+            >
+                {{strings.month}}
+    
+            </div>
+            <div   
+                id="semanal"
+                class="btn btn-primary"
+                (click)="viewChange.emit(CalendarView.Week)"
+                [class.active]="view === CalendarView.Week"
+            >
+                {{strings.week}}
+            </div>
+            <div
+                id="por_dia"
+                class="btn btn-primary"
+                (click)="viewChange.emit(CalendarView.Day)"
+                [class.active]="view === CalendarView.Day"
+            >
+                {{strings.day}}
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
