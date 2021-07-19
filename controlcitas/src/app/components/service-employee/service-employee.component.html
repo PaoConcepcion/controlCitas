@@ -96,7 +96,7 @@
                     <td>{{services.nombre_servicio}}</td>
                     <td class="text-center">
                         <button class="btn btn-outline-warning m-1" type="button"
-                        data-bs-toggle="modal" data-bs-target="#modalEdit" id="editar"
+                        data-bs-toggle="modal" data-bs-target="#modalEdit" id="editar1"
                         (click)="employee.id_empleado = services.id_empleado;
                         nombre = services.nombre_empleado;
                         employee.id_empleado_servicio = services.id_empleado_servicio">
@@ -208,7 +208,7 @@
                     data-bs-dismiss="modal">
                         {{strings.delete}}
                     </button>
-                    <button type="submit" (click)="edit()" class="btn btn-success" id="editar">
+                    <button type="submit" (click)="edit()" class="btn btn-success" id="editar2">
                         {{strings.edit}}
                     </button>
                 </div>
