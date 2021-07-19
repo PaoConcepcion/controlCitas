@@ -25,8 +25,8 @@
             <i class="fas fa-1x fa-calendar-alt primary-icon" style="margin-right: 1rem;"></i>
             {{strings.logo}}
         </p>
-        <p class="h3 title" *ngIf="datos.nombre_sitio != null">
-            <img src="../../assets/{{datos.logotipo}}">
+        <p class="h3 title" *ngIf="datos.nombre_sitio != null" >
+            <img height="100" src="../../assets/{{datos.logotipo}}" onError="this.src='assets/no-image.jpg'">
             {{datos.nombre_sitio}}
         </p>
         <div class="spacer"></div>

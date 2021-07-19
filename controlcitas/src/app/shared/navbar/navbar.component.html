@@ -37,14 +37,10 @@
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['schedules']">{{strings.schedules}}</a>
                     </li>
-                    <li class="nav-item" routerLinkActive="active">
+                    
+                    <!-- <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['calendar-employee']">{{strings.calendar_employee}}</a>
-                    </li>
-                    <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['options']">
-                            <i class="fas fa-cog" id="options"></i>
-                        </a>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" 
                         aria-expanded="false">
@@ -85,7 +81,7 @@
                 
             </ng-container>
         </ul>
-        <ng-container *ngIf="(user$ | async)?.length <= 0">
+        <ng-container *ngIf="(user$ | async)?.length <= 0; else options">
             <div class="form-inline my-2 my-lg-0">
                 <input id="textobusquedaservicios" class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Buscar" #buscartexto (keyup.enter)=buscar(buscartexto.value)>
                 <button id="botonbusquedaservicios" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar(buscartexto.value)">{{strings.look}}</button>
@@ -103,4 +99,16 @@
     <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['services-page']">{{strings.services}}</a>
     </li>
+</ng-template>
+
+<ng-template #options>
+    <div class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['options']">
+                    <i class="fas fa-cog" id="options"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 </ng-template>

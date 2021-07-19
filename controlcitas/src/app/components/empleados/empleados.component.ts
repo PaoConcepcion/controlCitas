@@ -145,7 +145,7 @@ export class EmpleadosComponent implements OnInit {
   getEmployees(){
     this.activeEmployees = [];
     this.deleteEmployees = [];
-    this.citasApiS.consulta('/employees').subscribe((res: any) => {
+    this.citasApiS.consulta('/employees2').subscribe((res: any) => {
       for (const employee of res){
         if (employee.estatus == 1){
           this.activeEmployees.push(employee);
@@ -208,7 +208,7 @@ export class EmpleadosComponent implements OnInit {
         document.getElementById('kinto').style.display = 'block';
         setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
     }else {
-      if(this.employee.rol == 1){
+      if(this.employee.rol == 1) {
         this.employee.rol = "employee"
       }else {
         this.employee.rol = "admin"
@@ -244,7 +244,7 @@ export class EmpleadosComponent implements OnInit {
     }
   }
 
-  desactiveEmployees(id, estado){
+  desactiveEmployees(id, estado) {
     const body = {
       estatus: estado
     }

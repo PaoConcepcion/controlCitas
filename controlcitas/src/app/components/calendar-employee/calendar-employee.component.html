@@ -20,21 +20,13 @@
               </div>
             </div>
           </div>
-        </form>
-      </div>
-
-      <div class="container">
-        <div class="col-md-8">
-            <select [(ngModel)]="idSelectEmpleado" id="mostrarHorario" class="form-select" size="3" aria-label="size 3 select example">
-              <option selected>{{strings.select_calendar}}</option>
-              <option *ngFor="let c of news2" [ngValue]="c.id_empleado">{{c.nombre}}</option>
+          <div class="col-md-8">
+            <select id="mostrarHorario" class="form-control custom-select" formControlName="idEmpleado" (change)="actualizar2(buscarForm.value)">
+              <option *ngFor="let c of news2" value="{{c.id_empleado}}">{{c.nombre}}</option>
             </select>
-        </div>
-        <br>
-        <div class="col-md-4">
-          <button (click)="actualizar2()" class="btn btn-success btn-block"
-            id="mostrarHorario">{{strings.view}}</button>
-        </div>
+          </div>
+        </form>
+        
       </div>
 
     </div>
