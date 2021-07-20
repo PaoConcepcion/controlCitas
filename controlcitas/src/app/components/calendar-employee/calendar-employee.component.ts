@@ -30,11 +30,13 @@ export class CalendarEmployeeComponent implements OnInit  {
 
   public buscarForm = new FormGroup({
     busqueda: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    idEmpleado: new FormControl(''),
   });
 
   constructor(private citasApiService: CitasApiService) {
     this.buscarForm.setValue({
       busqueda: '',
+      idEmpleado: '',
     });
    }
 
@@ -44,7 +46,6 @@ export class CalendarEmployeeComponent implements OnInit  {
 
   buscar(form) {
     this.citasApiService.consulta(`/employeesName/${form.busqueda}`).subscribe((res: any) => {
-      console.log(res);
       this.news2 = res;
     });
   }
@@ -97,52 +98,58 @@ export class CalendarEmployeeComponent implements OnInit  {
     });
   }
 
-  actualizar2() {
-    this.citasApiService.consulta(`/schedules_employee/${this.idSelectEmpleado}`)
-      .subscribe((res: any) => {
-        if (res) {
-          this.dayStartHour = res.entrada;
-          this.dayEndHour = res.salida;
+  actualizar2(form) {
+    console.log(form.idEmpleado);
+    if (form.idEmpleado) {
+      this.citasApiService.consulta(`/schedules_employee/${form.idEmpleado}`)
+        .subscribe((res: any) => {
+          if (res) {
+            console.log(res);
+            this.dayStartHour = res.entrada;
+            this.dayEndHour = res.salida;
 
-          if (res.domingo == '0') {
-            this.excludeDays.push(0);
-          }
-          if (res.lunes == '0') {
-            this.excludeDays.push(1);
-          }
-          if (res.martes == '0') {
-            this.excludeDays.push(2);
-          }
-          if (res.miercoles == '0') {
-            this.excludeDays.push(3);
-          }
-          if (res.jueves == '0') {
-            this.excludeDays.push(4);
-          }
-          if (res.viernes == '0') {
-            this.excludeDays.push(5);
-          }
-          if (res.sabado == '0') {
-            this.excludeDays.push(6);
-          }
+            if (res.domingo == '0') {
+              this.excludeDays.push(0);
+            }
+            if (res.lunes == '0') {
+              this.excludeDays.push(1);
+            }
+            if (res.martes == '0') {
+              this.excludeDays.push(2);
+            }
+            if (res.miercoles == '0') {
+              this.excludeDays.push(3);
+            }
+            if (res.jueves == '0') {
+              this.excludeDays.push(4);
+            }
+            if (res.viernes == '0') {
+              this.excludeDays.push(5);
+            }
+            if (res.sabado == '0') {
+              this.excludeDays.push(6);
+            }
 
-          this.citasApiService.consulta(`/datesEmployee/${this.idSelectEmpleado}`)
-            .subscribe((res: any) => {
-              for (const o of res) {
-                this.events = [
-                  ...this.events,
-                  {
-                    title: o.nombre,
-                    start: new Date(o.fecha + ' ' + o.hora_entrada),
-                    end: new Date(o.fecha + ' ' + o.hora_salida),
-                    color: colors.blue,
-                  }
-                ];
-              }
-              this.refresh.next();
-          });
-        }
-    });
+            this.citasApiService.consulta(`/datesEmployee/${form.idEmpleado}`)
+              .subscribe((res: any) => {
+                for (const o of res) {
+                  this.events = [];
+                  this.events = [
+                    ...this.events,
+                    {
+                      title: o.nombre,
+                      start: new Date(o.fecha + ' ' + o.hora_entrada),
+                      end: new Date(o.fecha + ' ' + o.hora_salida),
+                      color: colors.blue,
+                    }
+                  ];
+                }
+                this.refresh.next();
+            });
+          }
+      });
+    }
+    
   }
 
 }

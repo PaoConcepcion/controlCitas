@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CitasApiService } from './../../services/citas-api/citas-api.service';
+import { strings } from '../../shared/models/strings-template';
 
 @Component({
   selector: 'app-buscador',
@@ -8,6 +9,8 @@ import { CitasApiService } from './../../services/citas-api/citas-api.service';
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent {
+
+  public strings = strings;
 
   servicios = [];
   bandera: boolean;

@@ -24,6 +24,17 @@ router.get('/employee_service/:id_empleado_servicio', (req, res) => {
     })
 });
 
+router.get('/employee_service2/:id_servicio', (req, res) => {
+    const { id_empleado_servicio } = req.params;
+    mysqlConnection.query(`select empleados_servicios.id_empleado_servicio, empleados.nombre from empleados_servicios, empleados where empleados.id_empleado = empleados_servicios.id_empleado and empleados_servicios.id_servicio = ${id_servicio}`, [id_empleado_servicio], (err, rows, fields) => {
+        if(!err){
+            res.json(rows[0]);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
 // router.post('/employee_service', (req, res) => {
 //     const { id_empleado_servicio, id_empleado, id_servicio } = req.body;
 //     const query = `

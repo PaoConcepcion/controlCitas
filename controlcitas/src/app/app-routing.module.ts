@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'employee-sucursal', component: ServiceEmployeeComponent, canActivate: [CanAdminGuard]},
   {path: 'schedules', component: ScheduleComponent, canActivate: [CanAdminGuard]},
   {path: 'options', component: OptionsComponent, canActivate: [CanAdminGuard]},
-  {path: 'calendar-employee', component: CalendarEmployeeComponent, canActivate: [CanAdminGuard]},
+  /* {path: 'calendar-employee', component: CalendarEmployeeComponent, canActivate: [CanAdminGuard]}, */
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
 ];
