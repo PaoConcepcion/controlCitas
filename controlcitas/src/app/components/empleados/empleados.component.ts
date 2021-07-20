@@ -12,6 +12,7 @@ export class EmpleadosComponent implements OnInit {
   activeEmployees = [];
   deleteEmployees = [];
   show: Boolean = true;
+  isDisable: Boolean = true;
   estado: number;
   busqueda: any;
   search = [];
@@ -135,6 +136,7 @@ export class EmpleadosComponent implements OnInit {
       this.employee = res;
       console.log(this.employee);
       this.id = id_empleado;
+      this.isDisable = false;
       this.employeeForm.enable();
       err =>{
         console.log(err);
@@ -204,14 +206,15 @@ export class EmpleadosComponent implements OnInit {
   }
 
   editEmployee(values){
+    console.log(values.rol)
     if (!this.employeeForm.valid){
         document.getElementById('kinto').style.display = 'block';
         setTimeout(() => document.getElementById('kinto').style.display = 'none', 3000);
     }else {
-      if(this.employee.rol == 1) {
-        this.employee.rol = "employee"
-      }else {
+      if(values.rol == 2){
         this.employee.rol = "admin"
+      }else {
+        this.employee.rol = "employee"
       }
       const emp = {
         id_empleado: this.id,
@@ -225,9 +228,10 @@ export class EmpleadosComponent implements OnInit {
         rol: this.employee.rol
       }
       if (values.contrasena === values.verificar_contrasena){
-        this.citasApiS.cambio(`/employees/${this.id}`, this.employee).subscribe((res: any) => {
+        this.citasApiS.cambio(`/employees/${this.id}`, emp).subscribe((res: any) => {
           this.getEmployees();
-          this.employeeForm.reset(); 
+          this.employeeForm.reset();
+          this.isDisable = true;
           document.getElementById('uno').style.display = 'block';
           setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
           this.id = null;
@@ -244,7 +248,7 @@ export class EmpleadosComponent implements OnInit {
     }
   }
 
-  desactiveEmployees(id, estado) {
+  desactiveEmployees(id, estado){
     const body = {
       estatus: estado
     }

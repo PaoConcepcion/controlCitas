@@ -152,7 +152,8 @@
                 </div>
             </div>
             <div class="boton">
-                <button type="submit" id="editarEmpleado" class="btn btn-secondary">
+                <button type="submit" id="editarEmpleado" class="btn btn-secondary"
+                [disabled]="isDisable">
                     {{strings.send}}
                 </button>
             </div>

@@ -166,8 +166,8 @@
                 <button id="mostrarActivos" type="button" class="btn btn-secondary" (click)="reactivarServicios()">{{strings.return}}</button>
             </div>
 
-            <div class="table-responsive" *ngIf="inactivos.length > 0; else noInactivos">
-                <table class="table accesibilidad">
+            <div class="tabla" *ngIf="inactivos.length > 0; else noInactivos">
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">{{strings.name}}</th>

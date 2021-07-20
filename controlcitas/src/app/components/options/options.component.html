@@ -11,7 +11,7 @@
                 <div class="col">
                     <label>{{strings.web_site}}</label>
                     <input type="text" class="form-control" formControlName="nombre_sitio" 
-                    [(ngModel)]="option.nombre_sitio" maxlength="30">
+                    [(ngModel)]="option.nombre_sitio" maxlength="30" id="name_site">
                     <div class="validation-error">
                         <ng-container *ngFor="let validation of validation_messages.nombre_sitio">
                             <div *ngIf="optionForm.get('nombre_sitio').hasError(validation.type) &&
@@ -24,7 +24,7 @@
                 <div class="col">
                     <label>{{strings.icon}}</label>
                     <input type="file" class="form-control" formControlName="icono" 
-                    [(ngModel)]="option.icono" (change)="uploadIcon($event)">
+                    [(ngModel)]="option.icono" (change)="uploadIcon($event)" id="img_icon">
                     <div class="validation-error">
                         <ng-container *ngFor="let validation of validation_messages.icono">
                             <div *ngIf="optionForm.get('icono').hasError(validation.type) &&
@@ -39,7 +39,7 @@
                 <div class="col">
                     <label>{{strings.log}}</label>
                     <input type="file" class="form-control" formControlName="logotipo" 
-                    [(ngModel)]="option.logotipo" (change)="upload($event)">
+                    [(ngModel)]="option.logotipo" (change)="upload($event)" id="img_log">
                     <div class="validation-error">
                         <ng-container *ngFor="let validation of validation_messages.logotipo">
                             <div *ngIf="optionForm.get('logotipo').hasError(validation.type) &&
@@ -60,7 +60,7 @@
             </div>
           <br>
           <div class="boton">
-            <button type="submit" class="btn btn-secondary">{{strings.accept}}</button>
+            <button type="submit" class="btn btn-secondary" id="send">{{strings.accept}}</button>
           </div>
         </form>
       </div>

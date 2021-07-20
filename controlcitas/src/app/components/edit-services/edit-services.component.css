@@ -5,3 +5,22 @@ p {
     color: rgb(207, 23, 23);
     display: inline-block;
 }
+.tabla {
+    height: 400px;
+    overflow: scroll;
+}
+table {
+    border: #e4e4e4 solid;
+    border-radius: 20px;
+    width: 100%;
+}
+tr {
+    background-color: steelblue;
+}
+th{
+    height: 50px;
+}
+td {
+    background-color: #f6f6f6;
+    padding: 2%;
+}
