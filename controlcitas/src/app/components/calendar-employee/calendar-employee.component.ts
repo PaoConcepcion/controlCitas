@@ -50,7 +50,6 @@ export class CalendarEmployeeComponent implements OnInit  {
     });
   }
 
-
   private actualizar() {
     this.citasApiService.consulta('/schedules_employee')
       .subscribe((res: any) => {
@@ -154,7 +153,6 @@ export class CalendarEmployeeComponent implements OnInit  {
   }
 
 }
-
 
 const colors: any = {
   blue: {

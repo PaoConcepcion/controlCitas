@@ -36,7 +36,6 @@
       <div class="container filtrar">
         <app-calendar-header [(view)]="view" [(viewDate)]="viewDate" [(excludeDays)]="excludeDays">
         </app-calendar-header>
-
         <div [ngSwitch]="view">
           <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
             [excludeDays]="excludeDays">
