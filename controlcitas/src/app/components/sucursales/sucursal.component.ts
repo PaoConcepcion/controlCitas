@@ -147,17 +147,18 @@ export class SucursalComponent implements OnInit {
       } else {
         this.id = this.new.id_sucursal;
       }
-      if(this.new.nombre, this.new.telefono, this.new.cp, this.new.colonia, this.new.calle, this.new.numero_exterior, this.new.latitud, this.new.longitud == null){
+      if(!this.newsForm.valid){
         document.getElementById('dos').style.display = 'block';
-        setTimeout(() => document.getElementById('dos').style.display = 'none', 10000);
+        setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
+        console.log(this.new.nombre);
       } else{
         if(this.new.telefono.length<10){
           document.getElementById('tres').style.display = 'block';
-          setTimeout(() => document.getElementById('tres').style.display = 'none', 10000);
+          setTimeout(() => document.getElementById('tres').style.display = 'none', 3000);
         } else{
           if(this.new.cp.length<5){
             document.getElementById('uno').style.display = 'block';
-            setTimeout(() => document.getElementById('uno').style.display = 'none', 10000);
+            setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
           } else{
     this.new = values;
     this.new.id_sucursal = this.id;
@@ -165,7 +166,7 @@ export class SucursalComponent implements OnInit {
       this.getSucursalN();
       console.log(values, res);
       document.getElementById('cuatro').style.display = 'block';
-      setTimeout(() => document.getElementById('cuatro').style.display = 'none', 10000);
+      setTimeout(() => document.getElementById('cuatro').style.display = 'none', 5000);
       this.new.nombre = this.new.telefono = this.new.cp = this.new.colonia = this.new.calle = this.new.numero_exterior = this.new.numero_interior = this.new.latitud = this.new.longitud = null;
     }).catch((error) => {
       console.log(error);
