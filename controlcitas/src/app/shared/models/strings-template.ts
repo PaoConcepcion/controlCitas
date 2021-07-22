@@ -158,7 +158,7 @@ export const strings = {
   edit_email: 'Edita tu correo',
   new_sucursal: 'Sucursales',
   edit_config: 'Cambiar configuracion',
-  icon: 'Icon',
+  icon: 'Icono',
   log: 'Logotipo',
   web_site: 'Nombre del sitio',
   accept: 'Aceptar',
@@ -172,4 +172,7 @@ export const strings = {
   was_not_found: 'No se encontró',
   was_not_found2: 'Revisa tu búsqueda',
   acept: 'Aceptar',
+  descript: 'Descripcion',
+  facebook: 'Facebook',
+  instagram: 'Instagram',
 };

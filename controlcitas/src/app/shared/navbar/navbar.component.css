@@ -2,7 +2,8 @@
     font-size: 26px;
 }
 img {
-    width: 40px;
-    height: 25px;
+    max-width: 65px;
+    min-width: 55px;
+    height: 45px;
     border-radius: 10px;
 }

@@ -1,7 +1,7 @@
 .contain {
-    margin: 9rem auto 1.5rem;
+    margin: 9rem auto 1rem;
     width: 80%;
-    height: 550px;
+    height: 750px;
 }
 .forms {
     width: 80%;
@@ -27,4 +27,8 @@ img {
 .validation-error{
     padding: 4px;
     color: rgb(207, 23, 23);
+}
+p {
+    color: red;
+    display: inline-block;
 }

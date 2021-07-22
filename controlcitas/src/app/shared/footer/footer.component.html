@@ -3,7 +3,7 @@
         <div class="col footer-copyright text-center py-3">
             <p class="h6">
                 <i class="far fa-copyright"></i>
-                <small>  2020 {{strings.logo}}</small>
+                <small class="text-center">  2020 {{option.nombre_sitio}}</small>
             </p>
         </div>
     </div>
@@ -20,19 +20,28 @@
             </div>
         <div class="row">
                 <div class="social__item col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <a aria-label="Facebook" href="https://www.facebook.com/" class="social-icon">
+                    <a aria-label="Facebook" href="{{option.facebook}}" class="social-icon"
+                    *ngIf="option.facebook != null">
                         <i  class="fab fa-facebook-square fa-4x"></i>
                     </a>
+                    <p aria-label="Facebook" class="social-icon"
+                    *ngIf="option.facebook == null">
+                        <i  class="fab fa-facebook-square fa-4x"></i>
+                    </p>
                     <h4 class="social__item-title">
-                    Facebook
+                    {{strings.facebook}}
                     </h4>
                 </div>
                 <div class="social__item col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <a aria-label="Instagram" href="https://www.instagram.com/" class="social-icon">
+                    <a aria-label="Instagram" href="{{option.instagram}}" class="social-icon"
+                    *ngIf="option.instagram != null">
                         <i  class="fab fa-instagram-square fa-4x"></i>
                     </a>
+                    <p aria-label="Instagram" class="social-icon" *ngIf="option.instagram == null">
+                        <i  class="fab fa-instagram-square fa-4x"></i>
+                    </p>
                     <h4 class="social__item-title">
-                    Instagram
+                    {{strings.instagram}}
                     </h4>
                 </div>
             </div>
@@ -43,8 +52,8 @@
         <div class="row text-center border-top align-items-center" style="margin-bottom: 30px;">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <br>
-                <h5><strong><em>{{strings.logo | uppercase}}</em></strong></h5>
-                <a class="h6 a-color" onclick="topFunction()" [routerLink]="['/about']">{{strings.about}} <strong><em>{{strings.logo}}</em></strong></a>
+                <h5><strong>{{strings.about}} {{option.nombre_sitio}}</strong></h5>
+                <p class="h6 a-color" >{{option.acerca_de}}</p>
                 <br>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -53,21 +62,15 @@
                 <br>
                 <h5><strong><em>{{strings.contact | uppercase}}</em></strong></h5>
                 <p class="h6">
-                    De Lunes a Viernes:
-                    <br>
-                    9:00 a.m. - 18:00 p.m.  
-                    <br>
-                    Sabados y Domingos:
-                    <br>
-                    9:00 a.m. - 15:00 p.m.
+                    {{option.contacto}}
                 </p>
             </div>
         </div>
         <div class="row align-items-end ">
             <div class="col">
-                <p class="h6">
+                <p class="h6 text-center">
                     <i class="far fa-copyright"></i>
-                    <small>  2021 {{strings.logo}}</small>
+                    <small> 2021 {{option.nombre_sitio}}</small>
                 </p>
             </div>
             

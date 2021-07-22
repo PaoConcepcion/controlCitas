@@ -9,7 +9,7 @@
             <h4 class="text-center">{{strings.edit_config}}</h4>
             <div class="row">
                 <div class="col">
-                    <label>{{strings.web_site}}</label>
+                    <label>{{strings.web_site}}<p>*</p></label>
                     <input type="text" class="form-control" formControlName="nombre_sitio" 
                     [(ngModel)]="option.nombre_sitio" maxlength="30" id="name_site">
                     <div class="validation-error">
@@ -22,7 +22,47 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label>{{strings.icon}}</label>
+                    <label>{{strings.descript}}<p>*</p></label>
+                    <textarea type="text" class="form-control" formControlName="acerca_de" 
+                    [(ngModel)]="option.acerca_de" maxlength="200" id="descript"></textarea>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.acerca_de">
+                            <div *ngIf="optionForm.get('acerca_de').hasError(validation.type) &&
+                            (optionForm.get('acerca_de').dirty || optionForm.get('acerca_de').touched)">
+                                {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>{{strings.facebook}}</label>
+                    <input type="text" class="form-control" formControlName="facebook" 
+                    [(ngModel)]="option.facebook" maxlength="80" id="facebook">
+                </div>
+                <div class="col">
+                    <label>{{strings.instagram}}</label>
+                    <input type="text" class="form-control" formControlName="instagram" 
+                    [(ngModel)]="option.instagram" maxlength="80" id="instagram">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>{{strings.contact}}<p>*</p></label>
+                    <textarea type="text" class="form-control" formControlName="contacto" 
+                    [(ngModel)]="option.contacto" maxlength="200" id="contact"></textarea>
+                    <div class="validation-error">
+                        <ng-container *ngFor="let validation of validation_messages.contacto">
+                            <div *ngIf="optionForm.get('contacto').hasError(validation.type) &&
+                            (optionForm.get('contacto').dirty || optionForm.get('contacto').touched)">
+                                {{validation.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>{{strings.icon}}<p>*</p></label>
                     <input type="file" class="form-control" formControlName="icono" 
                     [(ngModel)]="option.icono" (change)="uploadIcon($event)" id="img_icon">
                     <div class="validation-error">
@@ -37,7 +77,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <label>{{strings.log}}</label>
+                    <label>{{strings.log}}<p>*</p></label>
                     <input type="file" class="form-control" formControlName="logotipo" 
                     [(ngModel)]="option.logotipo" (change)="upload($event)" id="img_log">
                     <div class="validation-error">
@@ -62,6 +102,6 @@
           <div class="boton">
             <button type="submit" class="btn btn-secondary" id="send">{{strings.accept}}</button>
           </div>
-        </form>
-      </div>
+        </form>  
+    </div>
 </div>

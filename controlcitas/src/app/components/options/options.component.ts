@@ -20,7 +20,11 @@ export class OptionsComponent implements OnInit {
     id_opciones: null,
     nombre_sitio: null,
     logotipo: null,
-    icono: null
+    icono: null,
+    facebook: null,
+    instagram: null,
+    contacto: null,
+    acerca_de: null,
   }
   strings = strings;
   optionForm: FormGroup;
@@ -34,6 +38,12 @@ export class OptionsComponent implements OnInit {
     ],
     icono: [
       { type: "required", message: "se requiere un icono"},
+    ],
+    contacto: [
+      { type: "required", message: "se requiere la informacion de contacto del sitio"},
+    ],
+    acerca_de: [
+      { type: "required", message: "se requiere un descripcion del sitio"},
     ]
   }
 
@@ -48,6 +58,14 @@ export class OptionsComponent implements OnInit {
           Validators.required,
         ])),
         icono: new FormControl("", Validators.compose([
+          Validators.required,
+        ])),
+        facebook: new FormControl(""),
+        instagram: new FormControl(""),
+        contacto: new FormControl("", Validators.compose([
+          Validators.required,
+        ])),
+        acerca_de: new FormControl("", Validators.compose([
           Validators.required,
         ]))
       })
@@ -75,31 +93,37 @@ export class OptionsComponent implements OnInit {
       setTimeout(() => document.getElementById('dos').style.display = 'none', 3000);
     }else{
       const id = this.option.id_opciones;
-      this.option.nombre_sitio = value.nombre_sitio;
-      this.option.id_opciones = id;
-      this.option.logotipo = this.logotipo[0].name;
-      this.option.icono = this.icono[0].name;
-      this.citasA.cambio(`/options/${id}`, this.option)
+      const options = {
+        id_opciones: id,
+        nombre_sitio: value.nombre_sitio,
+        logotipo: this.logotipo[0].name,
+        icono: this.icono[0].name,
+        acerca_de: value.acerca_de,
+        contacto: value.contacto,
+        facebook: value.facebook,
+        instagram: value.instagram
+      }
+      this.citasA.cambio(`/options/${id}`, options)
       .subscribe((res: any) => {
-        this.getOptions();
         console.log(res);
       });
-      document.getElementById('uno').style.display = 'block';
-      setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
-      const formD = new FormData();
-      const formDta = new FormData();
+      const form = new FormData();
+      const formData = new FormData();
       this.icono.forEach(archivo => {
-        formD.append('imagen', archivo);
+        form.append('imagen', archivo);
       });
-      this.citasA.upload('/upload', formD).subscribe((res: any) => {
+      this.citasA.upload('/upload', form).subscribe((res: any) => {
         console.log(res);
       });
       this.logotipo.forEach(archivo => {
-        formDta.append('imagen', archivo);
+        formData.append('imagen', archivo);
       });
-      this.citasA.upload('/upload', formDta).subscribe((res: any) => {
+      this.citasA.upload('/upload', formData).subscribe((res: any) => {
         console.log(res);
       });
+      this.getOptions();
+      document.getElementById('uno').style.display = 'block';
+      setTimeout(() => document.getElementById('uno').style.display = 'none', 3000);
       err => {
         console.log(err)
       }
